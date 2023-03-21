@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller
+class Dashboard extends CI_Controller
 {
 	function __construct()
 	{
@@ -12,9 +12,9 @@ class Home extends CI_Controller
 		date_default_timezone_set('America/Sao_Paulo');
 
 	}
-	function index()
+	public function index()
 	{
-		redirect('login');
+        $this->load->helper(array('form'));
+        $this->load->view('view_dashboard');
 	}
-
 }
