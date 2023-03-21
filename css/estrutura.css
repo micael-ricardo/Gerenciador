@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,
+body {
+    height: 100%;
+}
+
+header {
+    background-color: #00008b;
+    padding: 10px 2%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.estilo-header {
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}
+
+.estilo-header svg {
+    margin-left: 0 10px;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.sidebar a.sidebar-active {
+    border-left: 4px solid #00008b;
+    background-color: rgb(230, 230, 230);
+    font-weight: bold;
+    color: #777;
+}
+
+.sidebar a.sidebar-active>svg {
+    color: #777;
+}
+
+
+.sidebar {
+    width: 20%;
+    background-color: white;
+    height: 100%;
+}
+
+.sidebar h3 {
+    color: #333;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    color: #444;
+}
+
+.sidebar a:hover {
+    border-left: 4px solid #00008b;
+    background-color: rgb(230, 230, 230);
+    font-weight: bold;
+    color: #777;
+}
+
+.sidebar a>svg {
+    color: #444;
+}
+
+.content {
+    width: 80%;
+    background-color: rgb(230, 230, 230);
+    padding: 20px;
+}
+.titulo{
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+}
+.corpo{
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+}
