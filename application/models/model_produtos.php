@@ -6,8 +6,31 @@ class model_produtos extends CI_Model
 
   public function listar()
   {
-    return $this->db->get("produtos")->result_array();
+    return $this->db->get('produtos')->result_array();
   }
+
+  public function store($produto)
+  {
+    $this->db->insert('produtos', $produto);
+    return true;
+  }
+
+
+  public function show($id)
+	{
+		return $this->db->get_where('produtos', array(
+      "id"=>$id
+
+    ))->row_array();
+	}
+
+  public function update($id, $produto)
+	{
+		 $this->db->where('id', $id);
+     return $this->db->update("produtos", $produto);
+	}
+
+
 
   public function deletar_produto($id)
   {
@@ -15,5 +38,5 @@ class model_produtos extends CI_Model
     $this->db->delete('produtos');
     redirect('/');
   }
-  
+
 }

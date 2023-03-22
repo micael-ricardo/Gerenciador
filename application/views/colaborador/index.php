@@ -1,11 +1,11 @@
 <div class="content">
     <div class="titulo">
-        <h2>Produtos</h2>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <h2>Colaborador</h2>
+    
         <form name="" method="post" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
-                    <a href="<?= base_url() ?>produtos/cadastro" class="btn btn-primary">Adicionar</a>
+                    <a href="<?= base_url() ?>colaborador/cadastro" class="btn btn-primary">Adicionar</a>
                     <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Pesquisar...">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
                         <i class="fa fa-search"></i> Pesquisar
@@ -56,48 +56,61 @@
 
     <div class='corpo'>
         <div class="tabela-responsive">
-            <table class="table table-bordered table-houver">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Preço</th>
-                        <th>Quantidade em Estoque</th>
-                        <th>Categoria</th>
-                        <th style="text-align: center">Ação</th>
-                    </tr>
-                </thead>
+        <table class="table table-bordered table-houver">
+            <thead>
                 <tr>
-                    <?php foreach ($produtos as $produto): ?>
+                    <th>Nome</th>
+                    <th>Documento</th>
+                    <th>Telefone</th>
+                    <th>Cep</th>
+                    <th>Bairro</th>
+                    <th>Rua</th>
+                    <th>Numero</th>
+                    <th>Tipo Colaborador</th>
+                    <th>Data Cadastro</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tr>
+                <?php foreach ($dados as $dado): ?>
 
-                        <td>
-                            <?= $produto['nome'] ?>
-                        </td>
-                        <td>
-                            <?= $produto['descricao'] ?>
-                        </td>
-                        <td>
-                            <?= reais($produto['preco']) ?>
-                        </td>
-                        <td>
-                            <?= $produto['quantidade'] ?>
-                        </td>
-                        <td>
-                            <?= $produto['categoria'] ?>
-                        </td>
-                        <td style="text-align: center"><a id="remover"
-                                href="<?= base_url('produtos/update/' . $produto['id']) ?>" class="btn btn-danger"><i
+                    <td>
+                        <?= $dado['nome'] ?>
+                    </td>
+                    <td>
+                        <?= $dado['documento'] ?>
+                    </td>
+                    <td>
+                        <?= $dado['telefone'] ?>
+                    </td>
+                    <td>
+                        <?= $dado['cep'] ?>
+                    </td>
+                    <td>
+                        <?= $dado['bairro'] ?>
+                    </td>
+                    <td>
+                        <?= $dado['rua'] ?>
+                    </td>
+                    <td>
+                        <?= $dado['numero'] ?>
+                    </td>
+                    <td>
+                        <?= $dado['tipo_colaborador'] == 0 ? 'Funcionário' : 'Fornecedor' ?>
+                    </td>
+                    <td><?= $dado['datacadastro'] ?></td>
+                    <td style="text-align: center"><a id="remover"
+                                href="#" class="btn btn-danger"><i
                                     class="fa fa-trash"></i></a>
-                            <a href="<?= base_url() ?>produtos/editar/<?= $produto['id'] ?>" class="btn btn-info"><i
+                            <a href="# ?>" class="btn btn-info"><i
                                     class="fa fa-pencil"></i></a>
                         </td>
-
-                    </tr>
-                    <tbody>
-                    </tbody>
-                <?php endforeach ?>
-            </table>
-        </div>
+                </tr>
+                <tbody>
+                </tbody>
+            <?php endforeach ?>
+        </table>
     </div>
+</div>
 
 </div>

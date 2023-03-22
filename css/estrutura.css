@@ -1,8 +1,9 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 html,
 body {
     height: 100%;
@@ -26,6 +27,12 @@ header {
     margin-left: 0 10px;
 }
 
+.form-pesquisa {
+    margin: 0%;
+    width: 850px;
+    height: 31px;
+}
+
 .main {
     display: flex;
     flex-wrap: wrap;
@@ -45,7 +52,7 @@ header {
 
 
 .sidebar {
-    width: 20%;
+    width: 15%;
     background-color: white;
     height: 100%;
 }
@@ -75,18 +82,21 @@ header {
 }
 
 .content {
-    width: 80%;
+    width: 85%;
     background-color: rgb(230, 230, 230);
     padding: 20px;
 }
-.titulo{
+
+.titulo {
     border-radius: 10px;
     background-color: white;
     padding: 10px;
 }
-.corpo{
+
+.corpo {
     margin-top: 10px;
     border-radius: 10px;
     background-color: white;
     padding: 10px;
+    height: 50%;
 }
