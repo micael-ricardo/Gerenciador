@@ -5,9 +5,11 @@
 
     <div class='corpo'>
         <div class="col-md-12">
- 
+            <?php if (isset($produto)): ?>
+                <form action="<?= base_url() ?>produtos/update/<?= $produto['id'] ?>" method="post">
+                <?php else: ?>
                     <form action="<?= base_url() ?>produtos/store" method="post">
-          
+                    <?php endif; ?>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Nome">Nome</label>

@@ -31,41 +31,84 @@ class Colaborador extends CI_Controller
 
     public function store()
     {
-        $this->load->model("model_usuario");
 
+        if ($this->input->post()) {
 
+            $data_colaborador = array(
 
-        if ($_POST["cadastrarusuario"] == 1) {
-
-            $user = array(
-                "login" => $_POST["login"],
-                "senha" => $_POST["senha"],
-                "nome" => $_POST["nome"],
-                "email" => $_POST["email"],
-                "datacadastro" => $_POST["datacadastro"]
+                'documento' => $this->input->post('documento'),
+                'telefone' => $this->input->post('telefone'),
+                'nome' => $this->input->post('nome'),
+                'cep' => $this->input->post('cep'),
+                'rua' => $this->input->post('rua'),
+                'tipo_colaborador' => $this->input->post('tipo_colaborador'),
+                'bairro' => $this->input->post('bairro'),
+                'numero' => $this->input->post('numero'),
+                'datacadastro' => date('Y-m-d H:i:s')
             );
 
-            $this->model_usuario->store($user);
-        }
+            $data_usuario = null;
 
+            if ($this->input->post('login')) {
+
+                $data_usuario = array(
+                    'nome' => $this->input->post('nome'),
+                    'login' => $this->input->post('login'),
+                    'email' => $this->input->post('email'),
+                    'senha' => $this->input->post('senha'),
+                    'datacadastro' => date('Y-m-d H:i:s')
+                );
+            }
+            $this->load->model("model_colaborador");
+            $this->model_colaborador->cadastrarcolaborador($data_colaborador, $data_usuario);
+
+            redirect("Colaborador");
+        }
+    }
+
+    public function editar($id)
+    {
+        $this->load->model("model_colaborador");
+        $data['colaborador'] = $this->model_colaborador->show($id);
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/js', $data);
+        $this->load->view('colaborador/cadastro', $data);
+    }
+
+    public function update($id)
+    {
+        $this->load->model("model_colaborador");
         $colaborador = array(
-            "documento" => $_POST["documento"],
-            "telefone" => $_POST["telefone"],
-            "nome" => $_POST["nome"],
-            "cep" => $_POST["cep"],
-            "rua" => $_POST["rua"],
-            "bairro" => $_POST["bairro"],
-            "numero" => $_POST["numero"],
-            "datacadastro" => $_POST["datacadastro"]
+            'nome' => $this->input->post('nome'),
+            'documento' => $this->input->post('documento'),
+            'telefone' => $this->input->post('telefone'),
+            'cep' => $this->input->post('cep'),
+            'rua' => $this->input->post('rua'),
+            'bairro' => $this->input->post('bairro'),
+            'numero' => $this->input->post('numero'),
+            'tipo_colaborador' => $this->input->post('tipo_colaborador'),
         );
 
-        $dados = $this->model_usuario->cadastrarcolaborador($colaborador);
-        if ($dados == true) {
-            redirect("Colaborador");
+        $this->model_colaborador->update($id, $colaborador);
 
-        } else {
-            echo "Deu ruim de novo";
-        }
+        redirect("Colaborador");
+    }
+
+    public function delete($id)
+{
+    $this->load->model('model_colaborador');
+    $this->model_colaborador->inativar($id);
+    // echo $this->db->last_query();
+    // exit();
+    redirect('Colaborador');
+}
+
+    public function pesquisar()
+    {
+        $this->load->model("model_consultar");
+        $filtro_nome = $this->input->get('Pesquisa');
+        $data['colaborador'] = $this->model_consultar->consultar($filtro_nome);
+        $this->load->view('colaborador/index', $data);
 
 
     }

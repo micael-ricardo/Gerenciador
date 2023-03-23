@@ -58,7 +58,6 @@ class Produtos extends CI_Controller
 		$this->load->model("model_produtos");
 		$data['produto'] = $this->model_produtos->show($id);
 
-		$data = array("produtos" => $data);
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/js', $data);
 		$this->load->view('produtos/cadastro', $data);

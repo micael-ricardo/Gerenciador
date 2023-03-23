@@ -7,20 +7,24 @@
 html,
 body {
     height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    
 }
 
 header {
-    background-color: #00008b;
+    background: linear-gradient(45deg, blue, white);
     padding: 10px 2%;
     display: flex;
     justify-content: space-between;
 }
 
 .estilo-header {
-    color: white;
     display: flex;
     justify-content: space-around;
     width: 200px;
+    margin-left: 90%; 
+    align-items: center;
 }
 
 .estilo-header svg {
@@ -29,7 +33,7 @@ header {
 
 .form-pesquisa {
     margin: 0%;
-    width: 850px;
+    width: 500px;
     height: 31px;
 }
 
@@ -98,5 +102,5 @@ header {
     border-radius: 10px;
     background-color: white;
     padding: 10px;
-    height: 50%;
+    height: 65%;
 }
