@@ -6,9 +6,8 @@ class Colaborador extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->helper('url');
+        $this->load->helper(array('url', 'form'));
         $this->load->library('form_validation');
-        $this->load->helper('form');
         date_default_timezone_set('America/Sao_Paulo');
         permissao();
     }
@@ -45,22 +44,21 @@ class Colaborador extends CI_Controller
             $cep = RemoveMascara($this->input->post('cep'));
 
             $data_colaborador = array(
-
                 'documento' => $documento,
                 'telefone' => $telefone,
                 'nome' => $this->input->post('nome'),
                 'cep' => $cep,
                 'rua' => $this->input->post('rua'),
                 'tipo_colaborador' => $this->input->post('tipo_colaborador'),
+                'tipo_pessoa' => $this->input->post('tipo_pessoa'),
                 'bairro' => $this->input->post('bairro'),
                 'numero' => $this->input->post('numero'),
                 'datacadastro' => date('Y-m-d H:i:s')
             );
 
             $data_usuario = null;
-
+            //Cadastro de Usuario pela tela de colaborador
             if ($this->input->post('login')) {
-                $senha = $this->input->post('senha');
                 $data_usuario = array(
                     'nome' => $this->input->post('nome'),
                     'login' => $this->input->post('login'),
@@ -108,10 +106,11 @@ class Colaborador extends CI_Controller
     {
         $this->load->model('model_colaborador');
         $this->model_colaborador->inativar($id);
+
         redirect('Colaborador');
     }
 
-    public function pesquisar($pesquisa = null, $nome = null, $documento = null, $telefone = null, $cep = null, $bairro = null, $rua = null, $numero = null, $ativo = null, $tipo_colaborador = null)
+    public function pesquisar($datainicial = null, $pesquisa = null, $nome = null, $documento = null, $telefone = null, $cep = null, $bairro = null, $rua = null, $numero = null, $status = null, $tipo_colaborador = null)
     {
         $this->load->model("model_consultar");
         $this->load->helper('RemoveMascara');
@@ -140,17 +139,16 @@ class Colaborador extends CI_Controller
         if (!$numero) {
             $numero = $this->input->get('numero');
         }
-        if (!$ativo) {
-            $ativo = $this->input->get('ativo');
+        if (!$status) {
+            $status = $this->input->get('status');
         }
 
         if (!$tipo_colaborador) {
             $tipo_colaborador = $this->input->get('tipo_colaborador');
         }
 
-        $data['colaborador'] = $this->model_consultar->consultar($pesquisa, $nome, $documento, $telefone, $cep, $bairro, $rua, $numero, $ativo, $tipo_colaborador);
+        $data['colaborador'] = $this->model_consultar->consultar($pesquisa, $nome, $documento, $telefone, $cep, $bairro, $rua, $numero, $status, $tipo_colaborador);
         $formata = json_decode(json_encode($data), true);
-
         $this->load->helper(array('form'));
         $this->load->view('templates/header');
         $this->load->view('templates/js');

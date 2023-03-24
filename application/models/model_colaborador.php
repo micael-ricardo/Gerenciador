@@ -33,7 +33,7 @@ class model_colaborador extends CI_Model
 
   public function inativar($id)
 {
-    $data = array('ativo' => false);
+    $data = array('status' => '0');
     $this->db->where('id', $id);
     $this->db->update('colaboradores', $data);
 }

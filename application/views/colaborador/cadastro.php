@@ -12,19 +12,41 @@
                     <form action="<?= base_url() ?>colaborador/store" method="post">
                     <?php endif; ?>
 
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="Nome">Nome:</label>
-                            <input type="text" class="form-control" name="nome" id="nome"
-                                value="<?= isset($colaborador['nome']) ? $colaborador['nome'] : '' ?>" required>
+
+                    <div class="col-md-12" style="margin-top: 10px;margin-bottom: 15px;">
+                        <input type="radio" name="tipo_pessoa" value="0" <?php echo (!isset($colaborador) || $colaborador['tipo_pessoa'] == 0) ? 'checked' : ''; ?> <?php echo isset($colaborador) ? 'disabled' : ''; ?>>Pessoa Fisica
+                        <input type="radio" name="tipo_pessoa" value="1" <?php echo isset($colaborador) && $colaborador['tipo_pessoa'] == 1 ? 'checked' : ''; ?> <?php echo isset($colaborador) ? 'disabled' : ''; ?>>Pessoa Jurídica
+                    </div>
+                    <div id="pessoa_fisica" style="display:none">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Nome">Nome:</label>
+                                <input type="text" class="form-control" name="nome" id="nomes"
+                                    value="<?= isset($colaborador['nome']) ? $colaborador['nome'] : '' ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Documento">CPF:</label>
+                                <input type="text" class="form-control" name="documento" id="cpf"
+                                    value="<?= isset($colaborador['documento']) ? $colaborador['documento'] : '' ?>">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="Documento">CPF:</label>
-                            <input type="text" class="form-control" name="documento" id="documento"
-                                value="<?= isset($colaborador['documento']) ? $colaborador['documento'] : '' ?>"
-                                required>
+                    <div id="pessoa_juridica" style="display:none">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Nome">Razão Social:</label>
+                                <input type="text" class="form-control" name="nome" id="razao_social"
+                                    value="<?= isset($colaborador['nome']) ? $colaborador['nome'] : '' ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Documento">CNPJ:</label>
+                                <input type="text" class="form-control" name="documento" id="cnpj"
+                                    value="<?= isset($colaborador['documento']) ? $colaborador['documento'] : '' ?>">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -88,7 +110,7 @@
                         <div id="filtro" style="display: none;">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="Login">Usuario:</label>
+                                    <label for="Login">Login:</label>
                                     <input type="text" class="form-control" name="login" id="login">
                                 </div>
                             </div>
@@ -106,9 +128,6 @@
                             </div>
                         </div>
                     <?php endif; ?>
-
-
-
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Salvar</button>
                         <a href="<?= base_url() ?>colaborador" class="btn btn-danger"><i class="fa fa-times"></i>

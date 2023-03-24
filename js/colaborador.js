@@ -27,7 +27,8 @@ $(document).ready(function () {
             { "sType": "num-html", "aTargets": [0] }
         ],
         "scrollY": "250px",
-        "bFilter": false
+        "bFilter": false,
+        "ordering": false,
     });
 });
 
@@ -48,7 +49,29 @@ $(document).ready(function () {
 
 //Mascara
 $(document).ready(function () {
-    $('#documento').mask('000.000.000-00', { reverse: true });
+    $('#cpf').mask('000.000.000-00');
+    $("#cnpj").mask("99.999.999/9999-99");
     $("#telefone").mask("(00) 0000-00009");
     $("#cep").mask("99.999-999");
+});
+
+//Função Tipo_Pessoa
+$(document).ready(function () {
+
+    $('#pessoa_fisica').show();
+    $('#nomes, #cpf').attr('required', true);
+
+    $('input[type="radio"][name="tipo_pessoa"]').on('change', function () {
+        if ($(this).val() == '0') {
+            $('#nomes, #cpf').attr('required', true);
+            $('#pessoa_fisica').show();
+            $('#pessoa_juridica').hide();
+            $('#razao_social, #cnpj').removeAttr('required');
+        } else {
+            $('#razao_social, #cnpj').attr('required', true);
+            $('#pessoa_juridica').show();
+            $('#pessoa_fisica').hide();
+            $('#nomes, #cpf').removeAttr('required');
+        }
+    });
 });

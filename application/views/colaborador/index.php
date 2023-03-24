@@ -1,12 +1,13 @@
 <div class="content">
     <div class="titulo">
-        <h2>Colaborador</h2>
+        <h3>Colaborador</h3>
         <script src="<?php echo base_url('js/colaborador.js'); ?>"></script>
         <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
                     <a href="<?= base_url() ?>colaborador/cadastro" class="btn btn-primary">Adicionar</a>
-                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Filtrar Pelo Nome:">
+                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa"
+                        placeholder="Filtrar Pelo Nome:">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
                         <i class="fa fa-search"></i> Pesquisar
                     </button>
@@ -23,21 +24,6 @@
             <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
 
                 <div class="form-group col-sm-12" style="margin-top: 10px;">
-
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Data Inicial:</label>
-                            <input type="date" class="form-control" name="DataInicial" id="DataInicial"
-                                style="height: 30px;" />
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Data Final:</label>
-                            <input type="date" class="form-control" name="DataFinal" id="DataFinal"
-                                style="height: 30px;" />
-                        </div>
-                    </div>
 
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -77,40 +63,46 @@
                             <input type="text" class="form-control" style="height: 30px;" name="rua" id="rua" />
                         </div>
                     </div>
-
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Numero:</label>
                             <input type="text" class="form-control" style="height: 30px;" name="numero" id="numero" />
                         </div>
                     </div>
-
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="Ativo">Ativo:</label>
-                            <select class="form-control selects" style="height: 30px;" name="Ativo" id="Ativo">
-
+                            <label for="Status">Status:</label>
+                            <select class="form-control selects" style="height: 30px;" name="status" id="status">
                                 <option value="">Selecione</option>
-                                <option value="0">Ativo
+                                <option value="1">Ativo
                                 </option>
-                                <option value="1">Inativo
+                                <option value="0">Inativo
                                 </option>
                             </select>
                         </div>
                     </div>
-
-
-
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="TipoColaborador">Tipo Colaborador:</label>
                             <select class="form-control selects" style="height: 30px;" name="tipo_colaborador"
                                 id="tipo_colaborador">
-
                                 <option value="">Selecione</option>
                                 <option value="0">Funcionário
                                 </option>
                                 <option value="1">Fornecedor
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="TipoPessoa">Tipo Pessoa:</label>
+                            <select class="form-control selects" style="height: 30px;" name="tipo_pessoa"
+                                id="tipo_pessoa">
+                                <option value="">Selecione</option>
+                                <option value="0">Fisica
+                                </option>
+                                <option value="1">Jurídica
                                 </option>
                             </select>
                         </div>
@@ -138,26 +130,26 @@
                         <th>Rua</th>
                         <th>Numero</th>
                         <th>Tipo Colaborador</th>
+                        <th>Tipo Pessoa</th>
                         <th>Data Cadastro</th>
-                        <th>Ativo</th>
+                        <th>Status</th>
                         <th style="text-align: center;">Ações</th>
                     </tr>
                 </thead>
                 <tr>
 
                     <?php foreach ($colaborador as $dado): ?>
-
                         <td>
                             <?= $dado['nome'] ?>
                         </td>
                         <td>
-                            <?= $dado['documento'] ?>
+                            <?= formatar_cpf_cnpj($dado['documento']) ?>
                         </td>
                         <td>
-                            <?= $dado['telefone'] ?>
+                            <?= formatar_telefone($dado['telefone'])  ?>
                         </td>
                         <td>
-                            <?= $dado['cep'] ?>
+                            <?= formatar_cep($dado['cep']) ?>
                         </td>
                         <td>
                             <?= $dado['bairro'] ?>
@@ -169,18 +161,33 @@
                             <?= $dado['numero'] ?>
                         </td>
                         <td>
-                            <?= $dado['tipo_colaborador'] == 0 ? 'Funcionário' : 'Fornecedor' ?>
+                        <?php if ($dado['tipo_colaborador'] == 0): ?>
+                                <span class="btn btn-primary btn-xs">Funcionário</span>
+                            <?php else: ?>
+                                <span class="btn btn-warning btn-xs">Fornecedor</span>
+                            <?php endif; ?>
                         </td>
                         <td>
-                            <?= $dado['datacadastro'] ?>
+                        <?php if ($dado['tipo_pessoa'] == 0): ?>
+                                <span class="btn btn-primary btn-xs">Fisica</span>
+                            <?php else: ?>
+                                <span class="btn btn-warning btn-xs">Jurídica</span>
+                            <?php endif; ?>
                         </td>
                         <td>
-                            <?= $dado['ativo'] == 0 ? 'Inativo' : 'Ativo' ?>
+                            <?= formatar_data($dado['datacadastro']) ?>
+                        </td>
+                        <td>
+                            <?php if ($dado['status'] == 0): ?>
+                                <span class="btn btn-danger btn-xs">Inativo</span>
+                            <?php else: ?>
+                                <span class="btn btn-success btn-xs">Ativo</span>
+                            <?php endif; ?>
                         </td>
                         <td style="text-align: center"><a id="remover"
-                                href="<?= base_url() ?>colaborador/delete/<?= $dado['id'] ?>" class="btn btn-danger"><i
+                                href="<?= base_url() ?>colaborador/delete/<?= $dado['id'] ?>" class="btn btn-danger btn-xs"><i
                                     class="fa fa-trash"></i></a>
-                            <a href="<?= base_url() ?>colaborador/editar/<?= $dado['id'] ?>" class="btn btn-info"><i
+                            <a href="<?= base_url() ?>colaborador/editar/<?= $dado['id'] ?>" class="btn btn-info btn-xs"><i
                                     class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
