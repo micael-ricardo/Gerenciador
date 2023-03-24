@@ -1,10 +1,6 @@
 <div class="content">
     <div class="titulo">
         <h2>Produtos</h2>
- 
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
-
         <form name="" method="post" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
@@ -59,7 +55,7 @@
 
     <div class='corpo'>
         <div class="tabela-responsive">
-        <table id="myTable">
+            <table id="consultar_usuarios" class="table table-striped">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -104,17 +100,3 @@
     </div>
 
 </div>
-
-<script type="text/javascript">
-    
-    $(document).ready(function () {
-        $('#myTable').DataTable({
-            "language": {
-                "url": "<?php echo base_url('public/datatable/Portuguese-Brasil.json'); ?>"
-            },
-            "scrollY": "350px",
-            "paging": false,
-            "searching": false
-        });
-    });
-</script>

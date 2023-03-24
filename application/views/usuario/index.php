@@ -19,72 +19,6 @@
 
         </form>
 
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#form-cadastro">Iniciar atendimento</button>
-
-
-        <form name="" action="" method="post" autocomplete="off" id="form-cadastro"
-            class="modal fade bd-example-modal-lg modal-passagem" tabindex="-1" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5>Iniciar atendimento</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <div class="form-row">
-                            <div class="col-sm-12 form-group">
-                                <label>Venda <span class="text-danger">*</span></label>
-                                <input type="hidden" class="form-control" name="VendasId" id="VendasId" />
-                                <input type="text" class="form-control VendasClientesId" name="VendasClientesId"
-                                    id="VendasClientesId" required />
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                <label>Data Inicio <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" name="DataInicialModal" id="DataInicialModal"
-                                    max="<?= date('Y-m-d') ?>" required />
-                            </div>
-
-                            <div class="col-sm-6 form-group">
-                                <label>Hora Inicio<span class="text-danger">*</span></label>
-                                <input type="time" class="form-control" name="HoraInicial" id="HoraInicial" min="00:00"
-                                    max="23:59" required />
-                            </div>
-
-                            <div class="col-sm-6 form-group">
-                                <label>Data Final</label>
-                                <input type="date" class="form-control" name="DataFinalModal" id="DataFinalModal"
-                                    max="<?= date('Y-m-d') ?>" />
-                            </div>
-
-                            <div class="col-sm-6 form-group">
-                                <label>Hora Final</label>
-                                <input type="time" class="form-control" name="HoraFinal" id="HoraFinal" min="00:00"
-                                    max="23:59" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="icon ti-close"></i> Cancelar
-                        </button>
-                        <button type="submit" id='teste' class="btn btn-primary">
-                            <i class="fa fa-save"></i> Salvar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-
-
-
         <div class="panel panel-inverse" id="filtro" style="display: none;">
             <div class="panel-body">
                 <form action="" method="post">
@@ -162,19 +96,3 @@
     </div>
 
 </div>
-
-<script type="text/javascript">
-
-
-    $(document).ready(function () {
-        $('.table').DataTable({
-            "language": {
-                "url": "<?php echo base_url('public/datatable/Portuguese-Brasil.json'); ?>"
-            },
-            "scrollY": "350px",
-            "paging": false,
-            "searching": false,
-            "ordering": false
-        });
-    });
-</script>

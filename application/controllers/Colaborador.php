@@ -15,8 +15,13 @@ class Colaborador extends CI_Controller
     public function index()
     {
         $this->load->model("model_colaborador");
-        $data["dados"] = $this->model_colaborador->index();
         $this->load->helper(array('form'));
+
+        if ($this->input->get('Pesquisa')) {
+            return $this->pesquisar();
+        }
+
+        $data["colaborador"] = $this->model_colaborador->index();
         $this->load->view('templates/header');
         $this->load->view('templates/js');
         $this->load->view('colaborador/index', $data);
@@ -34,12 +39,17 @@ class Colaborador extends CI_Controller
 
         if ($this->input->post()) {
 
+            $this->load->helper('RemoveMascara');
+            $documento = RemoveMascara($this->input->post('documento'));
+            $telefone = RemoveMascara($this->input->post('telefone'));
+            $cep = RemoveMascara($this->input->post('cep'));
+
             $data_colaborador = array(
 
-                'documento' => $this->input->post('documento'),
-                'telefone' => $this->input->post('telefone'),
+                'documento' => $documento,
+                'telefone' => $telefone,
                 'nome' => $this->input->post('nome'),
-                'cep' => $this->input->post('cep'),
+                'cep' => $cep,
                 'rua' => $this->input->post('rua'),
                 'tipo_colaborador' => $this->input->post('tipo_colaborador'),
                 'bairro' => $this->input->post('bairro'),
@@ -50,7 +60,7 @@ class Colaborador extends CI_Controller
             $data_usuario = null;
 
             if ($this->input->post('login')) {
-
+                $senha = $this->input->post('senha');
                 $data_usuario = array(
                     'nome' => $this->input->post('nome'),
                     'login' => $this->input->post('login'),
@@ -95,21 +105,56 @@ class Colaborador extends CI_Controller
     }
 
     public function delete($id)
-{
-    $this->load->model('model_colaborador');
-    $this->model_colaborador->inativar($id);
-    // echo $this->db->last_query();
-    // exit();
-    redirect('Colaborador');
-}
+    {
+        $this->load->model('model_colaborador');
+        $this->model_colaborador->inativar($id);
+        redirect('Colaborador');
+    }
 
-    public function pesquisar()
+    public function pesquisar($pesquisa = null, $nome = null, $documento = null, $telefone = null, $cep = null, $bairro = null, $rua = null, $numero = null, $ativo = null, $tipo_colaborador = null)
     {
         $this->load->model("model_consultar");
-        $filtro_nome = $this->input->get('Pesquisa');
-        $data['colaborador'] = $this->model_consultar->consultar($filtro_nome);
-        $this->load->view('colaborador/index', $data);
+        $this->load->helper('RemoveMascara');
 
+        if (!$pesquisa) {
+            $pesquisa = $this->input->get('Pesquisa');
+        }
+        if (!$nome) {
+            $nome = $this->input->get('nome');
+        }
+        if (!$documento) {
+            $documento = RemoveMascara($this->input->get('documento'));
+        }
+        if (!$telefone) {
+            $telefone = RemoveMascara($this->input->get('telefone'));
+        }
+        if (!$cep) {
+            $cep = RemoveMascara($this->input->get('cep'));
+        }
+        if (!$bairro) {
+            $bairro = $this->input->get('bairro');
+        }
+        if (!$rua) {
+            $rua = $this->input->get('rua');
+        }
+        if (!$numero) {
+            $numero = $this->input->get('numero');
+        }
+        if (!$ativo) {
+            $ativo = $this->input->get('ativo');
+        }
+
+        if (!$tipo_colaborador) {
+            $tipo_colaborador = $this->input->get('tipo_colaborador');
+        }
+
+        $data['colaborador'] = $this->model_consultar->consultar($pesquisa, $nome, $documento, $telefone, $cep, $bairro, $rua, $numero, $ativo, $tipo_colaborador);
+        $formata = json_decode(json_encode($data), true);
+
+        $this->load->helper(array('form'));
+        $this->load->view('templates/header');
+        $this->load->view('templates/js');
+        $this->load->view('colaborador/index', $formata);
 
     }
 
