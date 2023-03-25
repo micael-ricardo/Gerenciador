@@ -29,6 +29,7 @@ $(document).ready(function () {
         "scrollY": "250px",
         "bFilter": false,
         "ordering": false,
+        "scrollX": true,
     });
 });
 

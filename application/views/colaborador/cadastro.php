@@ -21,14 +21,14 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Nome">Nome:</label>
-                                <input type="text" class="form-control" name="nome" id="nomes"
+                                <input type="text" class="form-control" name="nome" id="nome"
                                     value="<?= isset($colaborador['nome']) ? $colaborador['nome'] : '' ?>">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Documento">CPF:</label>
-                                <input type="text" class="form-control" name="documento" id="cpf"
+                                <input type="text" class="form-control" name="documento" id="documento"
                                     value="<?= isset($colaborador['documento']) ? $colaborador['documento'] : '' ?>">
                             </div>
                         </div>

@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class model_consultar extends CI_Model
 {
-    public function consultar($pesquisa,$nome, $documento,$telefone,$cep, $bairro, $rua, $numero, $status,$tipo_colaborador)
+    public function consultar($pesquisa,$tipo_pessoa, $nome, $documento,$telefone,$cep, $bairro, $rua, $numero, $status,$tipo_colaborador)
     {
         $filtrorapido = $this->db->escape_str($pesquisa);
         $this->db->like('nome', $filtrorapido);
@@ -22,9 +22,11 @@ class model_consultar extends CI_Model
         $numero = $this->db->escape_str($numero);
         $this->db->like('numero', $numero);
         $status = $this->db->escape_str($status);
-        $this->db->like('status', $status);       
-       $tipo_colaborador = $this->db->escape_str($tipo_colaborador);
-        $this->db->like('tipo_colaborador', $tipo_colaborador);
+        $this->db->like('status', $status);     
+        $status = $this->db->escape_str($status);
+        $this->db->like('status', $status);   
+       $tipo_pessoa = $this->db->escape_str($tipo_pessoa);
+        $this->db->like('tipo_pessoa', $tipo_pessoa);
         $query = $this->db->get('colaboradores');
         return $query->result();
     }

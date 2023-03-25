@@ -1,11 +1,12 @@
 <div class="content">
     <div class="titulo">
-        <h2>Usuários</h2>
-        <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
+        <h3>Usuários</h3>
+        <script src="<?php echo base_url('js/usuarios.js'); ?>"></script>
+        <form action="<?= base_url() ?>usuarios/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
-                    <a class="btn btn-primary" data-toggle="modal"
-                        data-target=".modal-passagem" id='cadastropassagem'>Adicionar</a>
+                    <a class="btn btn-success" data-toggle="modal" data-target=".modal-passagem"
+                        id='cadastropassagem'>Adicionar</a>
                     <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Pesquisar...">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
                         <i class="fa fa-search"></i> Pesquisar
@@ -56,13 +57,14 @@
 
     <div class='corpo'>
         <div class="tabela-responsive">
-            <table class="table table-striped">
+            <table id="consultar_usuarios" class="table table-striped" style = "width:100%">
                 <thead>
                     <tr>
                         <th>Nome</th>
                         <th>Login</th>
                         <th>E-mail</th>
                         <th>Data cadastro</th>
+                        <th>Status</th>
                         <th style="text-align: center;">Ações</th>
                     </tr>
                 </thead>
@@ -80,6 +82,13 @@
                         </td>
                         <td>
                             <?= $dado['datacadastro'] ?>
+                        </td>
+                        <td>
+                            <?php if ($dado['status'] == 0): ?>
+                                <span class="btn btn-danger btn-xs">Inativo</span>
+                            <?php else: ?>
+                                <span class="btn btn-success btn-xs">Ativo</span>
+                            <?php endif; ?>
                         </td>
                         <td style="text-align: center"><a id="remover"
                                 href="<?= base_url() ?>colaborador/delete/<?= $dado['id'] ?>" class="btn btn-danger"><i

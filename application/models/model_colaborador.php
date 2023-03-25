@@ -10,7 +10,7 @@ class model_colaborador extends CI_Model
   public function cadastrarcolaborador($data_colaborador, $data_usuario = null)
   {
     $this->db->insert('colaboradores', $data_colaborador);
-
+//Insert de Usuario
     if ($data_usuario) {
       $this->db->insert('usuarios', $data_usuario);
       $id_usuario = $this->db->insert_id();

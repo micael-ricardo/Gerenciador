@@ -5,7 +5,7 @@
         <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
-                    <a href="<?= base_url() ?>colaborador/cadastro" class="btn btn-primary">Adicionar</a>
+                    <a href="<?= base_url() ?>colaborador/cadastro" class="btn btn-success">Adicionar</a>
                     <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa"
                         placeholder="Filtrar Pelo Nome:">
                     <button class="btn btn-primary" type="submit" id="button-addon1">

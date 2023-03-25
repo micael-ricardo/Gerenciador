@@ -36,6 +36,9 @@ class Colaborador extends CI_Controller
     public function store()
     {
 
+     print_r($this->input->post());
+     exit();
+
         if ($this->input->post()) {
 
             $this->load->helper('RemoveMascara');
@@ -53,6 +56,7 @@ class Colaborador extends CI_Controller
                 'tipo_pessoa' => $this->input->post('tipo_pessoa'),
                 'bairro' => $this->input->post('bairro'),
                 'numero' => $this->input->post('numero'),
+                'status' => '1',
                 'datacadastro' => date('Y-m-d H:i:s')
             );
 
@@ -64,6 +68,7 @@ class Colaborador extends CI_Controller
                     'login' => $this->input->post('login'),
                     'email' => $this->input->post('email'),
                     'senha' => $this->input->post('senha'),
+                    'status' => '1',
                     'datacadastro' => date('Y-m-d H:i:s')
                 );
             }
@@ -110,7 +115,7 @@ class Colaborador extends CI_Controller
         redirect('Colaborador');
     }
 
-    public function pesquisar($datainicial = null, $pesquisa = null, $nome = null, $documento = null, $telefone = null, $cep = null, $bairro = null, $rua = null, $numero = null, $status = null, $tipo_colaborador = null)
+    public function pesquisar($tipo_pessoa = null, $pesquisa = null, $nome = null, $documento = null, $telefone = null, $cep = null, $bairro = null, $rua = null, $numero = null, $status = null, $tipo_colaborador = null)
     {
         $this->load->model("model_consultar");
         $this->load->helper('RemoveMascara');
@@ -146,8 +151,11 @@ class Colaborador extends CI_Controller
         if (!$tipo_colaborador) {
             $tipo_colaborador = $this->input->get('tipo_colaborador');
         }
+        if (!$tipo_pessoa) {
+            $tipo_pessoa = $this->input->get('tipo_pessoa');
+        }
 
-        $data['colaborador'] = $this->model_consultar->consultar($pesquisa, $nome, $documento, $telefone, $cep, $bairro, $rua, $numero, $status, $tipo_colaborador);
+        $data['colaborador'] = $this->model_consultar->consultar($pesquisa,$tipo_pessoa, $nome, $documento, $telefone, $cep, $bairro, $rua, $numero, $status, $tipo_colaborador);
         $formata = json_decode(json_encode($data), true);
         $this->load->helper(array('form'));
         $this->load->view('templates/header');
