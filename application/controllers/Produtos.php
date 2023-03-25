@@ -9,6 +9,7 @@ class Produtos extends CI_Controller
 		$this->load->helper('url');
 		$this->load->library('form_validation');
 		$this->load->helper('form');
+		$this->load->library('session');
 		date_default_timezone_set('America/Sao_Paulo');
 		permissao();
 	}
@@ -32,24 +33,24 @@ class Produtos extends CI_Controller
 
 	public function store()
 	{
-		$this->load->model("model_produtos");
-		$produto = array(
-			"nome" => $_POST["nome"],
-			"preco" => $_POST["preco"],
-			"quantidade" => $_POST["quantidade"],
-			"data" => $_POST["data"],
-			"categoria" => $_POST["categoria"],
-			"descricao" => $_POST["descricao"],
-			"ativo" => $_POST["ativo"],
-		);
-		$dados = $this->model_produtos->store($produto);
 
-		if ($dados == true) {
-			redirect('produtos/index');
-
-		} else {
-			echo "Deu ruim de novo";
+		if ($this->input->post()) {
+			$data_produto = array(
+				'nome' => $this->input->post('nome'),
+				'preco' => $this->input->post('preco'),
+				'quantidade' => $this->input->post('quantidade'),
+				'descricao' => $this->input->post('descricao'),
+				'status' => '1',
+				'datacadastro' => date('Y-m-d H:i:s'),
+				'usuario_id' => $this->session->logged_user['id']
+			);
 		}
+
+		$this->load->model("model_produtos");
+		$this->model_produtos->store($data_produto);
+
+		redirect("Produtos");
+
 
 	}
 
@@ -62,7 +63,7 @@ class Produtos extends CI_Controller
 		$this->load->view('templates/js', $data);
 		$this->load->view('produtos/cadastro', $data);
 
-	}
+	} 
 
 	public function update($id)
 	{
@@ -76,7 +77,7 @@ class Produtos extends CI_Controller
 	public function delete($id)
 	{
 		$this->load->model("model_produtos");
-		$this->model_produtos->deletar_produto($id);
+		$this->model_produtos->inativar($id);
 
 	}
 }

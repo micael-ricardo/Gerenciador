@@ -17,39 +17,45 @@
                     </button>
                 </div>
             </div>
-
         </form>
-
         <div class="panel panel-inverse" id="filtro" style="display: none;">
-            <div class="panel-body">
-                <form action="" method="post">
-                    <div class="form-row">
-                        <div class="form-group col-sm-12">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Titulo</label>
-                                    <input type="text" class="form-control" name="PesquisaVendasId"
-                                        id="PesquisaVendasId" />
+            <form action="<?= base_url() ?>usuarios/pesquisar" method="get" autocomplete="off">
+                <div class="form-group col-sm-12" style="margin-top: 10px;">
 
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Data Inicio</label>
-                                    <input type="date" class="form-control" name="DataInicial" id="DataInicial"
-                                        required />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Data Final</label>
-                                    <input type="date" class="form-control" name="DataFinal" id="DataFinal" required />
-                                </div>
-                            </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Nome:</label>
+                            <input type="text" style="height: 30px;" class="form-control" name="nome" id="nome" />
                         </div>
                     </div>
-            </div>
+                     <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Login:</label>
+                            <input type="text" style="height: 30px;" class="form-control" name="login" id="login" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>E-mail:</label>
+                            <input type="text" style="height: 30px;" class="form-control" name="email" id="email" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="Status">Status:</label>
+                            <select class="form-control selects" style="height: 30px;" name="status" id="status">
+                                <option value="">Selecione</option>
+                                <option value="1">Ativo
+                                </option>
+                                <option value="0">Inativo
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary ">
+                    <i class="fa fa-search"></i> Pesquisar
+                </button>
         </div>
         </form>
 
@@ -57,7 +63,7 @@
 
     <div class='corpo'>
         <div class="tabela-responsive">
-            <table id="consultar_usuarios" class="table table-striped" style = "width:100%">
+            <table id="consultar_usuarios" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -91,9 +97,9 @@
                             <?php endif; ?>
                         </td>
                         <td style="text-align: center"><a id="remover"
-                                href="<?= base_url() ?>colaborador/delete/<?= $dado['id'] ?>" class="btn btn-danger"><i
+                                href="<?= base_url() ?>usuarios/delete/<?= $dado['id'] ?>" class="btn btn-danger btn-xs"><i
                                     class="fa fa-trash"></i></a>
-                            <a href="<?= base_url() ?>colaborador/editar/<?= $dado['id'] ?>" class="btn btn-info"><i
+                            <a href="<?= base_url() ?>usuarios/editar/<?= $dado['id'] ?>" class="btn btn-info btn-xs"><i
                                     class="fa fa-pencil"></i></a>
                         </td>
                     </tr>

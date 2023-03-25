@@ -7,6 +7,13 @@ class model_usuario extends CI_Model
   {
     return $this->db->get("usuarios")->result_array();
   }
+
+  public function inativar($id)
+  {
+      $data = array('status' => '0');
+      $this->db->where('id', $id);
+      $this->db->update('usuarios', $data);
+  }
  
 }
 ?>

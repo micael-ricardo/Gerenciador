@@ -22,7 +22,6 @@
 
         <div class="panel panel-inverse" id="filtro" style=" display: none;">
             <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
-
                 <div class="form-group col-sm-12" style="margin-top: 10px;">
 
                     <div class="col-sm-3">

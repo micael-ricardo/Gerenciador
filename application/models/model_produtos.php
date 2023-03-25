@@ -32,11 +32,11 @@ class model_produtos extends CI_Model
 
 
 
-  public function deletar_produto($id)
-  {
+  public function inativar($id)
+{
+    $data = array('status' => '0');
     $this->db->where('id', $id);
-    $this->db->delete('produtos');
-    redirect('/');
-  }
+    $this->db->update('produtos', $data);
+}
 
 }

@@ -35,10 +35,6 @@ class Colaborador extends CI_Controller
 
     public function store()
     {
-
-     print_r($this->input->post());
-     exit();
-
         if ($this->input->post()) {
 
             $this->load->helper('RemoveMascara');

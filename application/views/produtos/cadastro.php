@@ -10,47 +10,32 @@
                 <?php else: ?>
                     <form action="<?= base_url() ?>produtos/store" method="post">
                     <?php endif; ?>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="Nome">Nome</label>
                             <input type="text" class="form-control" name="nome" id="nome"
                                 value="<?= isset($produto) ? $produto["nome"] : "" ?>" required>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="Preco">Preço</label>
-                            <input type="text" class="form-control" name="preco" id="preco" required>
+                            <input type="text" class="form-control" name="preco" id="preco" value="<?= isset($produto) ? $produto["preco"] : "" ?>" required>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="Quantidade">Quantidade</label>
-                            <input type="number" class="form-control" name="quantidade" id="quantidade" required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="data">Data Cadastro</label>
-                            <input type="text" class="form-control" name="data" id="data" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="Categoria">Categoria</label>
-                            <input type="text" class="form-control" name="categoria" id="categoria" required>
+                            <input type="number" class="form-control" name="quantidade" id="quantidade"  value="<?= isset($produto) ? $produto["quantidade"] : "" ?>" required>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="Descricao">Descrição</label>
                             <textarea class="form-control" name="descricao" id="descricao" cols="30"
-                                rows="10"></textarea>
+                                rows="10"> <?= isset($produto) ? $produto["descricao"] : "" ?></textarea>
                         </div>
                     </div>
-                    <input type="hidden" name="ativo" value="0">
-
-
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Salvar</button>
                         <a href="<?= base_url() ?>produtos" class="btn btn-danger"><i class="fa fa-times"></i>

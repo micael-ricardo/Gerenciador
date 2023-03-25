@@ -20,7 +20,7 @@
     <section class="main">
         <div class="sidebar">
             <h3>Home</h3>
-            <a class="sidebar-active" href="<?= base_url('Usuarios/index') ?>"><i class="fa fa-user"
+            <a href="<?= base_url('Usuarios/index') ?>"><i class="fa fa-user"
                     aria-hidden="true"></i> Usuários</a>
             <a href="<?= base_url('Colaborador/index') ?>"><i class="fa fa-users"></i>
                 Colaboradores</a>
