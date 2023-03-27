@@ -24,57 +24,20 @@ $(document).ready(function () {
         },
         "aaSorting": [[0, 'desc']],
         "aoColumnDefs": [
-            { "sType": "num-html", "aTargets": [0] },
+            { "sType": "num-html", "aTargets": [0] }
         ],
-        "scrollX": true,
         "scrollY": "250px",
         "bFilter": false,
-        "ordering": false
+        "ordering": false,
+        "scrollX": true,
     });
 });
-
-
-
-// função cadastro
-$(document).ready(function () {
-    var $checkbox = $('#cadastrarusuario');
-    $checkbox.click(function () {
-        if ($checkbox.is(':checked')) {
-            $('#login, #email, #senha').attr('required', true);
-        } else {
-            $('#login, #email, #senha').removeAttr('required');
-        }
-    });
-});
-
 
 //Mascara
 $(document).ready(function () {
-    $('#cpf').mask('000.000.000-00');
-    $("#cnpj").mask("99.999.999/9999-99");
+    $('#valor').mask('#.##0,00', {reverse: true});
     $("#telefone").mask("(00) 0000-00009");
     $("#cep").mask("99.999-999");
-});
-
-//Função Tipo_Pessoa
-$(document).ready(function () {
-
-    $('#pessoa_fisica').show();
-    $('#nomes, #cpf').attr('required', true);
-
-    $('input[type="radio"][name="tipo_pessoa"]').on('change', function () {
-        if ($(this).val() == '0') {
-            $('#nomes, #cpf').attr('required', true);
-            $('#pessoa_fisica').show();
-            $('#pessoa_juridica').hide();
-            $('#razao_social, #cnpj').removeAttr('required');
-        } else {
-            $('#razao_social, #cnpj').attr('required', true);
-            $('#pessoa_juridica').show();
-            $('#pessoa_fisica').hide();
-            $('#nomes, #cpf').removeAttr('required');
-        }
-    });
 });
 
 // Buscar Cep

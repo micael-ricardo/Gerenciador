@@ -7,7 +7,7 @@
                 <div class="input-group-append">
                     <a class="btn btn-success" data-toggle="modal" data-target=".modal-passagem"
                         id='cadastropassagem'>Adicionar</a>
-                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Pesquisar...">
+                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Filtrar Pelo Nome:">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
                         <i class="fa fa-search"></i> Pesquisar
                     </button>
@@ -87,7 +87,7 @@
                             <?= $dado['email'] ?>
                         </td>
                         <td>
-                            <?= $dado['datacadastro'] ?>
+                            <?= formatar_data($dado['datacadastro']) ?>
                         </td>
                         <td>
                             <?php if ($dado['status'] == 0): ?>

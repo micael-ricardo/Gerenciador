@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Colaborador extends CI_Controller
+class Pedidos extends CI_Controller
 {
     function __construct()
     {
@@ -13,79 +13,61 @@ class Colaborador extends CI_Controller
     }
     public function index()
     {
-        $this->load->model("model_colaborador");
+        $this->load->model("model_pedidos");
         $this->load->helper(array('form'));
 
         if ($this->input->get('Pesquisa')) {
             return $this->pesquisar();
         }
 
-        $data["colaborador"] = $this->model_colaborador->index();
+        $data["pedidos"] = $this->model_pedidos->index();
         $this->load->view('templates/header');
         $this->load->view('templates/js');
-        $this->load->view('colaborador/index', $data);
+        $this->load->view('pedidos/index', $data);
 
     }
     public function cadastro()
     {
         $this->load->view('templates/header');
         $this->load->view('templates/js');
-        $this->load->view('colaborador/cadastro');
+        $this->load->view('pedidos/cadastro');
     }
 
     public function store()
     {
         if ($this->input->post()) {
 
-            $documento = null;
-            $nome = null;
+            $this->load->model("model_pedidos");
 
             $this->load->helper('RemoveMascara');
             $telefone = RemoveMascara($this->input->post('telefone'));
             $cep = RemoveMascara($this->input->post('cep'));
+            $valor = RemoveMascara($this->input->post('valor'));
 
-            if ($this->input->post('tipo_pessoa') == 1) {
-                $nome =  $this->input->post('razao_social');
-                $documento =  RemoveMascara($this->input->post('cnpj'));
-            }else{
-                $nome =  $this->input->post('nome');
-                $documento =  RemoveMascara($this->input->post('documento'));
-            }
-
-            $data_colaborador = array(
-                'documento' => $documento,
+            $data_pedidos = array(
+                'nome' => $this->input->post('nome'),
                 'telefone' => $telefone,
-                'nome' =>  $nome,
+                'produto' => $this->input->post('produto'),
+                'valor' =>  $valor,
+                'data_retirada' => $this->input->post('data_retirada'),
+                'forma_pagamento' => $this->input->post('forma_pagamento'),
                 'cep' => $cep,
                 'estado' => $this->input->post('estado'),
                 'cidade' => $this->input->post('cidade'),
-                'rua' => $this->input->post('rua'),
-                'tipo_colaborador' => $this->input->post('tipo_colaborador'),
-                'tipo_pessoa' => $this->input->post('tipo_pessoa'),
                 'bairro' => $this->input->post('bairro'),
                 'numero' => $this->input->post('numero'),
+                'rua' => $this->input->post('rua'),
                 'status' => '1',
-                'datacadastro' => date('Y-m-d H:i:s')
+                'datacadastro' => date('Y-m-d H:i:s'),
+                'usuario_id' => $this->session->logged_user['id']
             );
-
-            $data_usuario = null;
-            //Cadastro de Usuario pela tela de colaborador
-            if ($this->input->post('login')) {
-                $data_usuario = array(
-                    'nome' => $this->input->post('nome'),
-                    'login' => $this->input->post('login'),
-                    'email' => $this->input->post('email'),
-                    'senha' => $this->input->post('senha'),
-                    'status' => '1',
-                    'datacadastro' => date('Y-m-d H:i:s')
-                );
-            }
-            $this->load->model("model_colaborador");
-            $this->model_colaborador->cadastrarcolaborador($data_colaborador, $data_usuario);
-
-            redirect("Colaborador");
         }
+
+        $this->model_pedidos->cadastrarpedidos($data_pedidos);
+
+        redirect("pedidos");
     }
+
 
     public function editar($id)
     {
@@ -163,7 +145,7 @@ class Colaborador extends CI_Controller
             $tipo_pessoa = $this->input->get('tipo_pessoa');
         }
 
-        $data['colaborador'] = $this->model_consultar->consultar($pesquisa,$tipo_pessoa, $nome, $documento, $telefone, $cep, $bairro, $rua, $numero, $status, $tipo_colaborador);
+        $data['colaborador'] = $this->model_consultar->consultar($pesquisa, $tipo_pessoa, $nome, $documento, $telefone, $cep, $bairro, $rua, $numero, $status, $tipo_colaborador);
         $formata = json_decode(json_encode($data), true);
         $this->load->helper(array('form'));
         $this->load->view('templates/header');

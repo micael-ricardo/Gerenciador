@@ -48,4 +48,21 @@ class model_consultar extends CI_Model
         return $query->result();
     }
 
+    public function consultarProdutos($pesquisa, $nome, $preco )
+    {
+
+        $filtrorapido = $this->db->escape_str($pesquisa);
+        $this->db->like('nome', $filtrorapido);
+        $nome = $this->db->escape_str($nome);
+        $this->db->like('nome', $nome);
+        $preco = $this->db->escape_str($preco);
+        $this->db->like('preco', $preco);
+        // $email = $this->db->escape_str($email);
+        // $this->db->like('email', $email);
+        // $status = $this->db->escape_str($status);
+        // $this->db->like('status', $status);
+        $query = $this->db->get('produtos');
+        return $query->result();
+    }
+
 }

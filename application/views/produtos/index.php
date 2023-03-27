@@ -1,12 +1,12 @@
 <div class="content">
     <div class="titulo">
-        <h2>Produtos</h2>
+        <h3>Produtos</h3>
         <script src="<?php echo base_url('js/produtos.js'); ?>"></script>
-        <form name="" method="post" autocomplete="off">
+        <form action="<?= base_url() ?>produtos/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
                     <a href="<?= base_url() ?>produtos/cadastro" class="btn btn-success">Adicionar</a>
-                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Pesquisar...">
+                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Filtrar Pelo Nome:">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
                         <i class="fa fa-search"></i> Pesquisar
                     </button>
@@ -77,6 +77,7 @@
                          <th>Descrição</th>
                          <th>Preço</th>
                         <th>Quantidade</th>
+                        <th>Data Cadastro</th>
                         <th>Status</th>
                         <th style="text-align: center">Ação</th>
                     </tr>
@@ -95,6 +96,9 @@
                         </td>
                          <td>
                             <?= $produto['quantidade'] ?>
+                        </td>
+                        <td>
+                            <?= formatar_data($produto['datacadastro']) ?>
                         </td>
                         <td>
                             <?php if ($produto['status'] == 0): ?>

@@ -1,11 +1,11 @@
 <div class="content">
     <div class="titulo">
-        <h3>Colaborador</h3>
-        <script src="<?php echo base_url('js/colaborador.js'); ?>"></script>
-        <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
+        <h3>Pedidos</h3>
+        <script src="<?php echo base_url('js/pedidos.js'); ?>"></script>
+        <form action="<?= base_url() ?>Pedidos/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
-                    <a href="<?= base_url() ?>colaborador/cadastro" class="btn btn-success">Adicionar</a>
+                    <a href="<?= base_url() ?>Pedidos/cadastro" class="btn btn-success">Adicionar</a>
                     <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa"
                         placeholder="Filtrar Pelo Nome:">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
@@ -21,7 +21,7 @@
         </form>
 
         <div class="panel panel-inverse" id="filtro" style=" display: none;">
-            <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
+            <form action="<?= base_url() ?>Pedidos/pesquisar" method="get" autocomplete="off">
                 <div class="form-group col-sm-12" style="margin-top: 10px;">
 
                     <div class="col-sm-3">
@@ -113,16 +113,14 @@
                 </button>
         </div>
         </form>
-
     </div>
-
     <div class='corpo'>
         <div class="tabela-responsive">
             <table id="consultar_usuarios" class="table table-striped">
                 <thead>
                     <tr>
-                    <th style="width: 400px;">Nome</th>
-                        <th>Documento</th>
+                        <th>Nome</th>
+                        <th>Produto</th>
                         <th>Telefone</th>
                         <th>Cep</th>
                         <th>Estado</th>
@@ -130,24 +128,23 @@
                         <th>Bairro</th>
                         <th>Rua</th>
                         <th>Numero</th>
-                        <th>Tipo Colaborador</th>
-                        <th>Tipo Pessoa</th>
+                        <th>Forma Pagamento</th>
+                        <th>Data Retirada</th>
                         <th>Data Cadastro</th>
                         <th>Status</th>
                         <th style="text-align: center;">Ações</th>
                     </tr>
                 </thead>
                 <tr>
-
-                    <?php foreach ($colaborador as $dado): ?>
+                    <?php foreach ($pedidos as $dado): ?>
                         <td>
                             <?= $dado['nome'] ?>
                         </td>
                         <td>
-                            <?= formatar_cpf_cnpj($dado['documento']) ?>
+                            <?= $dado['produto'] ?>
                         </td>
                         <td>
-                            <?= formatar_telefone($dado['telefone'])  ?>
+                            <?= formatar_telefone($dado['telefone']) ?>
                         </td>
                         <td>
                             <?= formatar_cep($dado['cep']) ?>
@@ -168,18 +165,14 @@
                             <?= $dado['numero'] ?>
                         </td>
                         <td>
-                        <?php if ($dado['tipo_colaborador'] == 0): ?>
-                                <span class="btn btn-primary btn-xs">Funcionário</span>
+                            <?php if ($dado['forma_pagamento'] == 'dinheiro'): ?>
+                                <span class="btn btn-primary btn-xs">Dinheiro</span>
                             <?php else: ?>
-                                <span class="btn btn-warning btn-xs">Fornecedor</span>
+                                <span class="btn btn-warning btn-xs">Cartão</span>
                             <?php endif; ?>
                         </td>
                         <td>
-                        <?php if ($dado['tipo_pessoa'] == 0): ?>
-                                <span class="btn btn-primary btn-xs">Fisica</span>
-                            <?php else: ?>
-                                <span class="btn btn-warning btn-xs">Jurídica</span>
-                            <?php endif; ?>
+                            <?= formatar_data($dado['data_retirada']) ?>
                         </td>
                         <td>
                             <?= formatar_data($dado['datacadastro']) ?>
@@ -192,8 +185,8 @@
                             <?php endif; ?>
                         </td>
                         <td style="text-align: center"><a id="remover"
-                                href="<?= base_url() ?>colaborador/delete/<?= $dado['id'] ?>" class="btn btn-danger btn-xs"><i
-                                    class="fa fa-trash"></i></a>
+                                href="<?= base_url() ?>colaborador/delete/<?= $dado['id'] ?>"
+                                class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                             <a href="<?= base_url() ?>colaborador/editar/<?= $dado['id'] ?>" class="btn btn-info btn-xs"><i
                                     class="fa fa-pencil"></i></a>
                         </td>

@@ -19,12 +19,12 @@
     </header>
     <section class="main">
         <div class="sidebar">
-            <h3>Home</h3>
+        <a href="<?= base_url('dashboard/index') ?>">  <h3><i class="fa fa-home" aria-hidden="true"></i> Home</h3> </a>
             <a href="<?= base_url('Usuarios/index') ?>"><i class="fa fa-user"
                     aria-hidden="true"></i> Usuários</a>
             <a href="<?= base_url('Colaborador/index') ?>"><i class="fa fa-users"></i>
                 Colaboradores</a>
             <a href="<?= base_url('Produtos/index') ?>"><i class="fa fa-archive"></i> Produtos</a>
-            <a href="#"><i class="fa fa-file-text" aria-hidden="true"></i> Pedidos</a>
+            <a href="<?= base_url('Pedidos/index') ?>"><i class="fa fa-file-text" aria-hidden="true"></i> Pedidos</a>
             <hr>
         </div>

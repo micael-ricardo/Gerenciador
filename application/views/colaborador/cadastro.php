@@ -33,18 +33,19 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="pessoa_juridica" style="display:none">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Nome">Razão Social:</label>
-                                <input type="text" class="form-control" name="nome" id="razao_social"
+                                <input type="text" class="form-control" name="razao_social" id="razao_social"
                                     value="<?= isset($colaborador['nome']) ? $colaborador['nome'] : '' ?>">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Documento">CNPJ:</label>
-                                <input type="text" class="form-control" name="documento" id="cnpj"
+                                <input type="text" class="form-control" name="cnpj" id="cnpj"
                                     value="<?= isset($colaborador['documento']) ? $colaborador['documento'] : '' ?>">
                             </div>
                         </div>
@@ -65,16 +66,31 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="Rua">Rua:</label>
-                            <input type="text" class="form-control" name="rua" id="rua"
-                                value="<?= isset($colaborador['rua']) ? $colaborador['rua'] : '' ?>" required>
+                            <label for="Estado">Estado:</label>
+                            <input type="text" class="form-control" name="estado" id="estado"
+                                value="<?= isset($colaborador['estado']) ? $colaborador['estado'] : '' ?>" required>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="Cidadde">Cidade:</label>
+                            <input type="text" class="form-control" name="cidade" id="cidade"
+                                value="<?= isset($colaborador['cidade']) ? $colaborador['cidade'] : '' ?>" required>
+                        </div>
+                    </div>
+                  
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Bairro">Bairro:</label>
                             <input type="text" class="form-control" name="bairro" id="bairro"
                                 value="<?= isset($colaborador['bairro']) ? $colaborador['bairro'] : '' ?>" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="Rua">Rua:</label>
+                            <input type="text" class="form-control" name="rua" id="rua"
+                                value="<?= isset($colaborador['rua']) ? $colaborador['rua'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">

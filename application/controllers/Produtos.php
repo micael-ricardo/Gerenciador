@@ -80,4 +80,29 @@ class Produtos extends CI_Controller
 		$this->model_produtos->inativar($id);
 
 	}
+
+	public function pesquisar($pesquisa = null, $nome = null, $preco = null)
+    {
+        $this->load->model("model_consultar");
+
+        if (!$pesquisa) {
+            $pesquisa = $this->input->get('Pesquisa');
+        }
+        if (!$nome) {
+            $nome = $this->input->get('nome');
+        }
+		if (!$preco) {
+            $preco = $this->input->get('preco');
+        }
+
+      
+        $data['produtos'] = $this->model_consultar->consultarProdutos($pesquisa, $nome, $preco);
+        $formata = json_decode(json_encode($data), true);
+        $this->load->helper(array('form'));
+        $this->load->view('templates/header');
+        $this->load->view('templates/js');
+        $this->load->view('produtos/index', $formata);
+
+    }
+
 }

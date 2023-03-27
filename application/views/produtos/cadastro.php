@@ -2,7 +2,7 @@
     <div class="titulo">
         <h2>Cadastro Produtos</h2>
     </div>
-
+    <script src="<?php echo base_url('js/produtos.js'); ?>"></script>
     <div class='corpo'>
         <div class="col-md-12">
             <?php if (isset($produto)): ?>
