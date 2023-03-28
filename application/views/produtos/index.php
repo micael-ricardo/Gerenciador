@@ -6,7 +6,8 @@
             <div class="input-group mb-3">
                 <div class="input-group-append">
                     <a href="<?= base_url() ?>produtos/cadastro" class="btn btn-success">Adicionar</a>
-                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Filtrar Pelo Nome:">
+                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa"
+                        placeholder="Filtrar Pelo Nome:">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
                         <i class="fa fa-search"></i> Pesquisar
                     </button>
@@ -38,7 +39,8 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Quantidade:</label>
-                            <input type="text" style="height: 30px;" class="form-control" name="quantidade" id="quantidade" />
+                            <input type="text" style="height: 30px;" class="form-control" name="quantidade"
+                                id="quantidade" />
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -56,7 +58,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Descrição:</label>
-                            <input type="text" style="height: 30px;" class="form-control" name="descricao" id="descricao" />
+                            <input type="text" style="height: 30px;" class="form-control" name="descricao"
+                                id="descricao" />
                         </div>
                     </div>
                 </div>
@@ -73,10 +76,12 @@
             <table id="consultar_usuarios" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
-                      <th>Nome</th>
-                         <th>Descrição</th>
-                         <th>Preço</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
                         <th>Quantidade</th>
+                        <th>Descrição</th>
+                        <th>Fornecedor</th>
+                        <th>Telefone</th>
                         <th>Data Cadastro</th>
                         <th>Status</th>
                         <th style="text-align: center">Ação</th>
@@ -85,23 +90,30 @@
                 <tr>
                     <?php foreach ($produtos as $produto): ?>
 
-                         <td>
-                            <?= $produto['nome'] ?>
+                        <td>
+                            <?= $produto['produto'] ?>
                         </td>
-                       <td>
-                            <?= $produto['descricao'] ?>
-                        </td>
-                       <td>
+                        <td>
                             <?= reais($produto['preco']) ?>
                         </td>
-                         <td>
+                        <td>
                             <?= $produto['quantidade'] ?>
                         </td>
+                        <td>
+                            <?= $produto['descricao'] ?>
+                        </td>
+                        <td>
+                            <?= $produto['colaborador'] ?>
+                        </td>
+                        <td>
+                            <?= $produto['telefone'] ?>
+                        </td>
+                      
                         <td>
                             <?= formatar_data($produto['datacadastro']) ?>
                         </td>
                         <td>
-                            <?php if ($produto['status'] == 0): ?>
+                            <?php if ($produto['status_produto'] == 0): ?>
                                 <span class="btn btn-danger btn-xs">Inativo</span>
                             <?php else: ?>
                                 <span class="btn btn-success btn-xs">Ativo</span>

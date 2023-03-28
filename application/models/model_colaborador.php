@@ -10,7 +10,7 @@ class model_colaborador extends CI_Model
   public function cadastrarcolaborador($data_colaborador, $data_usuario = null)
   {
     $this->db->insert('colaboradores', $data_colaborador);
-//Insert de Usuario
+    //Insert de Usuario
     if ($data_usuario) {
       $this->db->insert('usuarios', $data_usuario);
       $id_usuario = $this->db->insert_id();
@@ -32,11 +32,20 @@ class model_colaborador extends CI_Model
   }
 
   public function inativar($id)
-{
+  {
     $data = array('status' => '0');
     $this->db->where('id', $id);
     $this->db->update('colaboradores', $data);
-}
+  }
+
+  public function fornecedor_ativo()
+  {
+    $this->db->select('id, nome');
+    $this->db->where('status', '1');
+    $this->db->where('tipo_colaborador', '1');
+    $query = $this->db->get('colaboradores');
+    return $query->result_array();
+  }
 
 }
 ?>

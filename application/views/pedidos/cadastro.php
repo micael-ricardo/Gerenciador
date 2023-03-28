@@ -11,6 +11,7 @@
                 <?php else: ?>
                     <form action="<?= base_url() ?>pedidos/store" method="post">
                     <?php endif; ?>
+                 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Nome">Nome:</label>
@@ -20,24 +21,9 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="Produto">Produto:</label>
-                            <input type="text" class="form-control" name="produto" id="produto"
-                                value="<?= isset($pedidos['produto']) ? $pedidos['produto'] : '' ?>" required>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
                             <label for="Telefone">Telefone:</label>
                             <input type="text" class="form-control" name="telefone" id="telefone"
                                 value="<?= isset($pedidos['telefone']) ? $pedidos['telefone'] : '' ?>" required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="Valor">Valor:</label>
-                            <input type="text" class="form-control" name="valor" id="valor"
-                                value="<?= isset($pedidos['valor']) ? $pedidos['valor'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -83,14 +69,55 @@
                                 value="<?= isset($pedidos['numero']) ? $pedidos['numero'] : '' ?>" required>
                         </div>
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="DataRetirada">Data Retirada:</label>
-                            <input type="datetime-local" class="form-control" name="data_retirada" id="data_retirada"
-                                value="<?= isset($pedidos['data_retirada']) ? $pedidos['data_retirada'] : '' ?>"
-                                required>
+                            <label for="Situacao">Produto</label>
+                            <select class="form-control select2" name="produto" id="produto">
+                                <option value="">Selecione</option>
+                                <?php if (isset($produto)) {  ?>
+                                    <?php foreach ($produto as $value) { ?>
+                                        <?php $selected = isset($_POST['produto']) && in_array($key, $_POST['produto']) ? ' selected ' : ''; ?>
+                                        <option   <?= $selected; ?> data-value="<?php echo $value['preco']; ?>" data-quantidade="<?php echo $value['quantidade']; ?>"  data-fornecedor="<?php echo $value['id_fornecedor']; ?>" value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
+                                        <?php } ?>
+                                <?php } ?>
+                            </select>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="Quantidade">Quantidade</label>
+                            <input type="number" class="form-control" name="quantidade" id="quantidade"  required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="Situacao">Fornecedor</label>
+                            <select class="form-control select2" name="fornecedor" id="fornecedor">
+                                <option value="">Selecione</option>
+                                <?php if (isset($fornecedor)) {  ?>
+                                    <?php foreach ($fornecedor as $value) { ?>
+                                        <option  value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>        
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="Valor">Valor:</label>
+                            <input type="text" class="form-control" name="valor" id="valor"
+                                value="<?= isset($pedidos['valor']) ? $pedidos['valor'] : '' ?>" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="valor_total">Total:</label>
+                            <input type="text" class="form-control" name="valor_total" id="valor_total"
+                                value="<?= isset($pedidos['valor_total']) ? $pedidos['valor_total'] : '' ?>" required>
+                        </div>
+                    </div>
+                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="FormaPagamento">Forma de Pagamento:</label>
@@ -104,8 +131,17 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="DataRetirada">Data Retirada:</label>
+                            <input type="datetime-local" class="form-control" name="data_retirada" id="data_retirada"
+                                value="<?= isset($pedidos['data_retirada']) ? $pedidos['data_retirada'] : '' ?>"
+                                required>
+                        </div>
+                    </div>
+          
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Salvar</button>
                         <a href="<?= base_url() ?>pedidos" class="btn btn-danger"><i class="fa fa-times"></i>
                             Cancelar</a>

@@ -116,11 +116,12 @@
     </div>
     <div class='corpo'>
         <div class="tabela-responsive">
-            <table id="consultar_usuarios" class="table table-striped">
+            <table id="consultar_usuarios" class="table table-striped" style="width:100%;">
                 <thead>
                     <tr>
                         <th>Nome</th>
                         <th>Produto</th>
+                        <th>Valor</th>
                         <th>Telefone</th>
                         <th>Cep</th>
                         <th>Estado</th>
@@ -142,6 +143,9 @@
                         </td>
                         <td>
                             <?= $dado['produto'] ?>
+                        </td>
+                        <td>
+                            <?= $dado['valor'] ?>
                         </td>
                         <td>
                             <?= formatar_telefone($dado['telefone']) ?>
@@ -185,9 +189,9 @@
                             <?php endif; ?>
                         </td>
                         <td style="text-align: center"><a id="remover"
-                                href="<?= base_url() ?>colaborador/delete/<?= $dado['id'] ?>"
+                                href="<?= base_url() ?>Pedidos/delete/<?= $dado['id'] ?>"
                                 class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
-                            <a href="<?= base_url() ?>colaborador/editar/<?= $dado['id'] ?>" class="btn btn-info btn-xs"><i
+                            <a href="<?= base_url() ?>Pedidos/editar/<?= $dado['id'] ?>" class="btn btn-info btn-xs"><i
                                     class="fa fa-pencil"></i></a>
                         </td>
                     </tr>

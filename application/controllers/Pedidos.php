@@ -20,7 +20,7 @@ class Pedidos extends CI_Controller
             return $this->pesquisar();
         }
 
-        $data["pedidos"] = $this->model_pedidos->index();
+        $data["pedidos"] = $this->model_pedidos->listar();
         $this->load->view('templates/header');
         $this->load->view('templates/js');
         $this->load->view('pedidos/index', $data);
@@ -28,26 +28,30 @@ class Pedidos extends CI_Controller
     }
     public function cadastro()
     {
+        $this->load->model('model_produtos');
+        $data['produto'] = $this->model_produtos->produto_ativo();
+        $this->load->model('model_colaborador');
+		$data['fornecedor'] = $this->model_colaborador->fornecedor_ativo();
         $this->load->view('templates/header');
         $this->load->view('templates/js');
-        $this->load->view('pedidos/cadastro');
+        $this->load->view('pedidos/cadastro', $data);
+        
+
     }
 
     public function store()
     {
         if ($this->input->post()) {
-
             $this->load->model("model_pedidos");
 
             $this->load->helper('RemoveMascara');
             $telefone = RemoveMascara($this->input->post('telefone'));
             $cep = RemoveMascara($this->input->post('cep'));
-            $valor = RemoveMascara($this->input->post('valor'));
+            $valor = str_replace('.', '',  $this->input->post('valor'));
 
             $data_pedidos = array(
                 'nome' => $this->input->post('nome'),
                 'telefone' => $telefone,
-                'produto' => $this->input->post('produto'),
                 'valor' =>  $valor,
                 'data_retirada' => $this->input->post('data_retirada'),
                 'forma_pagamento' => $this->input->post('forma_pagamento'),
@@ -59,7 +63,9 @@ class Pedidos extends CI_Controller
                 'rua' => $this->input->post('rua'),
                 'status' => '1',
                 'datacadastro' => date('Y-m-d H:i:s'),
-                'usuario_id' => $this->session->logged_user['id']
+                'id_fornecedor' => $this->input->post('fornecedor'),
+                'id_produto' => $this->input->post('produto'),
+                'id_usuario' => $this->session->logged_user['id']
             );
         }
 
@@ -71,17 +77,17 @@ class Pedidos extends CI_Controller
 
     public function editar($id)
     {
-        $this->load->model("model_colaborador");
-        $data['colaborador'] = $this->model_colaborador->show($id);
+        $this->load->model("model_pedidos");
+        $data['pedidos'] = $this->model_pedidos->show($id);
         $this->load->view('templates/header', $data);
         $this->load->view('templates/js', $data);
-        $this->load->view('colaborador/cadastro', $data);
+        $this->load->view('pedidos/cadastro', $data);
     }
 
     public function update($id)
     {
-        $this->load->model("model_colaborador");
-        $colaborador = array(
+        $this->load->model("model_pedidos");
+        $pedidos = array(
             'nome' => $this->input->post('nome'),
             'documento' => $this->input->post('documento'),
             'telefone' => $this->input->post('telefone'),
@@ -92,17 +98,17 @@ class Pedidos extends CI_Controller
             'tipo_colaborador' => $this->input->post('tipo_colaborador'),
         );
 
-        $this->model_colaborador->update($id, $colaborador);
+        $this->model_pedidos->update($id, $pedidos);
 
-        redirect("Colaborador");
+        redirect("Pedidos");
     }
 
     public function delete($id)
     {
-        $this->load->model('model_colaborador');
-        $this->model_colaborador->inativar($id);
+        $this->load->model('model_pedidos');
+        $this->model_pedidos->inativar($id);
 
-        redirect('Colaborador');
+        redirect('Pedidos');
     }
 
     public function pesquisar($tipo_pessoa = null, $pesquisa = null, $nome = null, $documento = null, $telefone = null, $cep = null, $bairro = null, $rua = null, $numero = null, $status = null, $tipo_colaborador = null)

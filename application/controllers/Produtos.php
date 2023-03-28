@@ -25,24 +25,28 @@ class Produtos extends CI_Controller
 
 	public function cadastro()
 	{
+		$this->load->model('model_colaborador');
+		$data['fornecedor'] = $this->model_colaborador->fornecedor_ativo();
 		$this->load->view('templates/header');
 		$this->load->view('templates/js');
-		$this->load->view('produtos/cadastro');
+		$this->load->view('produtos/cadastro', $data);
 	}
 
 
 	public function store()
 	{
+		$preco =  str_replace('.', '',  $this->input->post('preco'));
 
 		if ($this->input->post()) {
 			$data_produto = array(
 				'nome' => $this->input->post('nome'),
-				'preco' => $this->input->post('preco'),
+				'preco' => $preco,
 				'quantidade' => $this->input->post('quantidade'),
 				'descricao' => $this->input->post('descricao'),
 				'status' => '1',
 				'datacadastro' => date('Y-m-d H:i:s'),
-				'usuario_id' => $this->session->logged_user['id']
+				'id_fornecedor' => $this->input->post('fornecedor'),
+				'id_usuario' => $this->session->logged_user['id']
 			);
 		}
 
@@ -56,19 +60,36 @@ class Produtos extends CI_Controller
 
 	public function editar($id)
 	{
+
 		$this->load->model("model_produtos");
 		$data['produto'] = $this->model_produtos->show($id);
+
+		$this->load->model('model_colaborador');
+		$data['fornecedor'] = $this->model_colaborador->fornecedor_ativo();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/js', $data);
 		$this->load->view('produtos/cadastro', $data);
 
-	} 
+	}
 
 	public function update($id)
 	{
+		$preco =  str_replace('.', '',  $this->input->post('preco'));
+	
+	
+
 		$this->load->model("model_produtos");
-		$produto = $_POST;
+		$produto = array(
+			'nome' => $this->input->post('nome'),
+			'preco' => $preco,
+			'quantidade' => $this->input->post('quantidade'),
+			'descricao' => $this->input->post('descricao'),
+			'status' => '1',
+			'datacadastro' => date('Y-m-d H:i:s'),
+			'id_fornecedor' => $this->input->post('fornecedor'),
+			'id_usuario' => $this->session->logged_user['id']
+		);
 		$this->model_produtos->update($id, $produto);
 		redirect("produtos");
 
@@ -78,31 +99,31 @@ class Produtos extends CI_Controller
 	{
 		$this->load->model("model_produtos");
 		$this->model_produtos->inativar($id);
-
+		redirect("produtos");
 	}
 
 	public function pesquisar($pesquisa = null, $nome = null, $preco = null)
-    {
-        $this->load->model("model_consultar");
+	{
+		$this->load->model("model_consultar");
 
-        if (!$pesquisa) {
-            $pesquisa = $this->input->get('Pesquisa');
-        }
-        if (!$nome) {
-            $nome = $this->input->get('nome');
-        }
+		if (!$pesquisa) {
+			$pesquisa = $this->input->get('Pesquisa');
+		}
+		if (!$nome) {
+			$nome = $this->input->get('nome');
+		}
 		if (!$preco) {
-            $preco = $this->input->get('preco');
-        }
+			$preco = $this->input->get('preco');
+		}
 
-      
-        $data['produtos'] = $this->model_consultar->consultarProdutos($pesquisa, $nome, $preco);
-        $formata = json_decode(json_encode($data), true);
-        $this->load->helper(array('form'));
-        $this->load->view('templates/header');
-        $this->load->view('templates/js');
-        $this->load->view('produtos/index', $formata);
 
-    }
+		$data['produtos'] = $this->model_consultar->consultarProdutos($pesquisa, $nome, $preco);
+		$formata = json_decode(json_encode($data), true);
+		$this->load->helper(array('form'));
+		$this->load->view('templates/header');
+		$this->load->view('templates/js');
+		$this->load->view('produtos/index', $formata);
+
+	}
 
 }

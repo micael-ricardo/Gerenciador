@@ -72,7 +72,7 @@ class Colaborador extends CI_Controller
             //Cadastro de Usuario pela tela de colaborador
             if ($this->input->post('login')) {
                 $data_usuario = array(
-                    'nome' => $this->input->post('nome'),
+                    'nome' =>  $nome,
                     'login' => $this->input->post('login'),
                     'email' => $this->input->post('email'),
                     'senha' => $this->input->post('senha'),
