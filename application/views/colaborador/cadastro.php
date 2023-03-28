@@ -78,7 +78,7 @@
                                 value="<?= isset($colaborador['cidade']) ? $colaborador['cidade'] : '' ?>" required>
                         </div>
                     </div>
-                  
+
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Bairro">Bairro:</label>
@@ -124,24 +124,37 @@
                             </div>
                         </div>
                         <div id="filtro" style="display: none;">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="Login">Login:</label>
                                     <input type="text" class="form-control" name="login" id="login">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="Email">E-mail:</label>
                                     <input type="text" class="form-control" name="email" id="email">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="Senha">Senha:</label>
                                     <input type="password" class="form-control" name="senha" id="senha">
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="ConfirmarSenha">Confirmar Senha:</label>
+                                    <input type="password" class="form-control" name="corfirma" id="corfirma">
+                                </div>
+                            </div>
+
+                            <span class="input-group-text" id="olho">
+                                <i class="fa fa-eye"></i>
+
+                           
+
                         </div>
                     <?php endif; ?>
                     <div class="col-md-6">
@@ -154,3 +167,23 @@
         </form>
     </div>
 </div>
+
+<style>
+    .input-group-text {
+        cursor: pointer;
+        position: absolute;
+        left: 870px;
+        top: 81%;
+        transform: translateY(20%);
+        color: black;
+        border: none;
+    }
+
+
+    #olho {
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px;
+    }
+</style>

@@ -48,11 +48,13 @@ class Pedidos extends CI_Controller
             $telefone = RemoveMascara($this->input->post('telefone'));
             $cep = RemoveMascara($this->input->post('cep'));
             $valor = str_replace('.', '',  $this->input->post('valor'));
+            $valor_total = str_replace('.', '',  $this->input->post('valor_total'));
 
             $data_pedidos = array(
                 'nome' => $this->input->post('nome'),
                 'telefone' => $telefone,
                 'valor' =>  $valor,
+                'valor_total' =>  $valor_total,
                 'data_retirada' => $this->input->post('data_retirada'),
                 'forma_pagamento' => $this->input->post('forma_pagamento'),
                 'cep' => $cep,

@@ -122,6 +122,7 @@
                         <th>Nome</th>
                         <th>Produto</th>
                         <th>Valor</th>
+                        <th>Valor Total</th>
                         <th>Telefone</th>
                         <th>Cep</th>
                         <th>Estado</th>
@@ -139,13 +140,16 @@
                 <tr>
                     <?php foreach ($pedidos as $dado): ?>
                         <td>
+                            <?= $dado['nome_cliente'] ?>
+                        </td>
+                        <td>
                             <?= $dado['nome'] ?>
                         </td>
                         <td>
-                            <?= $dado['produto'] ?>
+                            <?= $dado['valor'] ?>
                         </td>
                         <td>
-                            <?= $dado['valor'] ?>
+                            <?= $dado['valor_total'] ?>
                         </td>
                         <td>
                             <?= formatar_telefone($dado['telefone']) ?>
