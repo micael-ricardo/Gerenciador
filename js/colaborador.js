@@ -35,14 +35,14 @@ $(document).ready(function () {
 
 
 
-// função cadastro
+// função cadastro usuarios
 $(document).ready(function () {
     var $checkbox = $('#cadastrarusuario');
     $checkbox.click(function () {
         if ($checkbox.is(':checked')) {
-            $('#login, #email, #senha').attr('required', true);
+            $('#login, #email, #senha, #confirma').attr('required', true);
         } else {
-            $('#login, #email, #senha').removeAttr('required');
+            $('#login, #email, #senha, #confirma').removeAttr('required');
         }
     });
 });

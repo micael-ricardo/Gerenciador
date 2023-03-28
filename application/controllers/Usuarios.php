@@ -16,7 +16,7 @@ class Usuarios extends CI_Controller
     {
         $this->load->model("model_usuario");
         $this->load->helper(array('form'));
-     
+
         if ($this->input->get('Pesquisa')) {
             return $this->pesquisar();
         }
@@ -36,27 +36,28 @@ class Usuarios extends CI_Controller
 
     public function store()
     {
-            $this->load->model("model_usuario");
+        $this->load->model("model_usuario");
 
-            $nome = $this->input->post('nome');
-            $login = $this->input->post('login');
-            $email = $this->input->post('email');
-            $senha = $this->input->post('senha');
-            $confirmarSenha = $this->input->post('confirma');
-            
-            // verifica se as senhas coincidem
-            if ($senha != $confirmarSenha) {
-                $this->session->set_flashdata('error', 'As senhas não coincidem!');
-                redirect('Usuarios/cadastro');
-            }
-            
-            $data = array(
-              'nome' => $nome,
-              'login' => $login,
-              'email' => $email,
-              'senha' => password_hash($senha, PASSWORD_DEFAULT),
-              'datacadastro' => date('Y-m-d H:i:s')
-            );        
+        $nome = $this->input->post('nome');
+        $login = $this->input->post('login');
+        $email = $this->input->post('email');
+        $senha = $this->input->post('senha');
+        $confirmarSenha = $this->input->post('confirma');
+
+        // verifica se as senhas coincidem
+        if ($senha != $confirmarSenha) {
+            $this->session->set_flashdata('error', 'As senhas não coincidem!');
+            redirect('Usuarios/cadastro');
+        }
+
+        $data = array(
+            'nome' => $nome,
+            'login' => $login,
+            'email' => $email,
+            'senha' => password_hash($senha, PASSWORD_DEFAULT),
+            'status' => '1',
+            'datacadastro' => date('Y-m-d H:i:s')
+        );
 
 
         $this->model_usuario->cadastrarusuarios($data);
@@ -65,17 +66,17 @@ class Usuarios extends CI_Controller
     }
 
 
-//     public function editar($id)
-// {
-//     $this->load->model("model_usuarios");
-//     $data['usuario'] = $this->model_usuarios->getUsuarioPorId($id);
-//     $this->load->view('templates/header', $data);
-//     $this->load->view('templates/js', $data);
-//     $this->load->view('usuarios/cadastro', $data);
-// }
+    public function editar($id)
+    {
+        $this->load->model("model_usuario");
+        $data['usuario'] = $this->model_usuario->show($id);
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/js', $data);
+        $this->load->view('usuario/cadastro', $data);
+    }
 
 
-    public function pesquisar($pesquisa = null,$nome = null, $login = null, $email = null, $status = null)
+    public function pesquisar($pesquisa = null, $nome = null, $login = null, $email = null, $status = null)
     {
         $this->load->model("model_consultar");
 
@@ -94,8 +95,8 @@ class Usuarios extends CI_Controller
         if (!$status) {
             $status = $this->input->get('status');
         }
-      
-        $data['dados'] = $this->model_consultar->consultarUsuario($pesquisa, $nome, $login,$email,$status);
+
+        $data['dados'] = $this->model_consultar->consultarUsuario($pesquisa, $nome, $login, $email, $status);
         $formata = json_decode(json_encode($data), true);
         $this->load->helper(array('form'));
         $this->load->view('templates/header');
@@ -108,7 +109,7 @@ class Usuarios extends CI_Controller
     {
 
         $id = $this->input->post('id');
-       
+
         $this->load->model('model_usuario');
         $this->model_usuario->inativar($id);
 
@@ -116,4 +117,3 @@ class Usuarios extends CI_Controller
     }
 
 }
-

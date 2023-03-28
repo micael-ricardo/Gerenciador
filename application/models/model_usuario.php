@@ -15,6 +15,11 @@ class model_usuario extends CI_Model
     
   }
 
+  public function show($id)
+  {
+    return $this->db->get_where('usuarios', array("id" => $id))->row_array();
+  }
+
   public function inativar($id)
   {
       $data = array('status' => '0');

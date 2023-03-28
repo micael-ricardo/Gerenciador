@@ -34,6 +34,29 @@ $(document).ready(function () {
 });
 
 
+$(document).ready(function () {
+    var $checkbox = $('#alterarSenha');
+    $checkbox.click(function () {
+        if ($checkbox.is(':checked')) {
+            $('#senha, #confirma').attr('required', true);
+        } else {
+            $('##senha, #confirma').removeAttr('required');
+        }
+    });
+});
+
+// Enchergar senha
+$(document).ready(function(){
+    $( "#olho" ).mousedown(function() {
+        $("#senha").attr("type", "text");
+        $("#olho i").removeClass("fa-eye").addClass("fa-eye-slash");
+      });    
+      $( "#olho" ).mouseup(function() {
+        $("#senha").attr("type", "password");
+        $("#olho i").removeClass("fa-eye-slash").addClass("fa-eye");
+      });
+  });
+
 // Modal
 
 $(document).ready(function () {
@@ -65,7 +88,6 @@ $(document).on("click", ".excluir-usuario", function(e) {
     $('#modal').show();
 });
 
-
 $(document).on("submit", "#confirmar-exclusao", function(e) {
     e.preventDefault();
     let form = $(this);
@@ -74,7 +96,7 @@ $(document).on("submit", "#confirmar-exclusao", function(e) {
         url: excluirUrl,
         data: form.serialize(),
         success: function() {
-            alert("Usuário excluído com sucesso!");
+            alert("Usuário inativo com sucesso!");
             $('#modal').hide();
             location.reload();
         },
