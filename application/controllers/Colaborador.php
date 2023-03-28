@@ -70,6 +70,7 @@ class Colaborador extends CI_Controller
 
             $data_usuario = null;
             //Cadastro de Usuario pela tela de colaborador
+            
             if ($this->input->post('login')) {
                 $data_usuario = array(
                     'nome' =>  $nome,

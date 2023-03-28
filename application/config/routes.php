@@ -53,5 +53,4 @@ $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['produtos'] = "produtos";
-$route['paineldecontrole'] = "dashboard";
+$route['excluir'] = 'Usuarios/delete';

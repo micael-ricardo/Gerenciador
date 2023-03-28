@@ -27,6 +27,54 @@ class Usuarios extends CI_Controller
 
     }
 
+    public function cadastro()
+    {
+        $this->load->view('templates/header');
+        $this->load->view('templates/js');
+        $this->load->view('usuario/cadastro');
+    }
+
+    public function store()
+    {
+            $this->load->model("model_usuario");
+
+            $nome = $this->input->post('nome');
+            $login = $this->input->post('login');
+            $email = $this->input->post('email');
+            $senha = $this->input->post('senha');
+            $confirmarSenha = $this->input->post('confirma');
+            
+            // verifica se as senhas coincidem
+            if ($senha != $confirmarSenha) {
+                $this->session->set_flashdata('error', 'As senhas não coincidem!');
+                redirect('Usuarios/cadastro');
+            }
+            
+            $data = array(
+              'nome' => $nome,
+              'login' => $login,
+              'email' => $email,
+              'senha' => password_hash($senha, PASSWORD_DEFAULT),
+              'datacadastro' => date('Y-m-d H:i:s')
+            );        
+
+
+        $this->model_usuario->cadastrarusuarios($data);
+
+        redirect("Usuarios");
+    }
+
+
+//     public function editar($id)
+// {
+//     $this->load->model("model_usuarios");
+//     $data['usuario'] = $this->model_usuarios->getUsuarioPorId($id);
+//     $this->load->view('templates/header', $data);
+//     $this->load->view('templates/js', $data);
+//     $this->load->view('usuarios/cadastro', $data);
+// }
+
+
     public function pesquisar($pesquisa = null,$nome = null, $login = null, $email = null, $status = null)
     {
         $this->load->model("model_consultar");
@@ -56,8 +104,11 @@ class Usuarios extends CI_Controller
 
     }
 
-    public function delete($id)
+    public function delete()
     {
+
+        $id = $this->input->post('id');
+       
         $this->load->model('model_usuario');
         $this->model_usuario->inativar($id);
 

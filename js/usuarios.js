@@ -33,3 +33,56 @@ $(document).ready(function () {
     });
 });
 
+
+// Modal
+
+$(document).ready(function () {
+   
+    var modal = $("#modal");
+    var fecharModal = $(".close");
+
+
+    //fecha o modal
+    fecharModal.click(function () {
+        modal.hide();
+    });
+
+    // Quando o usuário clicar fora do modal, feche-o
+    $(window).click(function (event) {
+        if (event.target == modal[0]) {
+            modal.hide();
+        }
+    });
+});
+
+
+$(document).on("click", ".excluir-usuario", function(e) {
+    e.preventDefault();
+    let id = $(this).data('id');
+    let nome = $(this).data('nome');
+    $('#confirmar-exclusao input[name="id"]').val(id);
+    $('#nome-usuario').text(nome);
+    $('#modal').show();
+});
+
+
+$(document).on("submit", "#confirmar-exclusao", function(e) {
+    e.preventDefault();
+    let form = $(this);
+    $.ajax({
+        type: "POST",
+        url: excluirUrl,
+        data: form.serialize(),
+        success: function() {
+            alert("Usuário excluído com sucesso!");
+            $('#modal').hide();
+            location.reload();
+        },
+        error: function() {
+            alert("Ocorreu um erro ao excluir o usuário.");
+        }
+    });
+});
+
+
+

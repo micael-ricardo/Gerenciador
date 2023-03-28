@@ -2,12 +2,17 @@
     <div class="titulo">
         <h3>Usuários</h3>
         <script src="<?php echo base_url('js/usuarios.js'); ?>"></script>
+       <!-- No ajax não estava reconhecendo o caminho tive que fazer esse ajuste tecnico    -->
+       <script>
+            var excluirUrl = "<?php echo base_url('excluir'); ?>";
+        </script>
+
         <form action="<?= base_url() ?>usuarios/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
-                    <a class="btn btn-success" data-toggle="modal" data-target=".modal-passagem"
-                        id='cadastropassagem'>Adicionar</a>
-                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa" placeholder="Filtrar Pelo Nome:">
+                <a href="<?= base_url() ?>Usuarios/cadastro" class="btn btn-success">Adicionar</a>
+                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa"
+                        placeholder="Filtrar Pelo Nome:">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
                         <i class="fa fa-search"></i> Pesquisar
                     </button>
@@ -28,7 +33,7 @@
                             <input type="text" style="height: 30px;" class="form-control" name="nome" id="nome" />
                         </div>
                     </div>
-                     <div class="col-sm-3">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label>Login:</label>
                             <input type="text" style="height: 30px;" class="form-control" name="login" id="login" />
@@ -58,10 +63,21 @@
                 </button>
         </div>
         </form>
-
     </div>
-
     <div class='corpo'>
+<!-- Modal de exluir    -->
+    <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h5>Certeza que deseja inativar: <span id="nome-usuario"></span>?</h5>
+        <form id="confirmar-exclusao" method="POST" action="<?= base_url() ?>Usuarios/delete">
+            <input type="hidden" name="id">
+            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Confirmar</button>
+            <a href="<?= base_url() ?>Usuarios" type="button" class="btn btn-primary"><i class="fa fa-times"></i> Cancelar</a>
+        </form>
+    </div>
+</div>
+
         <div class="tabela-responsive">
             <table id="consultar_usuarios" class="table table-striped" style="width:100%">
                 <thead>
@@ -96,9 +112,10 @@
                                 <span class="btn btn-success btn-xs">Ativo</span>
                             <?php endif; ?>
                         </td>
-                        <td style="text-align: center"><a id="remover"
-                                href="<?= base_url() ?>usuarios/delete/<?= $dado['id'] ?>" class="btn btn-danger btn-xs"><i
-                                    class="fa fa-trash"></i></a>
+                        <td style="text-align: center">
+                            <a id="abrir-modal" href="#" class="btn btn-danger btn-xs excluir-usuario" data-nome="<?= $dado['nome'] ?>"
+                                data-id="<?= $dado['id'] ?>"><i class="fa fa-trash"></i></a>
+
                             <a href="<?= base_url() ?>usuarios/editar/<?= $dado['id'] ?>" class="btn btn-info btn-xs"><i
                                     class="fa fa-pencil"></i></a>
                         </td>

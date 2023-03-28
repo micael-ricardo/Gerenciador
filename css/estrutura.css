@@ -105,16 +105,18 @@ header {
     height: 65%;
 }
 
-.input-group-text {
+/* Css para visualizar senha  */
+
+  
+  .input-group-text {
     cursor: pointer;
     position: absolute;
-    left: 870px;
-    top: 81%;
-    transform: translateY(20%);
+    right: 28%; 
+    top: 84%;
+    transform: translateY(-50%);
     color: black;
     border: none;
-}
-
+  }
 
 #olho {
     cursor: pointer;
@@ -122,4 +124,16 @@ header {
     background-position: center;
     background-size: 16px;
 }
+
+.input-group-text-usuario {
+    cursor: pointer;
+    position: absolute;
+    right: 68%; 
+    top: 68%;
+    transform: translateY(20%);
+    color: black;
+    border: none;
+}
+
+
 

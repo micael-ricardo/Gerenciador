@@ -21,7 +21,8 @@ class Login extends CI_Controller
 			$this->session->set_userdata("logged_user", $user);
 			redirect("Dashboard");
 		}else{
-			redirect("login");
+			  $this->session->set_flashdata('error', 'Login ou Senha incorreto!');
+                redirect('login');
 		}
 
 

@@ -11,8 +11,6 @@
                 <?php else: ?>
                     <form action="<?= base_url() ?>colaborador/store" method="post">
                     <?php endif; ?>
-
-
                     <div class="col-md-12" style="margin-top: 10px;margin-bottom: 15px;">
                         <input type="radio" name="tipo_pessoa" value="0" <?php echo (!isset($colaborador) || $colaborador['tipo_pessoa'] == 0) ? 'checked' : ''; ?> <?php echo isset($colaborador) ? 'disabled' : ''; ?>>Pessoa Fisica
                         <input type="radio" name="tipo_pessoa" value="1" <?php echo isset($colaborador) && $colaborador['tipo_pessoa'] == 1 ? 'checked' : ''; ?> <?php echo isset($colaborador) ? 'disabled' : ''; ?>>Pessoa Jurídica
@@ -152,9 +150,6 @@
 
                             <span class="input-group-text" id="olho">
                                 <i class="fa fa-eye"></i>
-
-                           
-
                         </div>
                     <?php endif; ?>
                     <div class="col-md-6">
@@ -167,23 +162,3 @@
         </form>
     </div>
 </div>
-
-<style>
-    .input-group-text {
-        cursor: pointer;
-        position: absolute;
-        left: 870px;
-        top: 81%;
-        transform: translateY(20%);
-        color: black;
-        border: none;
-    }
-
-
-    #olho {
-        cursor: pointer;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 16px;
-    }
-</style>

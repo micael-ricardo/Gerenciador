@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <head>
+    <script src="<?php echo base_url('js/sweetalert2.all.min.js'); ?>"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="<?php echo base_url('js/login.js'); ?>"></script>
     <link rel="stylesheet" href="<?= base_url("css/login.css") ?>">
     <meta charset="utf-8">
@@ -10,6 +13,17 @@
 </head>
 
 <body>
+
+    <?php if ($this->session->flashdata('error')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '<?php echo $this->session->flashdata('error'); ?>'
+            })
+        </script>
+    <?php endif; ?>
+
     <div class="container">
         <h1>Login</h1>
         <form method="post" action="<?= base_url() ?>Login/store">
