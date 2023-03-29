@@ -13,6 +13,8 @@ class Colaborador extends CI_Controller
     }
     public function index()
     {
+
+        
         $this->load->model("model_colaborador");
         $this->load->helper(array('form'));
 
@@ -26,6 +28,46 @@ class Colaborador extends CI_Controller
         $this->load->view('colaborador/index', $data);
 
     }
+
+
+    public function dataTable()
+    {
+
+        
+        $this->load->model("model_colaborador");
+
+       $colaborador =  $this->model_colaborador->index();
+       foreach ($colaborador as $value) {
+
+        // var_dump($value);
+        // exit();
+
+        $result[] = [
+            $value['nome'],
+            $value['documento'],
+            $value['telefone'],
+            $value['cep'],
+            $value['estado'],
+            $value['cidade'],
+            $value['bairro'],
+            $value['rua'],
+            $value['numero'],
+            $value['tipo_colaborador'],
+            $value['tipo_pessoa'],
+            $value['datacadastro'],
+            $value['status'],
+            $value['id']
+        ];
+       }
+       $colaboradors = [
+        'data' => $result 
+       ];
+
+
+       echo json_encode($colaboradors);
+
+    }
+
     public function cadastro()
     {
         $this->load->view('templates/header');

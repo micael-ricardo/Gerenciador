@@ -1,34 +1,63 @@
 //Data table
-
-$(document).ready(function () {
-    $('#consultar_usuarios').dataTable({
-        "bJQueryUI": true,
-        "sPaginationType": "full_numbers",
-        "sDom": '<"H"Tlfr>t<"F"ip>',
-
-        "oLanguage": {
-            "sLengthMenu": "Mostrar _MENU_ registros por página",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
-            "sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
-            "sInfoFiltered": "(filtrado de _MAX_ registros)",
-            "sSearch": "Pesquisar: ",
-            "oPaginate": {
-                "sFirst": "Início",
-                "sPrevious": "Anterior",
-                "sNext": "Próximo",
-                "sLast": "Último"
+$(document).ready(function() {
+    $('#consultar_usuarios').DataTable({
+      "ajax": "dataTable",
+      "columns": [
+        {"width": "300px"}, //defina a largura de cada coluna
+        {"width": "150px"},
+        {"width": "150px"},
+        {"width": "150px"},
+        {"width": "100px"},
+        {"width": "100px"},
+        {"width": "200px"},
+        {"width": "300px"},
+        {"width": "50px"},
+        {"width": "50px"},
+        {"width": "50px"},
+        {"width": "150px"},
+        {"width": "50px"},
+        {"width": "50px"},
+    ],
+    "columnDefs": [
+        {
+            "targets": -1, //última coluna
+            "render": function(data, type, row) {
+              return '<a href="http://localhost/Gerenciador/Colaborador/editar/'+data+'" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>' + '  <a href="<?= base_url() ?>colaboradores/delete/'+data+'" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>';
             }
+          },
+        {
+          "targets": -2, //última coluna
+          "render": function(data, type, row) {
+            if (data == 0) {
+                return '<span class="btn btn-danger btn-xs">Inativo</span>';
+              } else {
+                return '<span class="btn btn-success btn-xs">Ativo</span>';
+              }
+          }
         },
-        "aaSorting": [[0, 'desc']],
-        "aoColumnDefs": [
-            { "sType": "num-html", "aTargets": [0] },
-        ],
-        "paging": true,
-        "scrollX": true,
-        "scrollY": "250px",
-        "bFilter": false,
-        "ordering": false
+        {
+            "targets": -4, //última coluna
+            "render": function(data, type, row) {
+              if (data == 0) {
+                  return '<span class="btn btn-primary btn-xs">Física</span>';
+                } else {
+                  return '<span class="btn btn-success btn-xs">Juridica</span>';
+                }
+            }
+          },
+          {
+            "targets": -5, //última coluna
+            "render": function(data, type, row) {
+              if (data == 0) {
+                  return '<span class="btn btn-primary btn-xs">Funcionario</span>';
+                } else {
+                  return '<span class="btn btn-success btn-xs">Fornecedor</span>';
+                }
+            }
+          }
+      ],
+    "scrollY": "300px", //defina a altura da tabela
+    "scrollX": true //habilite a rolagem horizontal
     });
 });
 

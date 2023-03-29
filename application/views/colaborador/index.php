@@ -1,7 +1,6 @@
 <div class="content">
     <div class="titulo">
         <h3>Colaborador</h3>
-        
         <script src="<?php echo base_url('js/colaborador.js'); ?>"></script>
         <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
@@ -122,87 +121,22 @@
             <table id="consultar_usuarios" class="table table-striped">
                 <thead>
                     <tr>
-                    <th style="width: 400px;">Nome</th>
+                    <th>Nome</th>
                         <th>Documento</th>
-                        <th>Telefone</th>
-                        <th>Cep</th>
-                        <th>Estado</th>
-                        <th>Cidade</th>
+                       <th>Telefone</th>
+                         <th>Cep</th>
+                         <th>Estado</th>
+                     <th>Cidade</th>
                         <th>Bairro</th>
-                        <th>Rua</th>
-                        <th>Numero</th>
+                        <th>Rua</th> 
+                         <th>Numero</th>
                         <th>Tipo Colaborador</th>
                         <th>Tipo Pessoa</th>
                         <th>Data Cadastro</th>
                         <th>Status</th>
-                        <th style="text-align: center;">Ações</th>
+                        <th>Ações</th> 
                     </tr>
                 </thead>
-                <tr>
-
-                    <?php foreach ($colaborador as $dado): ?>
-                        <td>
-                            <?= $dado['nome'] ?>
-                        </td>
-                        <td>
-                            <?= formatar_cpf_cnpj($dado['documento']) ?>
-                        </td>
-                        <td>
-                            <?= formatar_telefone($dado['telefone'])  ?>
-                        </td>
-                        <td>
-                            <?= formatar_cep($dado['cep']) ?>
-                        </td>
-                        <td>
-                            <?= $dado['estado'] ?>
-                        </td>
-                        <td>
-                            <?= $dado['cidade'] ?>
-                        </td>
-                        <td>
-                            <?= $dado['bairro'] ?>
-                        </td>
-                        <td>
-                            <?= $dado['rua'] ?>
-                        </td>
-                        <td>
-                            <?= $dado['numero'] ?>
-                        </td>
-                        <td>
-                        <?php if ($dado['tipo_colaborador'] == 0): ?>
-                                <span class="btn btn-primary btn-xs">Funcionário</span>
-                            <?php else: ?>
-                                <span class="btn btn-warning btn-xs">Fornecedor</span>
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                        <?php if ($dado['tipo_pessoa'] == 0): ?>
-                                <span class="btn btn-primary btn-xs">Fisica</span>
-                            <?php else: ?>
-                                <span class="btn btn-warning btn-xs">Jurídica</span>
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <?= formatar_data($dado['datacadastro']) ?>
-                        </td>
-                        <td>
-                            <?php if ($dado['status'] == 0): ?>
-                                <span class="btn btn-danger btn-xs">Inativo</span>
-                            <?php else: ?>
-                                <span class="btn btn-success btn-xs">Ativo</span>
-                            <?php endif; ?>
-                        </td>
-                        <td style="text-align: center"><a id="remover"
-                                href="<?= base_url() ?>colaborador/delete/<?= $dado['id'] ?>" class="btn btn-danger btn-xs"><i
-                                    class="fa fa-trash"></i></a>
-                            <a href="<?= base_url() ?>colaborador/editar/<?= $dado['id'] ?>" class="btn btn-info btn-xs"><i
-                                    class="fa fa-pencil"></i></a>
-                        </td>
-                    </tr>
-                    <tbody>
-                    </tbody>
-
-                <?php endforeach ?>
             </table>
         </div>
     </div>
