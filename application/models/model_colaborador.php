@@ -5,7 +5,15 @@ class model_colaborador extends CI_Model
 {
   public function index()
   {
-    return $this->db->get("colaboradores")->result_array();
+  
+    $this->db->from('colaboradores');
+    $this->db->order_by('datacadastro', 'desc');
+    $result = $this->db->get();
+    if ($result instanceof CI_DB_result) {
+        return $result->result_array();
+    } else {
+        return array();
+    }
   }
   public function cadastrarcolaborador($data_colaborador, $data_usuario = null)
   {

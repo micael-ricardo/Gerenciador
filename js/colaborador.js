@@ -5,9 +5,7 @@ $(document).ready(function () {
         "bJQueryUI": true,
         "sPaginationType": "full_numbers",
         "sDom": '<"H"Tlfr>t<"F"ip>',
-        "oTableTools": {
-            "sSwfPath": "../../js/DataTables-1.9.4/extras/TableTools/media/swf/copy_csv_xls_pdf.swf",
-        },
+
         "oLanguage": {
             "sLengthMenu": "Mostrar _MENU_ registros por página",
             "sZeroRecords": "Nenhum registro encontrado",
@@ -26,6 +24,7 @@ $(document).ready(function () {
         "aoColumnDefs": [
             { "sType": "num-html", "aTargets": [0] },
         ],
+        "paging": true,
         "scrollX": true,
         "scrollY": "250px",
         "bFilter": false,

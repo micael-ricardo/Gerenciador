@@ -6,7 +6,7 @@ class model_pedidos extends CI_Model
   public function listar()
   {
     $this->db->from('lista_produtos_pedidos');
-    $this->db->order_by('datacadastro', 'desc');
+    $this->db->order_by('pedido_datacadastro', 'desc');
     $result = $this->db->get();
     if ($result instanceof CI_DB_result) {
         return $result->result_array();
@@ -30,7 +30,7 @@ class model_pedidos extends CI_Model
     return $this->db->update("pedidos", $colaborador);
   }
 
-  public function inativar($id)
+  public function finalizar($id)
 {
     $data = array('status' => '0');
     $this->db->where('id', $id);

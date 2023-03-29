@@ -81,6 +81,15 @@ class Pedidos extends CI_Controller
     {
         $this->load->model("model_pedidos");
         $data['pedidos'] = $this->model_pedidos->show($id);
+       
+        $this->load->model('model_produtos');
+		$data['produtos'] = $this->model_produtos->produto_ativo();
+
+
+        $this->load->model('model_colaborador');
+		$data['fornecedor'] = $this->model_colaborador->fornecedor_ativo();
+
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/js', $data);
         $this->load->view('pedidos/cadastro', $data);
@@ -105,11 +114,10 @@ class Pedidos extends CI_Controller
         redirect("Pedidos");
     }
 
-    public function delete($id)
+    public function finalizar($id)
     {
         $this->load->model('model_pedidos');
-        $this->model_pedidos->inativar($id);
-
+        $this->model_pedidos->finalizar($id);
         redirect('Pedidos');
     }
 

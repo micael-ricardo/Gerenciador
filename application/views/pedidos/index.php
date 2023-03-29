@@ -120,19 +120,22 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Produto</th>
-                        <th>Valor</th>
-                        <th>Valor Total</th>
                         <th>Telefone</th>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Valor Total</th>
+                        <th>Forma de Pagamento</th>
+                        <th>Fornecedor</th>
+                        <th>Data Cadastro</th>
                         <th>Cep</th>
                         <th>Estado</th>
                         <th>Cidade</th>
                         <th>Bairro</th>
                         <th>Rua</th>
-                        <th>Numero</th>
-                        <th>Forma Pagamento</th>
-                        <th>Data Retirada</th>
-                        <th>Data Cadastro</th>
+                        <th>Número</th>
+                        <th>Observação</th>
+                        <th>Data Retirada</th>   
                         <th>Status</th>
                         <th style="text-align: center;">Ações</th>
                     </tr>
@@ -140,63 +143,73 @@
                 <tr>
                     <?php foreach ($pedidos as $dado): ?>
                         <td>
-                            <?= $dado['nome_cliente'] ?>
+                            <?= $dado['pedido_nome'] ?>
                         </td>
                         <td>
-                            <?= $dado['nome'] ?>
+                            <?= formatar_telefone($dado['pedido_telefone']) ?>
                         </td>
                         <td>
-                            <?= $dado['valor'] ?>
+                            <?= $dado['produto_nome'] ?>
                         </td>
                         <td>
-                            <?= $dado['valor_total'] ?>
+                            <?= reais($dado['produto_preco']) ?>
                         </td>
                         <td>
-                            <?= formatar_telefone($dado['telefone']) ?>
+                            <?= $dado['pedido_quantidade'] ?>
                         </td>
                         <td>
-                            <?= formatar_cep($dado['cep']) ?>
+                            <?= reais($dado['pedido_valor_total']) ?>
                         </td>
                         <td>
-                            <?= $dado['estado'] ?>
-                        </td>
-                        <td>
-                            <?= $dado['cidade'] ?>
-                        </td>
-                        <td>
-                            <?= $dado['bairro'] ?>
-                        </td>
-                        <td>
-                            <?= $dado['rua'] ?>
-                        </td>
-                        <td>
-                            <?= $dado['numero'] ?>
-                        </td>
-                        <td>
-                            <?php if ($dado['forma_pagamento'] == 'dinheiro'): ?>
-                                <span class="btn btn-primary btn-xs">Dinheiro</span>
+
+                        <?php if ($dado['pedido_forma_pagamento'] == 'dinheiro'): ?>
+                                <span class="btn btn-success btn-xs">Dinheiro</span>
                             <?php else: ?>
-                                <span class="btn btn-warning btn-xs">Cartão</span>
+                                <span class="btn btn-primary btn-xs">Cartão</span>
                             <?php endif; ?>
                         </td>
                         <td>
-                            <?= formatar_data($dado['data_retirada']) ?>
+                            <?= $dado['fornecedor_nome'] ?>
                         </td>
                         <td>
-                            <?= formatar_data($dado['datacadastro']) ?>
+                            <?=  formatar_data($dado['pedido_datacadastro']) ?>
                         </td>
                         <td>
-                            <?php if ($dado['status'] == 0): ?>
-                                <span class="btn btn-danger btn-xs">Inativo</span>
+                            <?= $dado['pedido_cep'] ?>
+                        </td>
+                        <td>
+                            <?= $dado['pedido_estado'] ?>
+                        </td>
+                        <td>
+                            <?= $dado['pedido_cidade'] ?>
+                        </td>
+                        <td>
+                            <?= $dado['pedido_bairro'] ?>
+                        </td>
+                        <td>
+                            <?= $dado['pedido_rua'] ?>
+                        </td>
+                        <td>
+                            <?= $dado['pedido_numero'] ?>
+                        </td>
+                        <td>
+                        <?= $dado['pedido_observacao'] ?>
+                        </td>
+                        <td>
+                            <?= formatar_data($dado['pedido_data_retirada']) ?>
+                        </td>
+                        <td>
+                            <?php if ($dado['pedido_status'] == 0): ?>
+                                <span class="btn btn-success btn-xs">Finalizado</span>
                             <?php else: ?>
-                                <span class="btn btn-success btn-xs">Ativo</span>
+                                <span class="btn btn-primary btn-xs">Ativo</span>
                             <?php endif; ?>
                         </td>
-                        <td style="text-align: center"><a id="remover"
-                                href="<?= base_url() ?>Pedidos/delete/<?= $dado['id'] ?>"
-                                class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
-                            <a href="<?= base_url() ?>Pedidos/editar/<?= $dado['id'] ?>" class="btn btn-info btn-xs"><i
-                                    class="fa fa-pencil"></i></a>
+                        <td style="text-align: center"><a id="finalizar"
+                                href="<?= base_url() ?>Pedidos/finalizar/<?= $dado['pedido_id'] ?>"
+                                class="btn btn-success btn-xs"><i class="fa fa-check"></i></a>
+                            <a href="<?= base_url() ?>Pedidos/editar/<?= $dado['pedido_id'] ?>"
+                                class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
                     <tbody>

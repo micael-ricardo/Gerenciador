@@ -1,6 +1,7 @@
 <div class="content">
     <div class="titulo">
         <h3>Colaborador</h3>
+        
         <script src="<?php echo base_url('js/colaborador.js'); ?>"></script>
         <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">

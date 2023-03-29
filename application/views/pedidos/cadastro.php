@@ -75,9 +75,9 @@
                             <label for="Situacao">Produto</label>
                             <select class="form-control select2" name="produto" id="produto">
                                 <option value="">Selecione</option>
-                                <?php if (isset($produto)) {  ?>
-                                    <?php foreach ($produto as $value) { ?>
-                                        <?php $selected = isset($_POST['produto']) && in_array($key, $_POST['produto']) ? ' selected ' : ''; ?>
+                                <?php if (isset($produtos)) {  ?>
+                                    <?php foreach ($produtos as $value) { ?>
+                                        <?php $selected = isset($pedidos["id_produto"]) && $value['id'] == $pedidos["id_produto"] ? ' selected ' : ''; ?>
                                         <option   <?= $selected; ?> data-value="<?php echo $value['preco']; ?>" data-quantidade="<?php echo $value['quantidade']; ?>"  data-fornecedor="<?php echo $value['id_fornecedor']; ?>" value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
                                         <?php } ?>
                                 <?php } ?>
@@ -87,7 +87,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Quantidade">Quantidade</label>
-                            <input type="number" class="form-control" name="quantidade" id="quantidade"  required>
+                            <input type="number" class="form-control" name="quantidade" id="quantidade" 
+                            value="<?= isset($pedidos['quantidade']) ? $pedidos['quantidade'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -97,7 +98,8 @@
                                 <option value="">Selecione</option>
                                 <?php if (isset($fornecedor)) {  ?>
                                     <?php foreach ($fornecedor as $value) { ?>
-                                        <option  value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
+                                        <?php $selected = isset($pedidos["id_fornecedor"]) && $value['id'] == $pedidos["id_fornecedor"] ? ' selected ' : ''; ?>
+                                        <option <?= $selected; ?> value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
                                     <?php } ?>
                                 <?php } ?>
                             </select>
@@ -137,6 +139,13 @@
                             <input type="datetime-local" class="form-control" name="data_retirada" id="data_retirada"
                                 value="<?= isset($pedidos['data_retirada']) ? $pedidos['data_retirada'] : '' ?>"
                                 required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Observacao">Observação</label>
+                            <textarea class="form-control" name="observacao" id="observacao" cols="30"
+                                rows="2"> <?= isset($pedidos['observacao']) ? $pedidos["observacao"] : "" ?></textarea>
                         </div>
                     </div>
           
