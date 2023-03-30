@@ -2,6 +2,9 @@
     <div class="titulo">
         <h3>Colaborador</h3>
         <script src="<?php echo base_url('js/colaborador.js'); ?>"></script>
+        <script>
+            var excluirUrl = "<?php echo base_url('Colaborador/delete'); ?>";
+        </script>
         <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
@@ -21,7 +24,7 @@
         </form>
 
         <div class="panel panel-inverse" id="filtro" style=" display: none;">
-            <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
+            <form  method="get" autocomplete="off">
                 <div class="form-group col-sm-12" style="margin-top: 10px;">
 
                     <div class="col-sm-3">
@@ -108,7 +111,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary ">
+                <button type="submit" id="botao_filtrar" class="btn btn-primary ">
                     <i class="fa fa-search"></i> Pesquisar
                 </button>
         </div>
@@ -117,28 +120,43 @@
     </div>
 
     <div class='corpo'>
-        <div class="tabela-responsive">
-            <table id="consultar_usuarios" class="table table-striped">
-                <thead>
-                    <tr>
-                    <th>Nome</th>
-                        <th>Documento</th>
-                       <th>Telefone</th>
-                         <th>Cep</th>
-                         <th>Estado</th>
-                     <th>Cidade</th>
-                        <th>Bairro</th>
-                        <th>Rua</th> 
-                         <th>Numero</th>
-                        <th>Tipo Colaborador</th>
-                        <th>Tipo Pessoa</th>
-                        <th>Data Cadastro</th>
-                        <th>Status</th>
-                        <th>Ações</th> 
-                    </tr>
-                </thead>
-            </table>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h5>Certeza que deseja inativar: <span id="nome-usuario"></span>?</h5>
+            <hr>
+            <form id="confirmar-exclusao" method="POST" action="<?= base_url() ?>Colaborador/delete">
+                <input type="hidden" name="id">
+                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Confirmar</button>
+                <a href="<?= base_url() ?>Colaborador" type="button" class="btn btn-primary"><i class="fa fa-times"></i>
+                    Cancelar</a>
+            </form>
         </div>
     </div>
+
+    <div class="tabela-responsive">
+        <table id="consultar_usuarios" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Documento</th>
+                    <th>Telefone</th>
+                    <th>Cep</th>
+                    <th>Estado</th>
+                    <th>Cidade</th>
+                    <th>Bairro</th>
+                    <th>Rua</th>
+                    <th>Numero</th>
+                    <th>Tipo Colaborador</th>
+                    <th>Tipo Pessoa</th>
+                    <th>Data Cadastro</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 
 </div>

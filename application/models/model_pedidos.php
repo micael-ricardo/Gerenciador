@@ -5,8 +5,8 @@ class model_pedidos extends CI_Model
 {
   public function listar()
   {
-    $this->db->from('lista_produtos_pedidos');
-    $this->db->order_by('pedido_datacadastro', 'desc');
+    $this->db->from('filto_produtos_pedidos');
+    $this->db->order_by('datacadastro_pedido', 'desc');
     $result = $this->db->get();
     if ($result instanceof CI_DB_result) {
         return $result->result_array();
@@ -36,6 +36,22 @@ class model_pedidos extends CI_Model
     $this->db->where('id', $id);
     $this->db->update('pedidos', $data);
 }
+
+
+public function consultarpedidos($filtro) {
+
+  $this->db->select('*');
+  $this->db->from('pedidos');
+  $this->db->join('produtos', 'produtos.id = pedidos.id_produto_pedido', 'left');
+  $this->db->join('colaboradores', 'colaboradores.id = pedidos.id_fornecedor_pedido', 'left');
+  
+  // adicione a cláusula WHERE
+  $this->db->like('nome_cliente', $filtro, 'both');
+  
+  $query = $this->db->get();
+  return $query->result_array();
+}
+
 
 }
 ?>

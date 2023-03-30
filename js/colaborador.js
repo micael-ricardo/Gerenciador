@@ -1,69 +1,132 @@
 //Data table
-$(document).ready(function() {
+$(document).ready(function () {
     $('#consultar_usuarios').DataTable({
-      "ajax": "dataTable",
-      "columns": [
-        {"width": "300px"}, //defina a largura de cada coluna
-        {"width": "150px"},
-        {"width": "150px"},
-        {"width": "150px"},
-        {"width": "100px"},
-        {"width": "100px"},
-        {"width": "200px"},
-        {"width": "300px"},
-        {"width": "50px"},
-        {"width": "50px"},
-        {"width": "50px"},
-        {"width": "150px"},
-        {"width": "50px"},
-        {"width": "50px"},
-    ],
-    "columnDefs": [
+        "processing": true,
+        "ajax":
         {
-            "targets": -1, //última coluna
-            "render": function(data, type, row) {
-              return '<a href="http://localhost/Gerenciador/Colaborador/editar/'+data+'" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>' + '  <a href="<?= base_url() ?>colaboradores/delete/'+data+'" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>';
-            }
-          },
-        {
-          "targets": -2, //última coluna
-          "render": function(data, type, row) {
-            if (data == 0) {
-                return '<span class="btn btn-danger btn-xs">Inativo</span>';
-              } else {
-                return '<span class="btn btn-success btn-xs">Ativo</span>';
-              }
-          }
+            "url": "dataTable",
+            "type": "GET"
         },
-        {
-            "targets": -4, //última coluna
-            "render": function(data, type, row) {
-              if (data == 0) {
-                  return '<span class="btn btn-primary btn-xs">Física</span>';
-                } else {
-                  return '<span class="btn btn-success btn-xs">Juridica</span>';
+        "columns": [
+            { "width": "300px" },
+            { "width": "150px" },
+            { "width": "150px" },
+            { "width": "150px" },
+            { "width": "100px" },
+            { "width": "100px" },
+            { "width": "200px" },
+            { "width": "300px" },
+            { "width": "50px" },
+            { "width": "50px" },
+            { "width": "50px" },
+            { "width": "150px" },
+            { "width": "50px" },
+            { "width": "50px" },
+        ],
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "_MENU_ resultados por página",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sZeroRecords": "Nenhum registro encontrado",
+            "sSearch": "Pesquisar",
+            "oPaginate": {
+                "sNext": "Próximo",
+                "sPrevious": "Anterior",
+                "sFirst": "Primeiro",
+                "sLast": "Último"
+            },
+            "oAria": {
+                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                "sSortDescending": ": Ordenar colunas de forma descendente"
+            }
+        },
+        "columnDefs": [
+            {
+                "targets": -1,
+                "render": function (data, type, row) {
+                    var nome = row[0]; 
+                    return '<a href="http://localhost/Gerenciador/Colaborador/editar/' + data + '" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>' + '  <a id="abrir-modal" href="#"  data-id=' + data + ' data-nome=' + nome + ' " class="btn btn-danger btn-xs excluir-usuario"><i class="fa fa-trash"></i></a>';
+                }
+            },
+            {
+                "targets": -2,
+                "render": function (data, type, row) {
+                    if (data == 0) {
+                        return '<span class="btn btn-danger btn-xs">Inativo</span>';
+                    } else {
+                        return '<span class="btn btn-success btn-xs">Ativo</span>';
+                    }
+                }
+            },
+            {
+                "targets": -4,
+                "render": function (data, type, row) {
+                    if (data == 0) {
+                        return '<span class="btn btn-primary btn-xs">Física</span>';
+                    } else {
+                        return '<span class="btn btn-success btn-xs">Juridica</span>';
+                    }
+                }
+            },
+            {
+                "targets": -5,
+                "render": function (data, type, row) {
+                    if (data == 0) {
+                        return '<span class="btn btn-primary btn-xs">Funcionario</span>';
+                    } else {
+                        return '<span class="btn btn-success btn-xs">Fornecedor</span>';
+                    }
                 }
             }
-          },
-          {
-            "targets": -5, //última coluna
-            "render": function(data, type, row) {
-              if (data == 0) {
-                  return '<span class="btn btn-primary btn-xs">Funcionario</span>';
-                } else {
-                  return '<span class="btn btn-success btn-xs">Fornecedor</span>';
-                }
+        ],
+        "scrollY": "300px",
+        "scrollX": true
+    });
+
+// chamar filtro via ajax
+
+    $("#botao_filtrar").click(function(event) {
+        event.preventDefault();
+        var nome = $('#nome').val();
+        var documento = $('#documento').val();
+
+        console.log($('#documento').val());
+
+        $.ajax({
+            url: "dataTable",
+            data: 
+            {
+                nome: nome
+               
+            },
+            type: "GET",
+            dataType: "json",
+            success: function(result){
+                console.log(result);
+                var table = $('#consultar_usuarios').DataTable();
+                table.rows().remove().draw(); // Remove todas as linhas da tabela antes de inserir os novos dados
+                table.rows.add(result.data).draw();
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
             }
-          }
-      ],
-    "scrollY": "300px", //defina a altura da tabela
-    "scrollX": true //habilite a rolagem horizontal
+        });
     });
 });
 
 
 
-// função cadastro usuarios
+
+
+
+
+// função de clique no  cadastro usuarios
 $(document).ready(function () {
     var $checkbox = $('#cadastrarusuario');
     $checkbox.click(function () {
@@ -105,20 +168,21 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function(){
-    $( "#olho" ).mousedown(function() {
+
+// Vizualisar senha
+$(document).ready(function () {
+    $("#olho").mousedown(function () {
         $("#senha").attr("type", "text");
         $("#olho i").removeClass("fa-eye").addClass("fa-eye-slash");
-      });    
-      $( "#olho" ).mouseup(function() {
+    });
+    $("#olho").mouseup(function () {
         $("#senha").attr("type", "password");
         $("#olho i").removeClass("fa-eye-slash").addClass("fa-eye");
-      });
-  });
+    });
+});
 
 
 // Buscar Cep
-
 $(document).ready(function () {
 
     $("#cep").on("change", function () {
@@ -138,14 +202,61 @@ $(document).ready(function () {
             });
     });
 });
-
-
 function exibirEndereco(endereco) {
-
-    console.log(endereco);
 
     $("#bairro").val(endereco.bairro);
     $("#rua").val(endereco.logradouro);
     $("#cidade").val(endereco.localidade);
     $("#estado").val(endereco.uf);
 }
+
+// Modal
+
+$(document).ready(function () {
+   
+    var modal = $("#modal");
+    var fecharModal = $(".close");
+
+
+    //fecha o modal
+    fecharModal.click(function () {
+        modal.hide();
+    });
+
+    // Quando o usuário clicar fora do modal, feche-o
+    $(window).click(function (event) {
+        if (event.target == modal[0]) {
+            modal.hide();
+        }
+    });
+});
+
+
+$(document).on("click", ".excluir-usuario", function(e) {
+    e.preventDefault();
+    let id = $(this).data('id');
+    let nome = $(this).data('nome');
+    $('#confirmar-exclusao input[name="id"]').val(id);
+    $('#nome-usuario').text(nome);
+    $('#modal').show();
+});
+
+$(document).on("submit", "#confirmar-exclusao", function(e) {
+    e.preventDefault();
+    let form = $(this);
+    $.ajax({
+        type: "POST",
+        url: excluirUrl,
+        data: form.serialize(),
+        success: function() {
+            alert("Colaborador inativo com sucesso!");
+            $('#modal').hide();
+            location.reload();
+        },
+        error: function() {
+            alert("Ocorreu um erro ao excluir o Colaborador.");
+        }
+    });
+});
+
+// fim modal

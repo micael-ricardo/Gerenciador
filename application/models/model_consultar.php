@@ -65,4 +65,16 @@ class model_consultar extends CI_Model
         return $query->result();
     }
 
+
+    public function consultarpedidos($filtro)
+    {
+
+        $filtro = $this->db->escape_str($filtro);
+        $this->db->like('pedido_nome', $filtro);
+        $query = $this->db->get('lista_produtos_pedidos');       
+        return $query->result();
+    }
+
+
+
 }

@@ -75,8 +75,8 @@
                             <label for="Situacao">Produto</label>
                             <select class="form-control select2" name="produto" id="produto">
                                 <option value="">Selecione</option>
-                                <?php if (isset($produtos)) {  ?>
-                                    <?php foreach ($produtos as $value) { ?>
+                                <?php if (isset($produto)) {  ?>
+                                    <?php foreach ($produto as $value) { ?>
                                         <?php $selected = isset($pedidos["id_produto"]) && $value['id'] == $pedidos["id_produto"] ? ' selected ' : ''; ?>
                                         <option   <?= $selected; ?> data-value="<?php echo $value['preco']; ?>" data-quantidade="<?php echo $value['quantidade']; ?>"  data-fornecedor="<?php echo $value['id_fornecedor']; ?>" value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
                                         <?php } ?>

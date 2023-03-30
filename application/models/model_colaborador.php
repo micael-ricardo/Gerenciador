@@ -15,6 +15,28 @@ class model_colaborador extends CI_Model
         return array();
     }
   }
+
+  public function pesquisar($nome = '') {
+    $nome = $this->db->escape_str($nome);
+    $this->db->like('nome', $nome);
+    // $documento = $this->db->escape_str($documento);
+    // $this->db->like('documento', $documento);
+    $query = $this->db->get('colaboradores');
+    return $query->result_array();
+}
+
+//   public function pesquisar($nome = '', $documento = '') {
+//     $this->db->select('*');
+//     $this->db->from('colaboradores');
+//     $this->db->like('nome', $nome, 'both');
+//     // $this->db->or_like('documento', $documento, 'both');
+//     // $this->db->or_like('telefone', $filtro, 'both');
+//     $query = $this->db->get();
+   
+
+//     return $query->result_array();
+// }
+  
   public function cadastrarcolaborador($data_colaborador, $data_usuario = null)
   {
     $this->db->insert('colaboradores', $data_colaborador);

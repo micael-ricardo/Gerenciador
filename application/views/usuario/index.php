@@ -70,6 +70,7 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h5>Certeza que deseja inativar: <span id="nome-usuario"></span>?</h5>
+        <hr>
         <form id="confirmar-exclusao" method="POST" action="<?= base_url() ?>Usuarios/delete">
             <input type="hidden" name="id">
             <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Confirmar</button>
