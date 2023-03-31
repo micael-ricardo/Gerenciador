@@ -12,7 +12,7 @@
                     <form action="<?= base_url() ?>colaborador/store" method="post">
                     <?php endif; ?>
                     <div class="col-md-12" style="margin-top: 10px;margin-bottom: 15px;">
-                        <input type="radio" name="tipo_pessoa" value="0" <?php echo (!isset($colaborador) || $colaborador['tipo_pessoa'] == 0) ? 'checked' : ''; ?> <?php echo isset($colaborador) ? 'disabled' : ''; ?>>Pessoa Fisica
+                        <input type="radio" name="tipo_pessoa" value="2" <?php echo (!isset($colaborador) || $colaborador['tipo_pessoa'] == 2) ? 'checked' : ''; ?> <?php echo isset($colaborador) ? 'disabled' : ''; ?>>Pessoa Fisica
                         <input type="radio" name="tipo_pessoa" value="1" <?php echo isset($colaborador) && $colaborador['tipo_pessoa'] == 1 ? 'checked' : ''; ?> <?php echo isset($colaborador) ? 'disabled' : ''; ?>>Pessoa Jurídica
                     </div>
                     <div id="pessoa_fisica" style="display:none">
@@ -104,9 +104,9 @@
                             <select class="form-control selects" name="tipo_colaborador" id="tipo_colaborador" required>
 
                                 <option value="">Selecione</option>
-                                <option <?= isset($colaborador['tipo_colaborador']) && $colaborador['tipo_colaborador'] == '0' ? ' selected' : '' ?> value="0">Funcionário
+                                <option <?= isset($colaborador['tipo_colaborador']) && $colaborador['tipo_colaborador'] == 'Funcionario' ? ' selected' : '' ?> value="Funcionario">Funcionário
                                 </option>
-                                <option <?= isset($colaborador['tipo_colaborador']) && $colaborador['tipo_colaborador'] == '1' ? ' selected' : '' ?> value="1">Fornecedor
+                                <option <?= isset($colaborador['tipo_colaborador']) && $colaborador['tipo_colaborador'] == 'Fornecedor' ? ' selected' : '' ?> value="Fornecedor">Fornecedor
                                 </option>
                             </select>
                         </div>
@@ -154,7 +154,7 @@
                     <?php endif; ?>
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Salvar</button>
-                        <a href="<?= base_url() ?>colaborador" class="btn btn-danger"><i class="fa fa-times"></i>
+                        <a href="<?= base_url() ?>Colaborador/index" class="btn btn-danger"><i class="fa fa-times"></i>
                             Cancelar</a>
                     </div>
         </div>

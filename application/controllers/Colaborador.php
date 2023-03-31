@@ -31,38 +31,64 @@ class Colaborador extends CI_Controller
     {
         $this->load->model("model_colaborador");
 
-        if ($this->input->get('nome') || $this->input->get('documento')) {
-            $colaborador = $this->model_colaborador->pesquisar(
-                $this->input->get('nome')
-            );
-        } else {
-            $colaborador = $this->model_colaborador->index();
-        }
-        
-        $result = [];
+        try {
+            if (
+                $this->input->get('nome') || $this->input->get('documento') || $this->input->get('telefone') ||
+                $this->input->get('cep') || $this->input->get('bairro') || $this->input->get('rua') ||
+                $this->input->get('numero') || $this->input->get('tipo_colaborador') || $this->input->get('tipo_pessoa')
+                || $this->input->get('status')
+            ) {
+                $colaborador = $this->model_colaborador->pesquisar(
+                    $this->input->get('nome'),
+                    $this->input->get('documento'),
+                    $this->input->get('telefone'),
+                    $this->input->get('cep'),
+                    $this->input->get('bairro'),
+                    $this->input->get('rua'),
+                    $this->input->get('numero'),
+                    $this->input->get('status'),
+                    $this->input->get('tipo_colaborador'),
+                    $this->input->get('tipo_pessoa')
+                );
+            } else {
+                $colaborador = $this->model_colaborador->index();
+            }
 
-        foreach ($colaborador as $value) {
-            $result[] = [
-                $value['nome'],
-                formatar_cpf_cnpj($value['documento']),
-                formatar_telefone($value['telefone']),
-                formatar_cep($value['cep']),
-                $value['estado'],
-                $value['cidade'],
-                $value['bairro'],
-                $value['rua'],
-                $value['numero'],
-                $value['tipo_colaborador'],
-                $value['tipo_pessoa'],
-                formatar_data($value['datacadastro']),
-                $value['status'],
-                $value['id']
+            $result = [];
+
+            foreach ($colaborador as $value) {
+                $result[] = [
+                    $value['nome'],
+                    formatar_cpf_cnpj($value['documento']),
+                    formatar_telefone($value['telefone']),
+                    formatar_cep($value['cep']),
+                    $value['estado'],
+                    $value['cidade'],
+                    $value['bairro'],
+                    $value['rua'],
+                    $value['numero'],
+                    $value['tipo_colaborador'],
+                    $value['tipo_pessoa'],
+                    formatar_data($value['datacadastro']),
+                    $value['status'],
+                    $value['id']
+                ];
+            }
+            $colaboradors = [
+                'data' => $result
             ];
+
+            echo json_encode($colaboradors);
+
+        } catch (Exception $e) {
+            $error = [
+                'error' => $e->getMessage()
+            ];
+
+            echo json_encode($error);
         }
-        $colaboradors = [
-            'data' => $result
-        ];
-        echo json_encode($colaboradors);
+
+
     }
 
     public function cadastro()
@@ -104,7 +130,8 @@ class Colaborador extends CI_Controller
                 'bairro' => $this->input->post('bairro'),
                 'numero' => $this->input->post('numero'),
                 'status' => '1',
-                'datacadastro' => date('Y-m-d H:i:s')
+                'datacadastro' => date('Y-m-d H:i:s'),
+                'id_usuario' => $this->session->logged_user['id']
             );
 
             $data_usuario = null;
@@ -123,7 +150,7 @@ class Colaborador extends CI_Controller
             $this->load->model("model_colaborador");
             $this->model_colaborador->cadastrarcolaborador($data_colaborador, $data_usuario);
 
-            redirect("Colaborador");
+            redirect("Colaborador/index");
         }
     }
 
@@ -162,16 +189,16 @@ class Colaborador extends CI_Controller
             'cep' => $cep,
             'estado' => $this->input->post('estado'),
             'cidade' => $this->input->post('cidade'),
-            'rua' => $this->input->post('rua'),
-            'tipo_colaborador' => $this->input->post('tipo_colaborador'),
-            'tipo_pessoa' => $this->input->post('tipo_pessoa'),
             'bairro' => $this->input->post('bairro'),
+            'rua' => $this->input->post('rua'),
             'numero' => $this->input->post('numero'),
+            'tipo_colaborador' => $this->input->post('tipo_colaborador'),
+            'id_usuario' => $this->session->logged_user['id']
         );
 
         $this->model_colaborador->update($id, $colaborador);
-
-        redirect("Colaborador");
+  
+        redirect("Colaborador/index");
     }
 
     public function delete()
@@ -183,54 +210,5 @@ class Colaborador extends CI_Controller
 
         redirect('Colaborador');
     }
-
-//     public function pesquisar($tipo_pessoa = null, $pesquisa = null, $nome = null, $documento = null, $telefone = null, $cep = null, $bairro = null, $rua = null, $numero = null, $status = null, $tipo_colaborador = null)
-//     {
-//         $this->load->model("model_consultar");
-//         $this->load->helper('RemoveMascara');
-
-//         if (!$pesquisa) {
-//             $pesquisa = $this->input->get('Pesquisa');
-//         }
-//         if (!$nome) {
-//             $nome = $this->input->get('nome');
-//         }
-//         if (!$documento) {
-//             $documento = RemoveMascara($this->input->get('documento'));
-//         }
-//         if (!$telefone) {
-//             $telefone = RemoveMascara($this->input->get('telefone'));
-//         }
-//         if (!$cep) {
-//             $cep = RemoveMascara($this->input->get('cep'));
-//         }
-//         if (!$bairro) {
-//             $bairro = $this->input->get('bairro');
-//         }
-//         if (!$rua) {
-//             $rua = $this->input->get('rua');
-//         }
-//         if (!$numero) {
-//             $numero = $this->input->get('numero');
-//         }
-//         if (!$status) {
-//             $status = $this->input->get('status');
-//         }
-
-//         if (!$tipo_colaborador) {
-//             $tipo_colaborador = $this->input->get('tipo_colaborador');
-//         }
-//         if (!$tipo_pessoa) {
-//             $tipo_pessoa = $this->input->get('tipo_pessoa');
-//         }
-
-//         $data['colaborador'] = $this->model_consultar->consultar($pesquisa, $tipo_pessoa, $nome, $documento, $telefone, $cep, $bairro, $rua, $numero, $status, $tipo_colaborador);
-//         $formata = json_decode(json_encode($data), true);
-//         $this->load->helper(array('form'));
-//         $this->load->view('templates/header');
-//         $this->load->view('templates/js');
-//         $this->load->view('colaborador/index', $formata);
-
-//     }
 
 }

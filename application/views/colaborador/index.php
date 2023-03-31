@@ -5,6 +5,7 @@
         <script>
             var excluirUrl = "<?php echo base_url('Colaborador/delete'); ?>";
         </script>
+        <!-- filtro rapido -->
         <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
             <div class="input-group mb-3">
                 <div class="input-group-append">
@@ -20,11 +21,10 @@
                     </button>
                 </div>
             </div>
-
         </form>
-
+        <!-- mais filtros -->
         <div class="panel panel-inverse" id="filtro" style=" display: none;">
-            <form  method="get" autocomplete="off">
+            <form method="get" autocomplete="off">
                 <div class="form-group col-sm-12" style="margin-top: 10px;">
 
                     <div class="col-sm-3">
@@ -50,7 +50,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Cep:</label>
-                            <input type="text" class="form-control" style="height: 30px;" name="cep" id="cep" />
+                            <input type="text" class="form-control" style="height: 30px;" name="cep" id="cepFiltro" />
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -78,7 +78,7 @@
                                 <option value="">Selecione</option>
                                 <option value="1">Ativo
                                 </option>
-                                <option value="0">Inativo
+                                <option value="2">Inativo
                                 </option>
                             </select>
                         </div>
@@ -89,9 +89,9 @@
                             <select class="form-control selects" style="height: 30px;" name="tipo_colaborador"
                                 id="tipo_colaborador">
                                 <option value="">Selecione</option>
-                                <option value="0">Funcionário
+                                <option value="Funcionario">Funcionário
                                 </option>
-                                <option value="1">Fornecedor
+                                <option value="Fornecedor">Fornecedor
                                 </option>
                             </select>
                         </div>
@@ -102,7 +102,7 @@
                             <select class="form-control selects" style="height: 30px;" name="tipo_pessoa"
                                 id="tipo_pessoa">
                                 <option value="">Selecione</option>
-                                <option value="0">Fisica
+                                <option value="2">Fisica
                                 </option>
                                 <option value="1">Jurídica
                                 </option>
@@ -116,47 +116,48 @@
                 </button>
         </div>
         </form>
-
     </div>
 
     <div class='corpo'>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h5>Certeza que deseja inativar: <span id="nome-usuario"></span>?</h5>
-            <hr>
-            <form id="confirmar-exclusao" method="POST" action="<?= base_url() ?>Colaborador/delete">
-                <input type="hidden" name="id">
-                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Confirmar</button>
-                <a href="<?= base_url() ?>Colaborador" type="button" class="btn btn-primary"><i class="fa fa-times"></i>
-                    Cancelar</a>
-            </form>
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h5>Certeza que deseja inativar: <b><span id="nome-usuario"></span> </b>?</h5>
+                <hr>
+                <p><b>ATENÇÃO:</b> Se você confirmar, não será possível editar esse colaborador posteriormente.</p>
+                <form id="confirmar-exclusao" method="POST" action="<?= base_url() ?>Colaborador/delete">
+                    <input type="hidden" name="id">
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Confirmar</button>
+                    <a href="<?= base_url() ?>Colaborador/index" type="button" class="btn btn-primary"><i
+                            class="fa fa-times"></i>
+                        Cancelar</a>
+                </form>
+            </div>
+        </div>
+        <!-- fim modal e incio data table -->
+        <div class="tabela-responsive">
+            <table id="consultar_usuarios" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Documento</th>
+                        <th>Telefone</th>
+                        <th>Cep</th>
+                        <th>Estado</th>
+                        <th>Cidade</th>
+                        <th>Bairro</th>
+                        <th>Rua</th>
+                        <th>Numero</th>
+                        <th>Tipo Colaborador</th>
+                        <th>Tipo Pessoa</th>
+                        <th>Data Cadastro</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
-
-    <div class="tabela-responsive">
-        <table id="consultar_usuarios" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Documento</th>
-                    <th>Telefone</th>
-                    <th>Cep</th>
-                    <th>Estado</th>
-                    <th>Cidade</th>
-                    <th>Bairro</th>
-                    <th>Rua</th>
-                    <th>Numero</th>
-                    <th>Tipo Colaborador</th>
-                    <th>Tipo Pessoa</th>
-                    <th>Data Cadastro</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-</div>
 
 </div>

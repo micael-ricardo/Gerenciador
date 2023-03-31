@@ -3,13 +3,18 @@
 
 <head>
     <meta charset="utf-8">
-
-
+    
+    
     <link rel="stylesheet"  href="<?= base_url("Datatable/dataTables.bootstrap.min.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("Datatable/datatables.min.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("Datatable/datatables.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("js/bootstrap.min.js") ?>">
     <link rel="stylesheet"  href="<?= base_url("css/sweetalert2.min.css") ?>">
+  
+  
+    <link rel="stylesheet"  href="<?= base_url("css/estilodatatable.css") ?>">  
+    <link rel="stylesheet"  href="<?= base_url("css/select.dataTables.css") ?>">
+    
     <link rel="stylesheet"  href="<?= base_url("css/bootstrap.min.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("css/bootstrap-theme.min.css") ?>">
     <link rel="stylesheet" href="<?= base_url("css/estrutura.css") ?>">
