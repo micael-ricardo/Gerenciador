@@ -8,18 +8,18 @@ $(document).ready(function () {
             "type": "GET"
         },
         "columns": [
-            { "width": "300px" },
-            { "width": "150px" },
-            { "width": "150px" },
-            { "width": "150px" },
+            { "width": "200px" },
+            { "width": "100px" },
+            { "width": "100px" },
+            { "width": "100px" },
+            { "width": "50px" },
             { "width": "100px" },
             { "width": "100px" },
             { "width": "200px" },
-            { "width": "300px" },
             { "width": "50px" },
             { "width": "50px" },
             { "width": "50px" },
-            { "width": "150px" },
+            { "width": "100px" },
             { "width": "50px" },
             { "width": "50px" },
         ],
@@ -92,7 +92,7 @@ $(document).ready(function () {
                 }
             }
         ],
-        "scrollY": "300px",
+        "scrollY": "250px",
         "scrollX": true,
         "select": true
     });
@@ -142,8 +142,15 @@ $(document).ready(function () {
             }
         });
     });
+
+
+
 });
 
+// select2
+$(document).ready(function () {
+    $('.select2').select2();
+});
 
 // função de clique no  cadastro usuarios
 $(document).ready(function () {
@@ -173,7 +180,7 @@ $(document).ready(function () {
     $('#nomes, #cpf').attr('required', true);
 
     $('input[type="radio"][name="tipo_pessoa"]').on('change', function () {
-        if ($(this).val() == '0') {
+        if ($(this).val() == '2') {
             $('#nomes, #cpf').attr('required', true);
             $('#pessoa_fisica').show();
             $('#pessoa_juridica').hide();

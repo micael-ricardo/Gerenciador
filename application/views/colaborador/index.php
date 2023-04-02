@@ -1,6 +1,6 @@
 <div class="content">
     <div class="titulo">
-        <h3>Colaborador</h3>
+        <h5>Colaborador</h5>
         <script src="<?php echo base_url('js/colaborador.js'); ?>"></script>
         <script>
             var excluirUrl = "<?php echo base_url('Colaborador/delete'); ?>";
@@ -10,8 +10,8 @@
             <div class="input-group mb-3">
                 <div class="input-group-append">
                     <a href="<?= base_url() ?>colaborador/cadastro" class="btn btn-success">Adicionar</a>
-                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa"
-                        placeholder="Filtrar Pelo Nome:">
+                    <input type="text" class="form-pesquisa" style="height: 20px;  font-size: 10px;" name="Pesquisa"
+                        id="Pesquisa" placeholder="Filtrar Pelo Nome:">
                     <button class="btn btn-primary" type="submit" id="button-addon1">
                         <i class="fa fa-search"></i> Pesquisar
                     </button>
@@ -30,88 +30,90 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Nome:</label>
-                            <input type="text" style="height: 30px;" class="form-control" name="nome" id="nome" />
+                            <input type="text" class="form-control small-text" name="nome" id="nome" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Documento:</label>
-                            <input type="text" class="form-control" style="height: 30px;" name="documento"
-                                id="documento" />
+                            <input type="text" class="form-control small-text" name="documento" id="documento" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Telefone:</label>
-                            <input type="text" class="form-control" style="height: 30px;" name="telefone"
-                                id="telefone" />
+                            <input type="text" class="form-control small-text" name="telefone" id="telefone" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Cep:</label>
-                            <input type="text" class="form-control" style="height: 30px;" name="cep" id="cepFiltro" />
+                            <input type="text" class="form-control small-text" name="cep" id="cepFiltro" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Bairro:</label>
-                            <input type="text" class="form-control" style="height: 30px;" name="bairro" id="bairro" />
+                            <input type="text" class="form-control small-text" name="bairro" id="bairro" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Rua:</label>
-                            <input type="text" class="form-control" style="height: 30px;" name="rua" id="rua" />
+                            <input type="text" class="form-control small-text" name="rua" id="rua" />
                         </div>
                     </div>
+
                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Numero:</label>
-                            <input type="text" class="form-control" style="height: 30px;" name="numero" id="numero" />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Numero:</label>
+                                    <input type="text" class="form-control small-text" name="numero" id="numero" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="Status">Status:</label>
+                                    <select class="form-control small-text" name="status" id="status">
+                                        <option value="">Selecione</option>
+                                        <option value="1" selected>Ativo</option>
+                                        <option value="2">Inativo</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+
+
                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="Status">Status:</label>
-                            <select class="form-control selects" style="height: 30px;" name="status" id="status">
-                                <option value="">Selecione</option>
-                                <option value="1">Ativo
-                                </option>
-                                <option value="2">Inativo
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
+                    <div class="row">
+                            <div class="col-sm-6">
                         <div class="form-group">
                             <label for="TipoColaborador">Tipo Colaborador:</label>
-                            <select class="form-control selects" style="height: 30px;" name="tipo_colaborador"
-                                id="tipo_colaborador">
+                            <select class="form-control small-text" name="tipo_colaborador" id="tipo_colaborador">
                                 <option value="">Selecione</option>
-                                <option value="Funcionario">Funcionário
-                                </option>
-                                <option value="Fornecedor">Fornecedor
-                                </option>
+                                <option value="Funcionario">Funcionário</option>
+                                <option value="Fornecedor">Fornecedor</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="TipoPessoa">Tipo Pessoa:</label>
-                            <select class="form-control selects" style="height: 30px;" name="tipo_pessoa"
-                                id="tipo_pessoa">
+                            <select class="form-control small-text" name="tipo_pessoa" id="tipo_pessoa">
                                 <option value="">Selecione</option>
-                                <option value="2">Fisica
-                                </option>
-                                <option value="1">Jurídica
-                                </option>
+                                <option value="2">Fisica</option>
+                                <option value="1">Jurídica</option>
                             </select>
                         </div>
                     </div>
                 </div>
+                </div>
+                </div>
 
-                <button type="submit" id="botao_filtrar" class="btn btn-primary ">
+                <button type="submit" id="botao_filtrar" class="btn btn-primary">
                     <i class="fa fa-search"></i> Pesquisar
                 </button>
         </div>

@@ -4,16 +4,17 @@
 <head>
     <meta charset="utf-8">
     
-    
+      <link rel="stylesheet"  href="<?= base_url("DataTable/select.dataTables.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("Datatable/dataTables.bootstrap.min.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("Datatable/datatables.min.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("Datatable/datatables.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("js/bootstrap.min.js") ?>">
     <link rel="stylesheet"  href="<?= base_url("css/sweetalert2.min.css") ?>">
+
+
+    <link rel="stylesheet"  href="<?= base_url("css/select2.css") ?>">
+    <link rel="stylesheet"  href="<?= base_url("css/estilodatatable.css") ?>">
   
-  
-    <link rel="stylesheet"  href="<?= base_url("css/estilodatatable.css") ?>">  
-    <link rel="stylesheet"  href="<?= base_url("css/select.dataTables.css") ?>">
     
     <link rel="stylesheet"  href="<?= base_url("css/bootstrap.min.css") ?>">
     <link rel="stylesheet"  href="<?= base_url("css/bootstrap-theme.min.css") ?>">
@@ -26,12 +27,12 @@
 <body>
     <header>
         <div class="estilo-header">
-            <?= anchor("login/sair", " Sair", array("class" => "fa fa-sign-in btn btn-primary")) ?>
+            <?= anchor("login/sair", " Sair", array("class" => "fa fa-sign-in btn btn-danger")) ?>
         </div>
     </header>
     <section class="main">
         <div class="sidebar">
-        <a href="<?= base_url('dashboard/index') ?>">  <h3><i class="fa fa-home" aria-hidden="true"></i> Home</h3> </a>
+        <a href="<?= base_url('dashboard/index') ?>">  <h5><i class="fa fa-home" aria-hidden="true"></i> Home</h5> </a>
             <a href="<?= base_url('Usuarios/index') ?>"><i class="fa fa-user"
                     aria-hidden="true"></i> Usuários</a>
             <a href="<?= base_url('Colaborador/index') ?>"><i class="fa fa-users"></i>

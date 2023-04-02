@@ -6,15 +6,15 @@
 
 html,
 body {
-    height: 100%;
+
     overflow-x: hidden;
 
-    
+
 }
 
 header {
     background: linear-gradient(45deg, blue, white);
-    padding: 10px 2%;
+    padding: 5px 2%;
     display: flex;
     justify-content: space-between;
 }
@@ -22,8 +22,8 @@ header {
 .estilo-header {
     display: flex;
     justify-content: space-around;
-    width: 200px;
-    margin-left: 90%; 
+    width: 20vw;
+    margin-left: 90%;
     align-items: center;
 }
 
@@ -33,14 +33,13 @@ header {
 
 .form-pesquisa {
     margin: 0%;
-    width: 500px;
+    width: 50vw;
     height: 31px;
 }
 
 .main {
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
 }
 
 .sidebar a.sidebar-active {
@@ -56,9 +55,10 @@ header {
 
 
 .sidebar {
-    width: 15%;
+    min-width: 15vw;
+    max-width: 20vw;
+    height: calc(100vh - 50px);
     background-color: white;
-   
 }
 
 .sidebar h3 {
@@ -86,9 +86,14 @@ header {
 }
 
 .content {
-    width: 85%;
+    position: absolute;
+    top: 38px;
+    right: 0;
+    bottom: 0;
+    left: 20vw;
     background-color: rgb(230, 230, 230);
     padding: 20px;
+    height: calc(100vh - 40px);
 }
 
 .titulo {
@@ -102,21 +107,29 @@ header {
     border-radius: 10px;
     background-color: white;
     padding: 10px;
-    height: 65%;
+    height: 59%;
+}
+
+
+
+.responsivo {
+    position: relative;
 }
 
 /* Css para visualizar senha  */
 
-  
-  .input-group-text {
+
+
+
+.input-group-text {
     cursor: pointer;
     position: absolute;
-    right: 28%; 
-    top: 84%;
+    right: 29%;
+    top: 60%;
     transform: translateY(-50%);
     color: black;
     border: none;
-  }
+}
 
 #olho {
     cursor: pointer;
@@ -128,7 +141,7 @@ header {
 .input-group-text-usuario {
     cursor: pointer;
     position: absolute;
-    right: 68%; 
+    right: 68%;
     top: 71%;
     transform: translateY(20%);
     color: black;
@@ -136,4 +149,27 @@ header {
 }
 
 
+/* diminuir tamanho do  label e input  */
 
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+.small-text {
+    font-size: 12px;
+    height: 27px;
+}
+
+/* diminuir tamanho do datatable */
+
+th {
+    font-size: 12px;
+}
+
+td {
+    font-size: 10px;
+}

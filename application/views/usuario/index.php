@@ -50,7 +50,7 @@
                             <label for="Status">Status:</label>
                             <select class="form-control selects" style="height: 30px;" name="status" id="status">
                                 <option value="">Selecione</option>
-                                <option value="1">Ativo
+                                <option value="1"  selected>Ativo
                                 </option>
                                 <option value="0">Inativo
                                 </option>
