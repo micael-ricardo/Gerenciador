@@ -1,28 +1,21 @@
 <div class="content">
     <div class="titulo">
-        <h5>Colaborador</h5>
+        <h5>Colaboradores</h5>
         <script src="<?php echo base_url('js/colaborador.js'); ?>"></script>
         <script>
             var excluirUrl = "<?php echo base_url('Colaborador/delete'); ?>";
         </script>
-        <!-- filtro rapido -->
-        <form action="<?= base_url() ?>colaborador/pesquisar" method="get" autocomplete="off">
+        <!-- adc e #filtro -->
             <div class="input-group mb-3">
                 <div class="input-group-append">
                     <a href="<?= base_url() ?>colaborador/cadastro" class="btn btn-success">Adicionar</a>
-                    <input type="text" class="form-pesquisa" style="height: 20px;  font-size: 10px;" name="Pesquisa"
-                        id="Pesquisa" placeholder="Filtrar Pelo Nome:">
-                    <button class="btn btn-primary" type="submit" id="button-addon1">
-                        <i class="fa fa-search"></i> Pesquisar
-                    </button>
                     <button class="btn btn-info" type="button" id="div-filtro"
                         onclick="return($('#filtro').toggle('fade'))">
-                        <i class="fa fa-filter"></i> Mais Filtros
+                        <i class="fa fa-filter"></i> Filtros
                     </button>
                 </div>
             </div>
-        </form>
-        <!-- mais filtros -->
+        <!--  filtros -->
         <div class="panel panel-inverse" id="filtro" style=" display: none;">
             <form method="get" autocomplete="off">
                 <div class="form-group col-sm-12" style="margin-top: 10px;">
@@ -77,16 +70,13 @@
                                     <label for="Status">Status:</label>
                                     <select class="form-control small-text" name="status" id="status">
                                         <option value="">Selecione</option>
-                                        <option value="1" selected>Ativo</option>
+                                        <option value="1">Ativo</option>
                                         <option value="2">Inativo</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="col-sm-3">
                     <div class="row">
                             <div class="col-sm-6">

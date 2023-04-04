@@ -34,7 +34,8 @@ header {
 .form-pesquisa {
     margin: 0%;
     width: 50vw;
-    height: 31px;
+    height: 41px;
+    border-radius: 4px
 }
 
 .main {

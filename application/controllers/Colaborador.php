@@ -32,6 +32,9 @@ class Colaborador extends CI_Controller
         $this->load->model("model_colaborador");
 
         try {
+  
+            // filtro
+
             if (
                 $this->input->get('nome') || $this->input->get('documento') || $this->input->get('telefone') ||
                 $this->input->get('cep') || $this->input->get('bairro') || $this->input->get('rua') ||
@@ -53,6 +56,9 @@ class Colaborador extends CI_Controller
             } else {
                 $colaborador = $this->model_colaborador->index();
             }
+
+            // listagem
+
 
             $result = [];
 

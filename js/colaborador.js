@@ -1,6 +1,6 @@
 //Data table
 $(document).ready(function () {
-    $('#consultar_usuarios').DataTable({
+    var table = $('#consultar_usuarios').DataTable({
         "processing": true,
         "ajax":
         {
@@ -94,11 +94,22 @@ $(document).ready(function () {
         ],
         "scrollY": "250px",
         "scrollX": true,
-        "select": true
+        "select": {
+            style: 'single' // define que apenas uma linha pode ser selecionada
+        }
+    });
+
+    // Evento click na tabela para selecionar uma linha
+    $('#consultar_usuarios tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
     });
 
     // chamar filtro via ajax
-
     $("#botao_filtrar").click(function (event) {
         event.preventDefault();
         var nome = $('#nome').val();
@@ -126,13 +137,10 @@ $(document).ready(function () {
                 status: status,
                 tipo_colaborador: tipo_colaborador,
                 tipo_pessoa: tipo_pessoa
-
-
             },
             type: "GET",
             dataType: "json",
             success: function (result) {
-                console.log(result);
                 var table = $('#consultar_usuarios').DataTable();
                 table.rows().remove().draw();
                 table.rows.add(result.data).draw();
@@ -142,9 +150,6 @@ $(document).ready(function () {
             }
         });
     });
-
-
-
 });
 
 // select2
@@ -176,8 +181,13 @@ $(document).ready(function () {
 //Função Tipo_Pessoa
 $(document).ready(function () {
 
-    $('#pessoa_fisica').show();
-    $('#nomes, #cpf').attr('required', true);
+    if ($("input[name='tipo_pessoa']:checked").val() == 1) {
+        $('#razao_social, #cnpj').attr('required', true);
+        $('#pessoa_juridica').show();
+    } else {
+        $('#pessoa_fisica').show();
+        $('#nomes, #cpf').attr('required', true);
+    }
 
     $('input[type="radio"][name="tipo_pessoa"]').on('change', function () {
         if ($(this).val() == '2') {
