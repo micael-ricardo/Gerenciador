@@ -16,11 +16,7 @@ class Colaborador extends CI_Controller
 
         $this->load->model("model_colaborador");
         $this->load->helper(array('form'));
-
-        if ($this->input->get('nome')) {
-            return $this->dataTable();
-        }
-
+        
         $data["colaborador"] = $this->model_colaborador->index();
         $this->load->view('templates/header');
         $this->load->view('templates/js');

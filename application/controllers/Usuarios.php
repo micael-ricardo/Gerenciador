@@ -17,14 +17,60 @@ class Usuarios extends CI_Controller
         $this->load->model("model_usuario");
         $this->load->helper(array('form'));
 
-        if ($this->input->get('Pesquisa')) {
-            return $this->pesquisar();
-        }
         $data["dados"] = $this->model_usuario->index();
         $this->load->view('templates/header');
         $this->load->view('templates/js');
         $this->load->view('usuario/index', $data);
 
+    }
+
+    public function dataTable()
+    {
+        $this->load->model("model_usuario");
+
+        try {
+
+            // filtro
+
+            if ($this->input->get('nome') || $this->input->get('login') || $this->input->get('email') || $this->input->get('status')) {
+                $usuario = $this->model_usuario->pesquisar(
+                    $this->input->get('nome'),
+                    $this->input->get('login'),
+                    $this->input->get('email'),
+                    $this->input->get('status')
+                );
+            } else {
+                $usuario = $this->model_usuario->index();
+            }
+
+            // listagem
+
+
+            $result = [];
+
+            foreach ($usuario as $value) {
+                $result[] = [
+                    $value['nome'],
+                    $value['login'],
+                    $value['email'],
+                    formatar_data($value['datacadastro']),
+                    $value['status'],
+                    $value['id'],
+                ];
+            }
+            $usuarios = [
+                'data' => $result
+            ];
+
+            echo json_encode($usuarios);
+
+        } catch (Exception $e) {
+            $error = [
+                'error' => $e->getMessage()
+            ];
+
+            echo json_encode($error);
+        }
     }
 
     public function cadastro()
@@ -75,34 +121,17 @@ class Usuarios extends CI_Controller
         $this->load->view('usuario/cadastro', $data);
     }
 
-
-    public function pesquisar($pesquisa = null, $nome = null, $login = null, $email = null, $status = null)
+    public function update($id)
     {
-        $this->load->model("model_consultar");
 
-        if (!$pesquisa) {
-            $pesquisa = $this->input->get('Pesquisa');
-        }
-        if (!$nome) {
-            $nome = $this->input->get('nome');
-        }
-        if (!$login) {
-            $login = $this->input->get('login');
-        }
-        if (!$email) {
-            $email = $this->input->get('email');
-        }
-        if (!$status) {
-            $status = $this->input->get('status');
-        }
+        $this->load->model("model_usuario");
+        $usuarios = array(
+            'nome' => $this->input->post('nome'),
+        );
 
-        $data['dados'] = $this->model_consultar->consultarUsuario($pesquisa, $nome, $login, $email, $status);
-        $formata = json_decode(json_encode($data), true);
-        $this->load->helper(array('form'));
-        $this->load->view('templates/header');
-        $this->load->view('templates/js');
-        $this->load->view('usuario/index', $formata);
+        $this->model_usuario->update($id, $usuarios);
 
+        redirect("Usuarios/index");
     }
 
     public function delete()

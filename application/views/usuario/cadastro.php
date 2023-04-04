@@ -77,7 +77,7 @@
         </div>
         <div class="col-md-12">
             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Salvar</button>
-            <a href="<?= base_url() ?>Usuarios" class="btn btn-danger"><i class="fa fa-times"></i>
+            <a href="<?= base_url() ?>Usuarios/index" class="btn btn-danger"><i class="fa fa-times"></i>
                 Cancelar</a>
         </div>
 

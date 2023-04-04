@@ -10,16 +10,14 @@
             <?php else: ?>
                 <form action="<?= base_url() ?>colaborador/store" method="post">
                 <?php endif; ?>
-        
                 <div class="col-md-12" style="margin-top: 10px;margin-bottom: 15px;">
                     <label for="tipo_pessoa_pf">
-                        <input type="radio" id="tipo_pessoa_pf" name="tipo_pessoa" value="2" <?php echo (!isset($colaborador) || $colaborador['tipo_pessoa'] == 2) ? 'checked' : ''; ?> <?php echo  $colaborador['tipo_pessoa'] == 1 ? 'disabled' : ''; ?>> Pessoa Fisica
+                        <input type="radio" id="tipo_pessoa_pf" name="tipo_pessoa" value="2" <?php echo (!isset($colaborador) || $colaborador['tipo_pessoa'] == 2) ? 'checked' : ''; ?> <?php echo (isset($colaborador)  &&  $colaborador['tipo_pessoa'] == 1) ? 'disabled' : ''; ?>> Pessoa Fisica
                     </label>
                     <label for="tipo_pessoa_pj">
-                        <input type="radio" id="tipo_pessoa_pj" name="tipo_pessoa" value="1" <?php echo isset($colaborador) && $colaborador['tipo_pessoa'] == 1 ? 'checked' : ''; ?> <?php echo  $colaborador['tipo_pessoa'] == 2 ? 'disabled' : ''; ?>> Pessoa Jurídica
+                        <input type="radio" id="tipo_pessoa_pj" name="tipo_pessoa" value="1" <?php echo (isset($colaborador) && $colaborador['tipo_pessoa'] == 1) ? 'checked' : ''; ?> <?php echo  (isset($colaborador)  &&  $colaborador['tipo_pessoa'] == 2) ? 'disabled' : ''; ?>> Pessoa Jurídica
                     </label>
                 </div>
-                
                 <div id="pessoa_fisica" style="display:none">
                     <div class="col-md-3">
                         <div class="form-group">

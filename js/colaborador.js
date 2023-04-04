@@ -99,6 +99,7 @@ $(document).ready(function () {
         }
     });
 
+
     // Evento click na tabela para selecionar uma linha
     $('#consultar_usuarios tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
