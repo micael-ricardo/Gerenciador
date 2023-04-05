@@ -15,62 +15,62 @@ class Pedidos extends CI_Controller
     {
         $this->load->model("model_pedidos");
         $this->load->helper(array('form'));
-
-    
-
-        $data["pedidos"] = $this->model_pedidos->listar();
+        $data["pedidos"] = $this->model_pedidos->index();
         $this->load->view('templates/header');
         $this->load->view('templates/js');
         $this->load->view('pedidos/index', $data);
 
     }
-
-
     public function dataTable()
     {
-
         $this->load->model("model_pedidos");
-        
-    
 
-        if ($this->input->get('Pesquisa')) {
-            $pedidos = $this->model_pedidos->consultarpedidos($this->input->get('Pesquisa'));
-        } else {
-            $pedidos = $this->model_pedidos->listar();
-        }
+        try {
 
-     
-        foreach ($pedidos as $value) {
+            // filtro
+            if ($this->input->get('nome') || $this->input->get('login') || $this->input->get('email') || $this->input->get('status')) {
+                $pedido = $this->model_pedidos->pesquisar(
+                    $this->input->get('nome'),
+                    $this->input->get('login'),
+                    $this->input->get('email'),
+                    $this->input->get('status')
+                );
+            } else {
+                $pedido = $this->model_pedidos->index();
+            }
 
-            $result[] = [
-                $value['nome_cliente'],
-                $value['nome'],
-                $value['datacadastro_pedido'],
-   
+            // listagem
+            $result = [];
+
+            foreach ($pedido as $value) {
+                $result[] = [
+                    $value['nome_cliente'],
+                ];
+            }
+            $pedidos = [
+                'data' => $result
             ];
-          
-        }
-        $pedido = [
-            'data' => $result
-        ];
-        echo json_encode($pedido);
 
+            echo json_encode($pedidos);
+
+        } catch (Exception $e) {
+            $error = [
+                'error' => $e->getMessage()
+            ];
+
+            echo json_encode($error);
+        }
     }
 
-
-
-
-
- 
     public function cadastro()
     {
 
         $this->load->model('model_produtos');
         $data['produto'] = $this->model_produtos->produto_ativo();
-        
+
         $this->load->model('model_colaborador');
         $data['fornecedor'] = $this->model_colaborador->fornecedor_ativo();
-        
+
         $this->load->view('templates/header');
         $this->load->view('templates/js');
         $this->load->view('pedidos/cadastro', $data);
@@ -93,12 +93,12 @@ class Pedidos extends CI_Controller
             $telefone = RemoveMascara($this->input->post('telefone'));
             $cep = RemoveMascara($this->input->post('cep'));
             $valor = str_replace('.', '', $valor_mask);
-            $valor_total = str_replace('.', '',  $valor_total_mask);
+            $valor_total = str_replace('.', '', $valor_total_mask);
 
             $data_pedidos = array(
                 'nome' => $this->input->post('nome'),
                 'telefone' => $telefone,
-                'valor' =>  $valor,
+                'valor' => $valor,
                 'valor_total' => $valor_total,
                 'data_retirada' => $this->input->post('data_retirada'),
                 'forma_pagamento' => $this->input->post('forma_pagamento'),

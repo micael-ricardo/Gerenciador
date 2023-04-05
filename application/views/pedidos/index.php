@@ -5,26 +5,19 @@
         <script>
             var finalizar = "<?php echo base_url('Pedidos/finalizar'); ?>";
         </script>
-        <!-- filtro rapido -->
-        <form id="filtro-rapido" method="get" autocomplete="off">
+        <!-- adc e #filtro -->
             <div class="input-group mb-3">
                 <div class="input-group-append">
                     <a href="<?= base_url() ?>Pedidos/cadastro" class="btn btn-success">Adicionar</a>
-                    <input type="text" class="form-pesquisa" name="Pesquisa" id="Pesquisa"
-                        placeholder="Filtrar Pelo Nome:">
-                    <button class="btn btn-primary" type="submit" id="botao-pesquisar">
-                        <i class="fa fa-search"></i> Pesquisar
-                    </button>
                     <button class="btn btn-info" type="button" id="div-filtro"
                         onclick="return($('#filtro').toggle('fade'))">
-                        <i class="fa fa-filter"></i> Mais Filtros
+                        <i class="fa fa-filter"></i> Filtros
                     </button>
                 </div>
             </div>
-        </form>
-        <!-- mais filtros -->
+        
         <div class="panel panel-inverse" id="filtro" style=" display: none;">
-            <form id="consulta" method="get" autocomplete="off">
+            <form method="get" autocomplete="off">
                 <div class="form-group col-sm-12" style="margin-top: 10px;">
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -110,7 +103,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary ">
+                <button type="submit" id="botao_filtrar"  class="btn btn-primary ">
                     <i class="fa fa-search"></i> Pesquisar
                 </button>
         </div>
@@ -146,8 +139,8 @@
                         <th>Quantidade</th>
                         <th>Valor Total</th>
                         <th>Forma de Pagamento</th>-->
-                        <th>Fornecedor</th> 
-                         <th>Data Cadastro</th>
+                        <!-- <th>Fornecedor</th> 
+                         <th>Data Cadastro</th> -->
                      <!--   <th>Cep</th>
                         <th>Estado</th>
                         <th>Cidade</th>

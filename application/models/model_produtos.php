@@ -17,8 +17,6 @@ class model_produtos extends CI_Model
 
   }
 
-
-
   public function store($produto)
   {
     $this->db->insert('produtos', $produto);

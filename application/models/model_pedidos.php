@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class model_pedidos extends CI_Model
 {
-  public function listar()
+  public function index()
   {
     $this->db->from('filto_produtos_pedidos');
     $this->db->order_by('datacadastro_pedido', 'desc');

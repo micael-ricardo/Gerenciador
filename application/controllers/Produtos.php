@@ -158,8 +158,6 @@ class Produtos extends CI_Controller
 			$this->session->set_flashdata('update', 'false');
 			redirect('produtos/editar/'. $id);
 		}
-	
-
 
 	}
 

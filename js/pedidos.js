@@ -1,37 +1,13 @@
-
 //Data table
 
-
 $(document).ready(function () {
-    var table =   $('#consultar_pedidos').DataTable({
+    var table = $('#consultar_pedidos').DataTable({
         "processing": true,
-        "serverSide": true,
         "ajax":
         {
             "url": "dataTable",
             "type": "GET"
         },
-        // "columns": [
-        //     { "width": "200px" },
-        //     { "width": "150px" },
-        //     { "width": "150px" },
-        //     { "width": "100px" },
-        //     { "width": "50px" },
-        //     { "width": "100px" },
-        //     { "width": "100px" },
-        //     { "width": "100px" },
-        //     { "width": "100px" },
-        //     { "width": "100px" },
-        //     { "width": "10px" },
-        //     { "width": "100px" },
-        //     { "width": "100px" },
-        //     { "width": "250px" },
-        //     { "width": "10px" },
-        //     { "width": "300px" },
-        //     { "width": "100px" },
-        //     { "width": "50px" },
-        //     { "width": "10px" }
-        // ],
         "language": {
             "sEmptyTable": "Nenhum registro encontrado",
             "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -55,72 +31,53 @@ $(document).ready(function () {
                 "sSortDescending": ": Ordenar colunas de forma descendente"
             }
         },
-        // "columnDefs": [
-        //     {
-        //         "targets": -1,
-        //         "render": function (data, type, row) {
-        //             var nome = row[0]; 
-        //             var status = row[17];
-        //             var btnEditar = '<a href="http://localhost/Gerenciador/Pedidos/editar/' + data + '" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>';
-        //             var btnFinalizar = '<a id="abrir-modal" href="#"  data-id=' + data + ' data-nome=' + nome + ' " class="btn btn-success btn-xs finalizar-pedido"><i class="fa fa-check"></i></a>';
-        //             if (status === '0') {
-
-        //                 btnEditar = ' <button class="btn btn-info btn-xs" disabled><i class="fa fa-pencil"></i></button>';
-        //                 btnFinalizar = ' <button class="btn btn-success btn-xs" disabled><i class="fa fa-check"></i></button>';
-        //             }
-        //             return btnEditar + ' ' + btnFinalizar;
-        //         }
-        //     },
-        //     {
-        //         "targets": -2,
-        //         "render": function (data, type, row) {
-
-        //             console.log(data);
-
-        //             if (data == 0) {
-        //                 return '<span class="btn btn-success btn-xs">Finalizado</span>';
-        //             } else {
-        //                 return '<span class="btn btn-primary btn-xs">Ativo</span>';
-        //             }
-        //         }
-        //     },
-        //     {
-        //         "targets": 6,
-        //         "render": function (data, type, row) {
-
-        //             if (data == 'dinheiro') {
-        //                 return '<span class="btn btn-success btn-xs">Dinheiro</span>';
-        //             } else {
-        //                 return '<span class="btn btn-primary btn-xs">Cartão</span>';
-        //             }
-        //         }
-        //     },
-        // ],
-        "scrollY": "300px",
-        "scrollX": true
+        "scrollY": "250px",
+        "scrollX": true,
+        "select": {
+            style: 'single' // define que apenas uma linha pode ser selecionada
+        }
     });
 
-    //   Atualizar o DataTable ao enviar o formulário
-  $('#filtro-rapido').on('submit', function(event) {
-    event.preventDefault();
-    table.ajax.url('dataTable?' + $(this).serialize()).load();
-  });
+    // Evento click na tabela para selecionar uma linha
+    $('#consultar_usuarios tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+
+    // chamar filtro via ajax
+    $("#botao_filtrar").click(function (event) {
+        event.preventDefault();
+        var nome = $('#nome').val();
+        var login = $('#login').val();
+        var email = $('#email').val();
+        var status = $('#status').val();
+
+        $.ajax({
+            url: "dataTable",
+            data:
+            {
+                nome: nome,
+                login: login,
+                email: email,
+                status: status,
+            },
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+                var table = $('#consultar_usuarios').DataTable();
+                table.rows().remove().draw();
+                table.rows.add(result.data).draw();
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
 });
-
-// $(document).ready(function () {
-//     var table = $('#consultar_pedidos').DataTable();
-
-
-//     // Ao clicar no botão de pesquisa, atualize o DataTable com os novos resultados
-//     $('#botao-pesquisar').click(function (event) {
-
-//         event.preventDefault();
-//         table.ajax.reload();
-//     });
-
-//     // Configurar o DataTable para buscar dados usando AJAX
-//     table.ajax.url("dataTable").load();
-// });
 
 
 //Mascara
