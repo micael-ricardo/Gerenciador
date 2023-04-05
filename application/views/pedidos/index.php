@@ -1,21 +1,21 @@
 <div class="content">
     <div class="titulo">
-        <h3>Pedidos</h3>
+        <h5>Pedidos</h5>
         <script src="<?php echo base_url('js/pedidos.js'); ?>"></script>
         <script>
             var finalizar = "<?php echo base_url('Pedidos/finalizar'); ?>";
         </script>
         <!-- adc e #filtro -->
-            <div class="input-group mb-3">
-                <div class="input-group-append">
-                    <a href="<?= base_url() ?>Pedidos/cadastro" class="btn btn-success">Adicionar</a>
-                    <button class="btn btn-info" type="button" id="div-filtro"
-                        onclick="return($('#filtro').toggle('fade'))">
-                        <i class="fa fa-filter"></i> Filtros
-                    </button>
-                </div>
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <a href="<?= base_url() ?>Pedidos/cadastro" class="btn btn-success">Adicionar</a>
+                <button class="btn btn-info" type="button" id="div-filtro"
+                    onclick="return($('#filtro').toggle('fade'))">
+                    <i class="fa fa-filter"></i> Filtros
+                </button>
             </div>
-        
+        </div>
+
         <div class="panel panel-inverse" id="filtro" style=" display: none;">
             <form method="get" autocomplete="off">
                 <div class="form-group col-sm-12" style="margin-top: 10px;">
@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <button type="submit" id="botao_filtrar"  class="btn btn-primary ">
+                <button type="submit" id="botao_filtrar" class="btn btn-primary ">
                     <i class="fa fa-search"></i> Pesquisar
                 </button>
         </div>
@@ -121,7 +121,7 @@
                 <form id="confirmar-finalizar" method="POST" action="<?= base_url() ?>Pedidos/finalizar">
                     <input type="hidden" name="id">
                     <button type="submit" class="btn btn-success"><i class="fa fa-trash"></i> Confirmar</button>
-                    <a href="<?= base_url() ?>Pedidos" type="button" class="btn btn-danger"><i class="fa fa-times"></i>
+                    <a href="<?= base_url() ?>Pedidos/index" type="button" class="btn btn-danger"><i class="fa fa-times"></i>
                         Cancelar</a>
                 </form>
             </div>
@@ -133,24 +133,24 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <!-- <th>Telefone</th>
+                        <th>Telefone</th>
                         <th>Produto</th>
                         <th>Preço</th>
                         <th>Quantidade</th>
                         <th>Valor Total</th>
-                        <th>Forma de Pagamento</th>-->
-                        <!-- <th>Fornecedor</th> 
-                         <th>Data Cadastro</th> -->
-                     <!--   <th>Cep</th>
+                        <th>Forma de Pagamento</th>
+                        <th>Fornecedor</th>
+                        <th>Data Cadastro</th>
+                        <th>Cep</th>
                         <th>Estado</th>
                         <th>Cidade</th>
                         <th>Bairro</th>
                         <th>Rua</th>
                         <th>Número</th>
-                         <th>Observação</th>
-                        <th>Data Retirada</th>   
+                        <th>Observação</th>
+                        <th>Data Retirada</th>
                         <th>Status</th>
-                        <th style="text-align: center;">Ações</th>  -->
+                        <th style="text-align: center;">Ações</th>
                     </tr>
                 </thead>
             </table>

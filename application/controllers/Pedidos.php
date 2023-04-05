@@ -45,6 +45,24 @@ class Pedidos extends CI_Controller
             foreach ($pedido as $value) {
                 $result[] = [
                     $value['nome_cliente'],
+                    formatar_telefone( $value['telefone_pedido']),
+                    $value['produto_nome'],
+                    reais($value['produto_preco']),
+                    $value['quantidade'],
+                    reais($value['valor_total']),
+                    $value['forma_pagamento'],
+                    $value['nome'],
+                    formatar_data($value['datacadastro_pedido']),
+                    formatar_cep($value['pedido_cep']),
+                    $value['estado_pedido'],
+                    $value['cidade_pedido'],
+                    $value['bairro_pedido'],
+                    $value['rua_pedido'],
+                    $value['numero_pedido'],
+                    $value['observacao'],
+                    formatar_data($value['data_retirada']),
+                    $value['status_pedido'],
+                    $value['pedido_id'],
                 ];
             }
             $pedidos = [
@@ -74,8 +92,6 @@ class Pedidos extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('templates/js');
         $this->load->view('pedidos/cadastro', $data);
-
-
     }
 
     public function store()
@@ -183,7 +199,16 @@ class Pedidos extends CI_Controller
         $id = $this->input->post('id');
         $this->load->model('model_pedidos');
         $this->model_pedidos->finalizar($id);
-        redirect('Pedidos');
+        redirect('Pedidos/index');
+    }
+
+
+    public function alterarStatus()
+    {
+        $id = $this->input->post('id');
+        $this->load->model('model_pedidos');
+        $this->model_pedidos->trocarStatus($id);
+        redirect('Pedidos/index');
     }
 
 }

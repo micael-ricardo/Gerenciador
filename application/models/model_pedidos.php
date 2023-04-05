@@ -32,11 +32,17 @@ class model_pedidos extends CI_Model
 
   public function finalizar($id)
 {
-    $data = array('status' => '0');
+    $data = array('status_pedido' => '3');
     $this->db->where('id', $id);
     $this->db->update('pedidos', $data);
 }
 
+public function trocarStatus($id)
+{
+    $data = array('status_pedido' => '2');
+    $this->db->where('id', $id);
+    $this->db->update('pedidos', $data);
+}
 
 public function consultarpedidos($filtro) {
 

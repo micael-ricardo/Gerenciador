@@ -178,8 +178,9 @@ $(document).ready(function () {
     $('#preco').mask('#.##0,00', {reverse: true});
 });
 
-   // Verifica se o campo está vazio quando o formulário é submetido
+
 $(document).ready(function() {
+    // Verifica se o campo está vazio quando o formulário é submetido
     $('#cadastro').on('submit', function(event) {
       var fornecedor = $('#fornecedor').val();
       if (fornecedor == '') {

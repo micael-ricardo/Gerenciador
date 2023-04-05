@@ -8,6 +8,27 @@ $(document).ready(function () {
             "url": "dataTable",
             "type": "GET"
         },
+        "columns": [
+            { "width": "150px" },
+            { "width": "100px" },
+            { "width": "50px" },
+            { "width": "50px" },
+            { "width": "50px" },
+            { "width": "100px" },
+            { "width": "100px" },
+            { "width": "100px" },
+            { "width": "70px" },
+            { "width": "70px" },
+            { "width": "50px" },
+            { "width": "100px" },
+            { "width": "70px" },
+            { "width": "150px" },
+            { "width": "50px" },
+            { "width": "200px" },
+            { "width": "70px" },
+            { "width": "50px" },
+            { "width": "50px" },
+        ],
         "language": {
             "sEmptyTable": "Nenhum registro encontrado",
             "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -35,11 +56,51 @@ $(document).ready(function () {
         "scrollX": true,
         "select": {
             style: 'single' // define que apenas uma linha pode ser selecionada
-        }
+        },
+        "columnDefs": [
+            {
+                "targets": -1,
+                "render": function (data, type, row) {
+                    var nome = row[0];
+                    var status = row[7];
+                    var btnEditar = '<a href="http://localhost/Gerenciador/Pedidos/editar/' + data + '" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>';
+                    var btnFinalizar = '<a id="abrir-modal" href="#"  data-id=' + data + ' data-nome=' + nome + ' " class="btn btn-success btn-xs finalizar-pedido"><i class="fa fa-check"></i></a>';                    //             if (status === '0') {
+                    if (status === '2') {
+                        btnEditar = ' <button class="btn btn-info btn-xs" disabled><i class="fa fa-pencil"></i></button>';
+                        btnFinalizar = ' <button class="btn btn-danger btn-xs" disabled><i class="fa fa-trash"></i></button>';
+                    }
+                    return btnEditar + ' ' + btnFinalizar;
+                }
+            },
+            {
+                "targets": -2,
+                "render": function (data, type, row) {
+
+                    if (data == '1') {
+                        return '<span class="btn btn-warning btn-xs">Em Andamento</span>';
+                    } else if (data == '2') {
+                        return '<span class="btn btn-danger btn-xs">Pendente</span>';
+                    } else {
+                        return '<span class="btn btn-success btn-xs">Concluído</span>';
+                    }
+                }
+            },
+            {
+                "targets": 6,
+                "render": function (data, type, row) {
+
+                    if (data == 'dinheiro') {
+                        return '<span class="btn btn-success btn-xs">Dinheiro</span>';
+                    } else {
+                        return '<span class="btn btn-warning btn-xs">Cartão</span>';
+                    }
+                }
+            },
+        ],
     });
 
     // Evento click na tabela para selecionar uma linha
-    $('#consultar_usuarios tbody').on('click', 'tr', function () {
+    $('#consultar_pedidos tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         } else {
@@ -68,7 +129,7 @@ $(document).ready(function () {
             type: "GET",
             dataType: "json",
             success: function (result) {
-                var table = $('#consultar_usuarios').DataTable();
+                var table = $('#consultar_pedidos').DataTable();
                 table.rows().remove().draw();
                 table.rows.add(result.data).draw();
             },
@@ -76,6 +137,30 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
+    });
+
+
+    // atualizar status 
+    $('#consultar_pedidos').on('draw.dt', function () {
+        var rows = table.rows().data();
+        var url = "alterarStatus";
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var status_pedido = row[17];
+            if (moment(row[16], 'DD/MM/YYYY HH:mm').isBefore(moment()) && status_pedido != 3) {
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: { id: row[18], status_pedido: 2 },
+                    success: function (response) {
+                        console.log('Pedido atualizado com sucesso');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Erro ao atualizar pedido: ' + error);
+                    }
+                });
+            }
+        }
     });
 });
 
