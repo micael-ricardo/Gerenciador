@@ -153,10 +153,6 @@ $(document).ready(function () {
     });
 });
 
-// select2
-$(document).ready(function () {
-    $('.select2').select2();
-});
 
 // função de clique no  cadastro usuarios
 $(document).ready(function () {

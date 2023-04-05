@@ -8,24 +8,24 @@
             <?php if (isset($produto)): ?>
                 <form action="<?= base_url() ?>produtos/update/<?= $produto['id'] ?>" method="post">
                 <?php else: ?>
-                    <form action="<?= base_url() ?>produtos/store" method="post">
+                    <form action="<?= base_url() ?>produtos/store" method="post" id="cadastro">
                     <?php endif; ?>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="Nome">Nome</label>
+                            <label for="Nome">Produto</label>
                             <input type="text" class="form-control" name="nome" id="nome"
-                                value="<?= isset($produto) ? $produto["nome"] : "" ?>" required>
+                                value="<?= isset($produto) ? $produto["nome_produto"] : "" ?>" required>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="Situacao">Fornecedor</label>
-                            <select class="form-control select2" name="fornecedor" id="fornecedor">
+                            <select class="form-control select" name="fornecedor" id="fornecedor">
                                 <option value="">Selecione</option>
-                                <?php if (isset($fornecedor)) {  ?>
+                                <?php if (isset($fornecedor)) { ?>
                                     <?php foreach ($fornecedor as $value) { ?>
-                                        <?php $selected = isset($produto["id_fornecedor"]) && $value['id'] == $produto["id_fornecedor"] ? ' selected ' : ''; ?>
-                                        <option   <?= $selected; ?> value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
+                                        <?php $selected = isset($produto["id_fornecedor_produto"]) && $value['id'] == $produto["id_fornecedor_produto"] ? ' selected ' : ''; ?>
+                                        <option <?= $selected; ?> value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
                                     <?php } ?>
                                 <?php } ?>
                             </select>
@@ -34,13 +34,15 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Preco">Preço</label>
-                            <input type="text" class="form-control" name="preco" id="preco" value="<?= isset($produto) ? $produto["preco"] : "" ?>" required>
+                            <input type="text" class="form-control" name="preco" id="preco"
+                                value="<?= isset($produto) ? $produto["preco"] : "" ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Quantidade">Quantidade</label>
-                            <input type="number" class="form-control" name="quantidade" id="quantidade"  value="<?= isset($produto) ? $produto["quantidade"] : "" ?>" required>
+                            <input type="number" class="form-control" name="quantidade" id="quantidade"
+                                value="<?= isset($produto) ? $produto["quantidade_produto"] : "" ?>" required>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -52,7 +54,7 @@
                     </div>
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Salvar</button>
-                        <a href="<?= base_url() ?>produtos" class="btn btn-danger"><i class="fa fa-times"></i>
+                        <a href="<?= base_url() ?>produtos/index" class="btn btn-danger"><i class="fa fa-times"></i>
                             Cancelar</a>
                     </div>
         </div>
@@ -60,3 +62,24 @@
         </form>
     </div>
 </div>
+
+
+<!-- Mensagens  -->
+<?php if ($this->session->flashdata('error')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '<?php echo $this->session->flashdata('error'); ?>'
+        })
+    </script>
+<?php endif; ?>
+<!-- update -->
+<?php if ($this->session->flashdata('update')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Não foi possível atualizar o produto!'
+        })
+    </script>
+<?php endif; ?>

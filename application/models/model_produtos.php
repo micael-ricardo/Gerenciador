@@ -4,10 +4,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class model_produtos extends CI_Model
 {
 
-  public function listar()
+  public function index()
   {
-    $this->db->from('lista_produtos_colaboradores');
-    $this->db->order_by('datacadastro', 'desc');
+    $this->db->from('listar_produtos_colaboradores');
+    $this->db->order_by('datacadastro_produto', 'desc');
     $result = $this->db->get();
     if ($result instanceof CI_DB_result) {
         return $result->result_array();
@@ -16,6 +16,8 @@ class model_produtos extends CI_Model
     }
 
   }
+
+
 
   public function store($produto)
   {
@@ -40,14 +42,14 @@ class model_produtos extends CI_Model
 
   public function inativar($id)
 {
-    $data = array('status' => '0');
+    $data = array('status_produto' => '2');
     $this->db->where('id', $id);
     $this->db->update('produtos', $data);
 }
 
 public function produto_ativo() {
-  $this->db->select('id, nome, preco, quantidade, id_fornecedor');
-  $this->db->where('status', '1');
+  $this->db->select('id, nome_produto, preco, quantidade_produto, id_fornecedor_produto');
+  $this->db->where('status_produto', '1');
   $query = $this->db->get('produtos');
   return $query->result_array();
 }

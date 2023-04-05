@@ -174,3 +174,10 @@ th {
 td {
     font-size: 10px;
 }
+
+/* select2 */
+.select {
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+  }

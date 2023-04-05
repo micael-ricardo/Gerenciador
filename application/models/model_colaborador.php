@@ -89,7 +89,7 @@ class model_colaborador extends CI_Model
   {
     $this->db->select('id, nome');
     $this->db->where('status', '1');
-    $this->db->where('tipo_colaborador', '1');
+    $this->db->where('tipo_colaborador', 'Fornecedor');
     $query = $this->db->get('colaboradores');
     return $query->result_array();
   }
