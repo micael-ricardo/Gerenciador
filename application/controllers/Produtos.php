@@ -95,7 +95,6 @@ class Produtos extends CI_Controller
 
 			$preco = str_replace('.', '', $this->input->post('preco'));
 
-			if ($this->input->post()) {
 				$data_produto = array(
 					'nome_produto' => $this->input->post('nome'),
 					'preco' => $preco,
@@ -106,7 +105,7 @@ class Produtos extends CI_Controller
 					'id_fornecedor_produto' => $this->input->post('fornecedor'),
 					'id_usuario' => $this->session->logged_user['id']
 				);
-			}
+	
 
 			$this->load->model("model_produtos");
 

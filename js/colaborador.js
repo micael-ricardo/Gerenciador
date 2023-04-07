@@ -95,7 +95,7 @@ $(document).ready(function () {
         "scrollY": "250px",
         "scrollX": true,
         "select": {
-            style: 'single' // define que apenas uma linha pode ser selecionada
+            style: 'single'
         }
     });
 

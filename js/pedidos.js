@@ -62,12 +62,14 @@ $(document).ready(function () {
                 "targets": -1,
                 "render": function (data, type, row) {
                     var nome = row[0];
-                    var status = row[7];
+                    var status = row[17];
+
+                    console.log(status);
                     var btnEditar = '<a href="http://localhost/Gerenciador/Pedidos/editar/' + data + '" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>';
                     var btnFinalizar = '<a id="abrir-modal" href="#"  data-id=' + data + ' data-nome=' + nome + ' " class="btn btn-success btn-xs finalizar-pedido"><i class="fa fa-check"></i></a>';                    //             if (status === '0') {
-                    if (status === '2') {
+                    if (status == '3') {
                         btnEditar = ' <button class="btn btn-info btn-xs" disabled><i class="fa fa-pencil"></i></button>';
-                        btnFinalizar = ' <button class="btn btn-danger btn-xs" disabled><i class="fa fa-trash"></i></button>';
+                        btnFinalizar = ' <button class="btn btn-success btn-xs" disabled><i class="fa fa-check"></i></button>';
                     }
                     return btnEditar + ' ' + btnFinalizar;
                 }
@@ -138,7 +140,11 @@ $(document).ready(function () {
             }
         });
     });
-
+    
+// select2
+$(document).ready(function () {
+    $('.select').select2();
+});
 
     // atualizar status 
     $('#consultar_pedidos').on('draw.dt', function () {
@@ -147,7 +153,7 @@ $(document).ready(function () {
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
             var status_pedido = row[17];
-            if (moment(row[16], 'DD/MM/YYYY HH:mm').isBefore(moment()) && status_pedido != 3) {
+            if (moment(row[16], 'DD/MM/YYYY HH:mm').isBefore(moment()) && status_pedido == 1) {
                 $.ajax({
                     url: url,
                     method: 'POST',
@@ -169,6 +175,8 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#telefone").mask("(00) 0000-00009");
     $("#cep").mask("99.999-999");
+    $("#valor").mask("#.##0,00", {reverse: true});
+    $("#valor_total").mask("#.##0,00", {reverse: true});
 });
 
 // Buscar Cep
@@ -204,8 +212,9 @@ function exibirEndereco(endereco) {
 
 // função preencher campos com dados de produtodo colaborador
 $(document).ready(function () {
-    $('#produto').change(function () {
 
+
+    $('#produto').change(function () {
         // no primeiro change o input mask estava retornando o valor errado então tive que usar essa  formataçaão para contornar o erro
         var valor = $(this).find(':selected').data('value');
         var valor_formatado = parseFloat(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -217,7 +226,7 @@ $(document).ready(function () {
         var fornecedor = $(this).find(':selected').data('fornecedor');
         $('#fornecedor').val(fornecedor);
 
-        //   Sempre que ouver um change no campo produto limpa o valor total inibundo erros 
+        //   Sempre que ouver um change no campo produto limpa o valor total 
         $('#valor_total').val('');
     });
 

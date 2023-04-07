@@ -14,9 +14,14 @@ class Dashboard extends CI_Controller
     }
 	public function index()
 	{
+
+        $this->load->model('model_pedidos');
+        $data['status'] = $this->model_pedidos->status();
+
+        $data["nome"] = $this->session->logged_user['nome'];
         $this->load->helper(array('form'));
 		$this->load->view('templates/header');
 		$this->load->view('templates/js');
-        $this->load->view('dashboard/dashboard');
+        $this->load->view('dashboard/dashboard', $data);
 	}
 }

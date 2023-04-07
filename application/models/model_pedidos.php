@@ -58,6 +58,15 @@ public function consultarpedidos($filtro) {
   return $query->result_array();
 }
 
+public function status() {
+  $this->db->select('status_pedido, COUNT(*) AS quantidade');
+  $this->db->from('pedidos');
+  $this->db->group_by('status_pedido');
+  $query = $this->db->get();
+  return $query->result_array();
+}
+
+
 
 }
 ?>

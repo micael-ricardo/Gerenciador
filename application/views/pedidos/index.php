@@ -157,3 +157,23 @@
         </div>
     </div>
 </div>
+
+<!-- Mensagens  -->
+<?php if ($this->session->flashdata('success')): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Pedido cadastrado com sucesso!'
+        })
+    </script>
+<?php endif; ?>
+
+<!-- update -->
+<?php if ($this->session->flashdata('update')): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Pedido atualizado com sucesso!'
+        })
+    </script>
+<?php endif; ?>

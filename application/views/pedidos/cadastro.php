@@ -15,36 +15,36 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Nome">Nome:</label>
-                            <input type="text" class="form-control" name="nome" id="nomes"
-                                value="<?= isset($pedidos['nome']) ? $pedidos['nome'] : '' ?>" required>
+                            <input type="text" class="form-control" name="nome" id="nome"
+                                value="<?= isset($pedidos['nome_cliente']) ? $pedidos['nome_cliente'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Telefone">Telefone:</label>
                             <input type="text" class="form-control" name="telefone" id="telefone"
-                                value="<?= isset($pedidos['telefone']) ? $pedidos['telefone'] : '' ?>" required>
+                                value="<?= isset($pedidos['telefone_pedido']) ? $pedidos['telefone_pedido'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Cep">Cep:</label>
                             <input type="text" class="form-control" name="cep" id="cep"
-                                value="<?= isset($pedidos['cep']) ? $pedidos['cep'] : '' ?>" required>
+                                value="<?= isset($pedidos['cep_pedido']) ? $pedidos['cep_pedido'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Estado">Estado:</label>
                             <input type="text" class="form-control" name="estado" id="estado"
-                                value="<?= isset($pedidos['estado']) ? $pedidos['estado'] : '' ?>" required>
+                                value="<?= isset($pedidos['estado_pedido']) ? $pedidos['estado_pedido'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Cidadde">Cidade:</label>
                             <input type="text" class="form-control" name="cidade" id="cidade"
-                                value="<?= isset($pedidos['cidade']) ? $pedidos['cidade'] : '' ?>" required>
+                                value="<?= isset($pedidos['cidade_pedido']) ? $pedidos['cidade_pedido'] : '' ?>" required>
                         </div>
                     </div>
 
@@ -52,24 +52,23 @@
                         <div class="form-group">
                             <label for="Bairro">Bairro:</label>
                             <input type="text" class="form-control" name="bairro" id="bairro"
-                                value="<?= isset($pedidos['bairro']) ? $pedidos['bairro'] : '' ?>" required>
+                                value="<?= isset($pedidos['bairro_pedido']) ? $pedidos['bairro_pedido'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Rua">Rua:</label>
                             <input type="text" class="form-control" name="rua" id="rua"
-                                value="<?= isset($pedidos['rua']) ? $pedidos['rua'] : '' ?>" required>
+                                value="<?= isset($pedidos['rua_pedido']) ? $pedidos['rua_pedido'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Numero">Número</label>
                             <input type="text" class="form-control" name="numero" id="numero"
-                                value="<?= isset($pedidos['numero']) ? $pedidos['numero'] : '' ?>" required>
+                                value="<?= isset($pedidos['numero_pedido']) ? $pedidos['numero_pedido'] : '' ?>" required>
                         </div>
                     </div>
-
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="Situacao">Produto</label>
@@ -77,8 +76,8 @@
                                 <option value="">Selecione</option>
                                 <?php if (isset($produto)) {  ?>
                                     <?php foreach ($produto as $value) { ?>
-                                        <?php $selected = isset($pedidos["id_produto"]) && $value['id'] == $pedidos["id_produto"] ? ' selected ' : ''; ?>
-                                        <option   <?= $selected; ?> data-value="<?php echo $value['preco']; ?>" data-quantidade="<?php echo $value['quantidade']; ?>"  data-fornecedor="<?php echo $value['id_fornecedor']; ?>" value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
+                                        <?php $selected = isset($pedidos["id_produto_pedido"]) && $value['id'] == $pedidos["id_produto_pedido"] ? ' selected ' : ''; ?>
+                                        <option   <?= $selected; ?> data-value="<?php echo $value['preco']; ?>" data-quantidade="<?php echo $value['quantidade_produto']; ?>"  data-fornecedor="<?php echo $value['id_fornecedor_produto']; ?>" value="<?php echo $value['id']; ?>"><?php echo $value['nome_produto']; ?></option>
                                         <?php } ?>
                                 <?php } ?>
                             </select>
@@ -98,7 +97,7 @@
                                 <option value="">Selecione</option>
                                 <?php if (isset($fornecedor)) {  ?>
                                     <?php foreach ($fornecedor as $value) { ?>
-                                        <?php $selected = isset($pedidos["id_fornecedor"]) && $value['id'] == $pedidos["id_fornecedor"] ? ' selected ' : ''; ?>
+                                        <?php $selected = isset($pedidos["id_fornecedor_pedido"]) && $value['id'] == $pedidos["id_fornecedor_pedido"] ? ' selected ' : ''; ?>
                                         <option <?= $selected; ?> value="<?php echo $value['id']; ?>"><?php echo $value['nome']; ?></option>
                                     <?php } ?>
                                 <?php } ?>
@@ -123,7 +122,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="FormaPagamento">Forma de Pagamento:</label>
-                            <select class="form-control selects" name="forma_pagamento" id="forma_pagamento" required>
+                            <select class="form-control" name="forma_pagamento" id="forma_pagamento" required>
 
                                 <option value="">Selecione</option>
                                 <option <?= isset($pedidos['forma_pagamento']) && $pedidos['forma_pagamento'] == 'dinheiro' ? ' selected' : '' ?> value="dinheiro">Dinheiro
@@ -152,11 +151,30 @@
 
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Salvar</button>
-                        <a href="<?= base_url() ?>pedidos" class="btn btn-danger"><i class="fa fa-times"></i>
+                        <a href="<?= base_url() ?>pedidos/index" class="btn btn-danger"><i class="fa fa-times"></i>
                             Cancelar</a>
                     </div>
         </div>
-
         </form>
     </div>
 </div>
+
+<!-- Mensagens  -->
+<?php if ($this->session->flashdata('error')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '<?php echo $this->session->flashdata('error'); ?>'
+        })
+    </script>
+<?php endif; ?>
+<!-- update -->
+<?php if ($this->session->flashdata('update')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Não foi possível atualizar o produto!'
+        })
+    </script>
+<?php endif; ?>

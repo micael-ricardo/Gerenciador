@@ -45,7 +45,7 @@ class Pedidos extends CI_Controller
             foreach ($pedido as $value) {
                 $result[] = [
                     $value['nome_cliente'],
-                    formatar_telefone( $value['telefone_pedido']),
+                    formatar_telefone($value['telefone_pedido']),
                     $value['produto_nome'],
                     reais($value['produto_preco']),
                     $value['quantidade'],
@@ -89,6 +89,7 @@ class Pedidos extends CI_Controller
         $this->load->model('model_colaborador');
         $data['fornecedor'] = $this->model_colaborador->fornecedor_ativo();
 
+
         $this->load->view('templates/header');
         $this->load->view('templates/js');
         $this->load->view('pedidos/cadastro', $data);
@@ -97,11 +98,26 @@ class Pedidos extends CI_Controller
     public function store()
     {
 
+        $this->form_validation->set_rules('nome', 'nome_cliente', 'required');
+        $this->form_validation->set_rules('telefone', 'telefone_pedido', 'required');
+        $this->form_validation->set_rules('valor', 'Valor', 'required');
+        $this->form_validation->set_rules('valor_total', 'Valor_Total', 'required');
+        $this->form_validation->set_rules('data_retirada', 'data_retirada', 'required');
+        $this->form_validation->set_rules('forma_pagamento', 'forma_pagamento', 'required');
+        $this->form_validation->set_rules('cep', 'cep_pedido', 'required');
+        $this->form_validation->set_rules('estado', 'estado_pedido', 'required');
+        $this->form_validation->set_rules('cidade', 'cidade_pedido', 'required');
+        $this->form_validation->set_rules('bairro', 'bairro_pedido', 'required');
+        $this->form_validation->set_rules('numero', 'numero_pedido', 'required');
+        $this->form_validation->set_rules('rua', 'rua_pedido', 'required');
+        $this->form_validation->set_rules('fornecedor', 'id_fornecedor_pedido', 'required');
+        $this->form_validation->set_rules('produto', 'id_produto_pedido', 'required');
+        $this->form_validation->set_rules('quantidade', 'quantidade', 'required');
 
-        if ($this->input->post()) {
+        $this->load->model("model_pedidos");
+        $this->load->helper('RemoveMascara');
 
-            $this->load->model("model_pedidos");
-            $this->load->helper('RemoveMascara');
+        if ($this->input->post() && $this->form_validation->run()) {
 
             $valor_mask = RemoveSifrao($this->input->post('valor'));
             $valor_total_mask = RemoveSifrao($this->input->post('valor_total'));
@@ -112,30 +128,37 @@ class Pedidos extends CI_Controller
             $valor_total = str_replace('.', '', $valor_total_mask);
 
             $data_pedidos = array(
-                'nome' => $this->input->post('nome'),
-                'telefone' => $telefone,
+                'nome_cliente' => $this->input->post('nome'),
+                'telefone_pedido' => $telefone,
                 'valor' => $valor,
                 'valor_total' => $valor_total,
                 'data_retirada' => $this->input->post('data_retirada'),
                 'forma_pagamento' => $this->input->post('forma_pagamento'),
-                'cep' => $cep,
-                'estado' => $this->input->post('estado'),
-                'cidade' => $this->input->post('cidade'),
-                'bairro' => $this->input->post('bairro'),
-                'numero' => $this->input->post('numero'),
-                'rua' => $this->input->post('rua'),
-                'datacadastro' => date('Y-m-d H:i:s'),
-                'id_fornecedor' => $this->input->post('fornecedor'),
-                'id_produto' => $this->input->post('produto'),
+                'cep_pedido' => $cep,
+                'estado_pedido' => $this->input->post('estado'),
+                'cidade_pedido' => $this->input->post('cidade'),
+                'bairro_pedido' => $this->input->post('bairro'),
+                'numero_pedido' => $this->input->post('numero'),
+                'rua_pedido' => $this->input->post('rua'),
+                'datacadastro_pedido' => date('Y-m-d H:i:s'),
+                'id_fornecedor_pedido' => $this->input->post('fornecedor'),
+                'id_produto_pedido' => $this->input->post('produto'),
                 'quantidade' => $this->input->post('quantidade'),
                 'observacao' => $this->input->post('observacao'),
-                'status' => '1',
-                'id_usuario' => $this->session->logged_user['id']
+                'status_pedido' => '1',
+                'id_usuario_pedido' => $this->session->logged_user['id']
             );
-        }
-        $this->model_pedidos->cadastrarpedidos($data_pedidos);
 
-        redirect("pedidos");
+            $this->model_pedidos->cadastrarpedidos($data_pedidos);
+
+            $this->session->set_flashdata('success', 'Pedido cadastrado com sucesso!');
+            redirect('pedidos/index');
+
+        } else {
+            $this->session->set_flashdata('error', 'Não foi possível cadastrar o pedido!');
+            redirect('Pedidos/cadastro');
+
+        }
     }
 
 
@@ -168,29 +191,36 @@ class Pedidos extends CI_Controller
             $valor_total = str_replace('.', '', $valor_total_mask);
 
             $pedidos = array(
-                'nome' => $this->input->post('nome'),
-                'telefone' => $telefone,
+
+                'nome_cliente' => $this->input->post('nome'),
+                'telefone_pedido' => $telefone,
                 'valor' => $valor,
                 'valor_total' => $valor_total,
                 'data_retirada' => $this->input->post('data_retirada'),
                 'forma_pagamento' => $this->input->post('forma_pagamento'),
+                'cep_pedido' => $cep,
+                'estado_pedido' => $this->input->post('estado'),
+                'cidade_pedido' => $this->input->post('cidade'),
+                'bairro_pedido' => $this->input->post('bairro'),
+                'numero_pedido' => $this->input->post('numero'),
+                'rua_pedido' => $this->input->post('rua'),
+                'id_fornecedor_pedido' => $this->input->post('fornecedor'),
+                'id_produto_pedido' => $this->input->post('produto'),
                 'quantidade' => $this->input->post('quantidade'),
-                'cep' => $cep,
-                'estado' => $this->input->post('estado'),
-                'cidade' => $this->input->post('cidade'),
-                'bairro' => $this->input->post('bairro'),
-                'numero' => $this->input->post('numero'),
-                'rua' => $this->input->post('rua'),
-                'id_fornecedor' => $this->input->post('fornecedor'),
-                'id_produto' => $this->input->post('produto'),
                 'observacao' => $this->input->post('observacao'),
-                'id_usuario' => $this->session->logged_user['id']
+                'id_usuario_pedido' => $this->session->logged_user['id']
             );
         }
 
-        $this->model_pedidos->update($id, $pedidos);
+        $resultado = $this->model_pedidos->update($id, $pedidos);
 
-        redirect("Pedidos");
+        if ($resultado) {
+            $this->session->set_flashdata('update', 'ok');
+            redirect('pedidos/index');
+        } else {
+            $this->session->set_flashdata('update', 'false');
+            redirect('pedidos/editar/' . $id);
+        }
     }
 
     public function finalizar()
