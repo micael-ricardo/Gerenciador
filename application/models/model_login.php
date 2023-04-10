@@ -6,11 +6,15 @@ class model_login extends CI_Model
 
     public function store($login, $senha)
     {
-       
-        $this->db->where("login", $login);
-        $this->db->where("senha", $senha);
-        $user = $this->db->get("usuarios")->row_array();
-        return $user;
+        $query = $this->db->get_where('usuarios', array('login' => $login));
+        $user = $query->row();
+    
+        if ($user && password_verify($senha, $user->senha)) {
+            return $user;
+        } else {
+            return false;
+        }
 
     }
+
 }

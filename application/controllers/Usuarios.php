@@ -82,33 +82,46 @@ class Usuarios extends CI_Controller
 
     public function store()
     {
+        $this->form_validation->set_rules('nome', 'nome', 'required');
+        $this->form_validation->set_rules('login', 'login', 'required');
+        $this->form_validation->set_rules('email', 'email', 'required');
+        $this->form_validation->set_rules('senha', 'senha', 'required');
+
         $this->load->model("model_usuario");
 
-        $nome = $this->input->post('nome');
-        $login = $this->input->post('login');
-        $email = $this->input->post('email');
-        $senha = $this->input->post('senha');
-        $confirmarSenha = $this->input->post('confirma');
+        if ($this->input->post() && $this->form_validation->run()) {
+            $nome = $this->input->post('nome');
+            $login = $this->input->post('login');
+            $email = $this->input->post('email');
+            $senha = $this->input->post('senha');
+            $confirmarSenha = $this->input->post('confirma');
 
-        // verifica se as senhas coincidem
-        if ($senha != $confirmarSenha) {
-            $this->session->set_flashdata('error', 'As senhas não coincidem!');
+            // verifica se as senhas coincidem
+            if ($senha != $confirmarSenha) {
+                $this->session->set_flashdata('error', 'As senhas não coincidem!');
+                redirect('Usuarios/cadastro');
+            }
+
+            $data = array(
+                'nome' => $nome,
+                'login' => $login,
+                'email' => $email,
+                'senha' => password_hash($senha, PASSWORD_DEFAULT),
+                'status' => '1',
+                'datacadastro' => date('Y-m-d H:i:s')
+            );
+
+            if ($this->model_usuario->cadastrarusuarios($data)) {
+                $this->session->set_flashdata('success', 'Usuario cadastrado com sucesso!');
+                redirect('Usuarios/index');
+            } else {
+                $this->session->set_flashdata('error', 'Login ou email já existe!');
+                redirect('Usuarios/cadastro');
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Não foi possível cadastrar o usuario!');
             redirect('Usuarios/cadastro');
         }
-
-        $data = array(
-            'nome' => $nome,
-            'login' => $login,
-            'email' => $email,
-            'senha' => password_hash($senha, PASSWORD_DEFAULT),
-            'status' => '1',
-            'datacadastro' => date('Y-m-d H:i:s')
-        );
-
-
-        $this->model_usuario->cadastrarusuarios($data);
-
-        redirect("Usuarios");
     }
 
 
@@ -123,16 +136,55 @@ class Usuarios extends CI_Controller
 
     public function update($id)
     {
+        if ($this->input->post()) {
 
-        $this->load->model("model_usuario");
-        $usuarios = array(
-            'nome' => $this->input->post('nome'),
-        );
+            $this->load->model("model_usuario");
 
-        $this->model_usuario->update($id, $usuarios);
+            $nome = $this->input->post('nome');
+            $login = $this->input->post('login');
+            $email = $this->input->post('email');
+            $senha = $this->input->post('senha');
+            $confirmarSenha = $this->input->post('confirma');
 
-        redirect("Usuarios/index");
+            // verifica se as senhas coincidem
+            if ($this->input->post('alterarSenha') == 1 && $senha != $confirmarSenha) {
+                $this->session->set_flashdata('error', 'As senhas não coincidem!');
+                redirect('Usuarios/editar/' . $id);
+            }
+        //   verifica se tem algum email cadastrado com o mesmo do update
+            $usuario_existente = $this->model_usuario->get_usuario_por_email($email);
+            if ($usuario_existente && $usuario_existente->id != $id) {
+                $this->session->set_flashdata('error', 'O email já está sendo utilizado por outro usuário!');
+                redirect('Usuarios/editar/' . $id);
+            }
+     //   verifica se tem algum usuario cadastrado com o mesmo do update
+            $usuario_existente_login = $this->model_usuario->get_usuario_por_login($login);
+            if ($usuario_existente_login && $usuario_existente_login->id != $id) {
+                $this->session->set_flashdata('error', 'O login já está sendo utilizado por outro usuário!');
+                redirect('Usuarios/editar/' . $id);
+            }
+
+            $usuarios = array(
+                'nome' => $nome,
+                'login' => $login,
+                'email' => $email,
+                'senha' => password_hash($senha, PASSWORD_DEFAULT),
+            );
+        }
+
+        $resultado = $this->model_usuario->update($id, $usuarios);
+
+        if ($resultado) {
+            $this->session->set_flashdata('update', 'ok');
+            redirect('Usuarios/index');
+        } else {
+            $this->session->set_flashdata('update', 'false');
+            redirect('Usuarios/editar/' . $id);
+        }
+
     }
+
+
 
     public function delete()
     {

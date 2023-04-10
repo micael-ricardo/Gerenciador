@@ -24,7 +24,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="Nome">Nome:</label>
-                            <input type="text" class="form-control" name="nome" id="nome"
+                            <input type="text" class="form-control small-text" name="nome" id="nome"
                                 value="<?= isset($usuario['nome']) ? $usuario['nome'] : '' ?>" required>
                         </div>
                     </div>
@@ -32,14 +32,14 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="Login">Usuario:</label>
-                            <input type="text" class="form-control" name="login" id="login"
+                            <input type="text" class="form-control small-text" name="login" id="login"
                                 value="<?= isset($usuario['login']) ? $usuario['login'] : '' ?>" required>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="Email">E-mail:</label>
-                            <input type="text" class="form-control" name="email" id="email"
+                            <input type="text" class="form-control small-text" name="email" id="email"
                                 value="<?= isset($usuario['email']) ? $usuario['email'] : '' ?>" required>
                         </div>
                     </div>
@@ -60,13 +60,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="Senha">Senha:</label>
-                                <input type="password" class="form-control" name="senha" id="senha">
+                                <input type="password" class="form-control small-text" name="senha" id="senha">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="Senha">Confirma Senha:</label>
-                                <input type="password" class="form-control" name="confirma" id="confirma">
+                                <input type="password" class="form-control small-text" name="confirma" id="confirma">
                             </div>
                         </div>
                         <span class="input-group-text-usuario" id="olho">
@@ -84,3 +84,23 @@
         </form>
     </div>
 </div>
+
+<!-- Mensagens  -->
+<?php if ($this->session->flashdata('error')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '<?php echo $this->session->flashdata('error'); ?>'
+        })
+    </script>
+<?php endif; ?>
+<!-- update -->
+<?php if ($this->session->flashdata('update')): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Não foi possível atualizar o Usuario!'
+        })
+    </script>
+<?php endif; ?>

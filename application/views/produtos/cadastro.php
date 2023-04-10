@@ -1,6 +1,6 @@
 <div class="content">
     <div class="titulo">
-        <h2>Cadastro Produtos</h2>
+        <h5>Cadastro Produtos</h5>
     </div>
     <script src="<?php echo base_url('js/produtos.js'); ?>"></script>
     <div class='corpo'>
@@ -13,7 +13,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Nome">Produto</label>
-                            <input type="text" class="form-control" name="nome" id="nome"
+                            <input type="text" class="form-control  small-text" name="nome" id="nome"
                                 value="<?= isset($produto) ? $produto["nome_produto"] : "" ?>" required>
                         </div>
                     </div>
@@ -34,14 +34,14 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Preco">Preço</label>
-                            <input type="text" class="form-control" name="preco" id="preco"
+                            <input type="text" class="form-control  small-text" name="preco" id="preco"
                                 value="<?= isset($produto) ? $produto["preco"] : "" ?>" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Quantidade">Quantidade</label>
-                            <input type="number" class="form-control" name="quantidade" id="quantidade"
+                            <input type="number" class="form-control  small-text" name="quantidade" id="quantidade"
                                 value="<?= isset($produto) ? $produto["quantidade_produto"] : "" ?>" required>
                         </div>
                     </div>

@@ -18,7 +18,8 @@ class Dashboard extends CI_Controller
         $this->load->model('model_pedidos');
         $data['status'] = $this->model_pedidos->status();
 
-        $data["nome"] = $this->session->logged_user['nome'];
+        $user = $this->session->userdata("logged_user");
+        $data["nome"] = $user->nome;
         $this->load->helper(array('form'));
 		$this->load->view('templates/header');
 		$this->load->view('templates/js');
