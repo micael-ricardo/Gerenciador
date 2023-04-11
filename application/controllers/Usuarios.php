@@ -31,7 +31,6 @@ class Usuarios extends CI_Controller
         try {
 
             // filtro
-
             if ($this->input->get('nome') || $this->input->get('login') || $this->input->get('email') || $this->input->get('status')) {
                 $usuario = $this->model_usuario->pesquisar(
                     $this->input->get('nome'),
@@ -42,10 +41,7 @@ class Usuarios extends CI_Controller
             } else {
                 $usuario = $this->model_usuario->index();
             }
-
             // listagem
-
-
             $result = [];
 
             foreach ($usuario as $value) {
@@ -72,7 +68,6 @@ class Usuarios extends CI_Controller
             echo json_encode($error);
         }
     }
-
     public function cadastro()
     {
         $this->load->view('templates/header');
@@ -151,25 +146,26 @@ class Usuarios extends CI_Controller
                 $this->session->set_flashdata('error', 'As senhas não coincidem!');
                 redirect('Usuarios/editar/' . $id);
             }
-        //   verifica se tem algum email cadastrado com o mesmo do update
+            //   verifica se tem algum email cadastrado com o mesmo do update
             $usuario_existente = $this->model_usuario->get_usuario_por_email($email);
             if ($usuario_existente && $usuario_existente->id != $id) {
                 $this->session->set_flashdata('error', 'O email já está sendo utilizado por outro usuário!');
                 redirect('Usuarios/editar/' . $id);
             }
-     //   verifica se tem algum usuario cadastrado com o mesmo do update
+            //   verifica se tem algum usuario cadastrado com o mesmo do update
             $usuario_existente_login = $this->model_usuario->get_usuario_por_login($login);
             if ($usuario_existente_login && $usuario_existente_login->id != $id) {
                 $this->session->set_flashdata('error', 'O login já está sendo utilizado por outro usuário!');
                 redirect('Usuarios/editar/' . $id);
             }
-
             $usuarios = array(
                 'nome' => $nome,
                 'login' => $login,
                 'email' => $email,
-                'senha' => password_hash($senha, PASSWORD_DEFAULT),
             );
+            if ($this->input->post('alterarSenha') == 1) {
+                $usuarios['senha'] = password_hash($senha, PASSWORD_DEFAULT);
+            }
         }
 
         $resultado = $this->model_usuario->update($id, $usuarios);
@@ -183,8 +179,6 @@ class Usuarios extends CI_Controller
         }
 
     }
-
-
 
     public function delete()
     {

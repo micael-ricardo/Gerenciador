@@ -37,8 +37,8 @@ class model_usuario extends CI_Model
   }
 
   public function cadastrarusuarios($data)
-{
-  // verificar se existe login ou email no banco
+  {
+    // verificar se existe login ou email no banco
     $query = $this->db->get_where('usuarios', array('login' => $data['login']));
     $user_login = $query->row();
 
@@ -46,12 +46,12 @@ class model_usuario extends CI_Model
     $user_email = $query->row();
 
     if ($user_login || $user_email) {
-        return false;
+      return false;
     } else {
-        $this->db->insert('usuarios', $data);
-        return true;
+      $this->db->insert('usuarios', $data);
+      return true;
     }
-}
+  }
   public function show($id)
   {
     return $this->db->get_where('usuarios', array("id" => $id))->row_array();
@@ -64,17 +64,17 @@ class model_usuario extends CI_Model
   }
 
 
-public function get_usuario_por_email($email)
-{
+  public function get_usuario_por_email($email)
+  {
     $query = $this->db->get_where('usuarios', array('email' => $email));
     return $query->row();
-}
+  }
 
-public function get_usuario_por_login($login)
-{
+  public function get_usuario_por_login($login)
+  {
     $query = $this->db->get_where('usuarios', array('login' => $login));
     return $query->row();
-}
+  }
 
   public function inativar($id)
   {

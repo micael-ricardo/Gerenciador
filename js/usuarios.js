@@ -122,7 +122,7 @@ $(document).ready(function () {
         if ($checkbox.is(':checked')) {
             $('#senha, #confirma').attr('required', true);
         } else {
-            $('##senha, #confirma').removeAttr('required');
+            $('#senha, #confirma').removeAttr('required');
         }
     });
 });

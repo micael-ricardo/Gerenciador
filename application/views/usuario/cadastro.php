@@ -49,13 +49,13 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="alterarSenha">Deseja alterar senha ?</label>
-                            <input type="checkbox" value="1" onclick="return($('#filtro').toggle('fade'))"
+                            <input type="checkbox" value="1" onclick="return($('#AlterarSenha').toggle('fade'))"
                                 name="alterarSenha" id="alterarSenha">
                         </div>
                     </div>
 
                   
-                    <div id="filtro" style="display: none;">
+                    <div id="AlterarSenha" style="display: none;">
                     <?php } ?>
                         <div class="col-md-4">
                             <div class="form-group">
