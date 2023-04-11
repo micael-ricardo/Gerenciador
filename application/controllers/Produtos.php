@@ -87,13 +87,13 @@ class Produtos extends CI_Controller
 	public function store()
 	{
 		$this->form_validation->set_rules('nome', 'Nome', 'required');
-		$this->form_validation->set_rules('preco', 'Preço', 'required|numeric');
+		$this->form_validation->set_rules('preco', 'Preco', 'required');
 		$this->form_validation->set_rules('quantidade', 'Quantidade', 'required|numeric');
 		$this->form_validation->set_rules('fornecedor', 'Fornecedor', 'required|numeric');
 
-		if ($this->form_validation->run()) {
+		$preco = str_replace('.', '', $this->input->post('preco'));
 
-			$preco = str_replace('.', '', $this->input->post('preco'));
+		if ($this->form_validation->run()) {
 
 				$data_produto = array(
 					'nome_produto' => $this->input->post('nome'),
@@ -103,7 +103,7 @@ class Produtos extends CI_Controller
 					'status_produto' => '1',
 					'datacadastro_produto' => date('Y-m-d H:i:s'),
 					'id_fornecedor_produto' => $this->input->post('fornecedor'),
-					'id_usuario' => $this->session->logged_user['id']
+					'id_usuario' => $this->session->logged_user->id
 				);
 	
 
@@ -146,7 +146,7 @@ class Produtos extends CI_Controller
 			'quantidade_produto' => $this->input->post('quantidade'),
 			'descricao' => $this->input->post('descricao'),
 			'id_fornecedor_produto' => $this->input->post('fornecedor'),
-			'id_usuario' => $this->session->logged_user['id']
+			'id_usuario' => $this->session->logged_user->id
 		);
 		$resultado = $this->model_produtos->update($id, $produto);
 

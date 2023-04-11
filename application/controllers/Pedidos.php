@@ -146,7 +146,7 @@ class Pedidos extends CI_Controller
                 'quantidade' => $this->input->post('quantidade'),
                 'observacao' => $this->input->post('observacao'),
                 'status_pedido' => '1',
-                'id_usuario_pedido' => $this->session->logged_user['id']
+                'id_usuario_pedido' => $this->session->logged_user->id
             );
 
             $this->model_pedidos->cadastrarpedidos($data_pedidos);
@@ -208,7 +208,7 @@ class Pedidos extends CI_Controller
                 'id_produto_pedido' => $this->input->post('produto'),
                 'quantidade' => $this->input->post('quantidade'),
                 'observacao' => $this->input->post('observacao'),
-                'id_usuario_pedido' => $this->session->logged_user['id']
+                'id_usuario_pedido' => $this->session->logged_user->id
             );
         }
 

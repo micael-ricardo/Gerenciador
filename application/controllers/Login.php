@@ -26,8 +26,6 @@ class Login extends CI_Controller
 		}		
 	}
 
-
-
 	public function sair()
 	{
 		unset($_SESSION['Usuario_Logado']);

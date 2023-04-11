@@ -133,7 +133,7 @@ class Colaborador extends CI_Controller
                 'numero' => $this->input->post('numero'),
                 'status' => '1',
                 'datacadastro' => date('Y-m-d H:i:s'),
-                'id_usuario' => $this->session->logged_user['id']
+                'id_usuario' =>  $this->session->logged_user->id
             );
 
             $data_usuario = null;
@@ -195,7 +195,7 @@ class Colaborador extends CI_Controller
             'rua' => $this->input->post('rua'),
             'numero' => $this->input->post('numero'),
             'tipo_colaborador' => $this->input->post('tipo_colaborador'),
-            'id_usuario' => $this->session->logged_user['id']
+            'id_usuario' => $this->session->logged_user->id
         );
 
         $this->model_colaborador->update($id, $colaborador);
