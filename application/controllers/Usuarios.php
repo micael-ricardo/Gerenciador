@@ -92,10 +92,16 @@ class Usuarios extends CI_Controller
             $confirmarSenha = $this->input->post('confirma');
 
             // verifica se as senhas coincidem
+
             if ($senha != $confirmarSenha) {
                 $this->session->set_flashdata('error', 'As senhas não coincidem!');
+                // Armazena o valor da sessão anterior 
+                $this->session->set_flashdata('email', $this->input->post('email'));
+                $this->session->set_flashdata('login', $this->input->post('login'));
+                $this->session->set_flashdata('nome', $this->input->post('nome'));
                 redirect('Usuarios/cadastro');
             }
+
 
             $data = array(
                 'nome' => $nome,
@@ -111,10 +117,18 @@ class Usuarios extends CI_Controller
                 redirect('Usuarios/index');
             } else {
                 $this->session->set_flashdata('error', 'Login ou email já existe!');
+                // Armazena o valor da sessão anterior 
+                $this->session->set_flashdata('email', $this->input->post('email'));
+                $this->session->set_flashdata('login', $this->input->post('login'));
+                $this->session->set_flashdata('nome', $this->input->post('nome'));
                 redirect('Usuarios/cadastro');
             }
         } else {
             $this->session->set_flashdata('error', 'Não foi possível cadastrar o usuario!');
+            // Armazena o valor da sessão anterior 
+            $this->session->set_flashdata('email', $this->input->post('email'));
+            $this->session->set_flashdata('login', $this->input->post('login'));
+            $this->session->set_flashdata('nome', $this->input->post('nome'));
             redirect('Usuarios/cadastro');
         }
     }

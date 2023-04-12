@@ -25,38 +25,39 @@
                         <div class="form-group">
                             <label for="Nome">Nome:</label>
                             <input type="text" class="form-control small-text" name="nome" id="nome"
-                                value="<?= isset($usuario['nome']) ? $usuario['nome'] : '' ?>" required>
+                                value="<?=  $this->session->flashdata('nome') !== NULL ? $this->session->flashdata('nome') : (isset($usuario['nome']) ? $usuario['nome'] : '') ?>"
+                                required>
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="Login">Usuario:</label>
                             <input type="text" class="form-control small-text" name="login" id="login"
-                                value="<?= isset($usuario['login']) ? $usuario['login'] : '' ?>" required>
+                                value="<?=  $this->session->flashdata('login') !== NULL ? $this->session->flashdata('login') : (isset($usuario['login']) ? $usuario['login'] : '') ?>" required>
                         </div>
                     </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="Email">E-mail:</label>
                             <input type="text" class="form-control small-text" name="email" id="email"
-                                value="<?= isset($usuario['email']) ? $usuario['email'] : '' ?>" required>
+                                value="<?= $this->session->flashdata('email') !== NULL ? $this->session->flashdata('email') : (isset($usuario['email']) ? $usuario['email'] : '') ?>"
+                                required>
                         </div>
                     </div>
-
                     <?php if (isset($usuario)) { ?>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="alterarSenha">Deseja alterar senha ?</label>
-                            <input type="checkbox" value="1" onclick="return($('#AlterarSenha').toggle('fade'))"
-                                name="alterarSenha" id="alterarSenha">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alterarSenha">Deseja alterar senha ?</label>
+                                <input type="checkbox" value="1" onclick="return($('#AlterarSenha').toggle('fade'))"
+                                    name="alterarSenha" id="alterarSenha">
+                            </div>
                         </div>
-                    </div>
 
-                  
-                    <div id="AlterarSenha" style="display: none;">
-                    <?php } ?>
+
+                        <div id="AlterarSenha" style="display: none;">
+                        <?php } ?>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="Senha">Senha:</label>
@@ -73,7 +74,7 @@
                             <i class="fa fa-eye"></i>
                             <?php if (isset($usuario)) { ?>
                         </div>
-                        <?php } ?>
+                    <?php } ?>
         </div>
         <div class="col-md-12">
             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Salvar</button>
